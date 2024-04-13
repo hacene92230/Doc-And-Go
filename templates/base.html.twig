@@ -1,20 +1,232 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Doc-and-go{% endblock %}</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
-        {% block stylesheets %}
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-        {% endblock %}
+<html lang="en">
+  <head>
+    <title>{% block title %}Doc-And-Go{% endblock %}</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
+<div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
+    <div class="py-2 bg-primary">
+    	<div class="container">
+    		<div class="row no-gutters d-flex align-items-start align-items-center px-3 px-md-0">
+	    		<div class="col-lg-12 d-block">
+		    		<div class="row d-flex">
+			    		<div class="col-md-5 pr-4 d-flex topper align-items-center">
+			    			<div class="icon bg-fifth mr-2 d-flex justify-content-center align-items-center"><span class="icon-map"></span></div>
+						    <span class="text">198 West 21th Street, Suite 721 New York NY 10016</span>
+					    </div>
+					    <div class="col-md pr-4 d-flex topper align-items-center">
+					    	<div class="icon bg-secondary mr-2 d-flex justify-content-center align-items-center"><span class="icon-paper-plane"></span></div>
+						    <span class="text">youremail@email.com</span>
+					    </div>
+					    <div class="col-md pr-4 d-flex topper align-items-center">
+					    	<div class="icon bg-tertiary mr-2 d-flex justify-content-center align-items-center"><span class="icon-phone2"></span></div>
+						    <span class="text">+ 1235 2355 98</span>
+					    </div>
+				    </div>
+			    </div>
+		    </div>
+		  </div>
+    </div>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark ftco_navbar ftco-navbar-light" id="ftco-navbar">
+	    <div class="container d-flex align-items-center">
+	    	<a class="navbar-brand" href="index.html">Doc-And-Go</a>
+				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+	        <span class="oi oi-menu"></span> Menu
+	      </button>
+	      <div class="collapse navbar-collapse" id="ftco-nav">
+	        <ul class="navbar-nav ml-auto"><li class="nav-item active "><a href="{{path('app_home')}}" class="nav-link pl-0">Home</a></li>
+	        	
+	        	<li class="nav-item active"><a  class="nav-link">About</a></li>
+	        	<li class="nav-item active"><a  class="nav-link">Rendez-Vous</a></li>
+	        	<li class="nav-item active"><a class="nav-link">Consultations</a></li>
+	        	<li class="nav-item active"><a  class="nav-link">corps medical</a></li>
+	        	<li class="nav-item active"><a  class="nav-link">Blog</a></li>
+	          <li class="nav-item active"><a class="nav-link">Contact</a></li>
+            <li class="nav-item active"><a  class="nav-link">Connexion</a></li>
 
-        {% block javascripts %}
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-            {% block importmap %}{{ importmap('app') }}{% endblock %}
-        {% endblock %}
-    </head>
+             
+           
+            
+            >
+	        </ul>
+	      </div>
+	    </div>
+	  </nav>
+    <!-- END nav -->
+</head>
+    {% block css %}
+   
+    <link rel="stylesheet" href="{{ asset('css/open-iconic-bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('https://fonts.googleapis.com/css?family=Work+Sans:100,200,300,400,500,600,700,800,900') }}" >
+    <link rel="stylesheet" href="{{ asset('css/animate.css') }}" >
+    <link rel="stylesheet" href="{{ asset('css/owl.carousel.min.css') }}" >
+    <link rel="stylesheet" href="{{ asset('css/owl.theme.default.min.css') }}">
+
+    <link rel="stylesheet" href="{{ asset('css/magnific-popup.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/aos.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/ionicons.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/flaticon.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/icomoon.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+     <link rel="stylesheet" href="{{ asset('https://fonts.googleapis.com/css?family=Work+Sans:100,200,300,400,500,600,700,800,900') }}" >
+    <link rel="stylesheet" href="{{ asset('https://fonts.googleapis.com/css?family=Fredericka+the+Great') }}" >
+    <link rel="stylesheet" href="{{ asset('css/open-iconic-bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/animate.css') }}" >
+    <link rel="stylesheet" href="{{ asset('css/owl.carousel.min.css') }}" >
+    <link rel="stylesheet" href="{{ asset('css/owl.theme.default.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/magnific-popup.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/aos.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/ionicons.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/flaticon.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/icomoon.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <link href="https://fonts.googleapis.com/css?family=Work+Sans:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Fredericka+the+Great" rel="stylesheet">
+
+    <link href="{{ asset('assets/css/open-iconic-bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/css/animate.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/css/owl.carousel.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/css/owl.theme.default.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/css/magnific-popup.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/css/aos.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/css/ionicons.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/css/flaticon.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/css/icomoon.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet">
+    <!-- css blog-single -->
+     <link href="https://fonts.googleapis.com/css?family=Work+Sans:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Fredericka+the+Great" rel="stylesheet">
+
+  <!-- Ajouter les liens vers les fichiers CSS -->
+  <link rel="stylesheet" href="{{ asset('css/open-iconic-bootstrap.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('css/animate.css') }}">
+  <link rel="stylesheet" href="{{ asset('css/owl.carousel.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('css/owl.theme.default.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('css/magnific-popup.css') }}">
+  <link rel="stylesheet" href="{{ asset('css/aos.css') }}">
+  <link rel="stylesheet" href="{{ asset('css/ionicons.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('css/flaticon.css') }}">
+  <link rel="stylesheet" href="{{ asset('css/icomoon.css') }}">
+  <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+  <link rel="stylesheet" href="{{ asset('bundles/mercuryseriesflashy/css/flashy.css') }}">
+
+
+  
+  <!--css connexion -->
+   
+ 
+{% endblock %}
+    
+    
+    {% block body %}
     <body>
-        {% include "shared/header.html.twig" %}
-        {% block body %}{% endblock %}
+    <!-- loader -->
     </body>
+     {% endblock %}
+     
+  
+    {% block js %}
+     <!-- Plugins JS File -->
+        <!-- Flashy depends on jQuery -->
+    <script src="//code.jquery.com/jquery.js"></script>
+    <!-- Load Flashy default JavaScript -->
+    <script src="{{ asset('bundles/mercuryseriesflashy/js/flashy.js') }}"></script>
+
+  <script src="{{ asset('js/jquery.min.js') }}"></script>
+<script src="{{ asset('js/jquery-migrate-3.0.1.min.js') }}"></script>
+<script src="{{ asset('js/popper.min.js') }}"></script>
+<script src="{{ asset('js/bootstrap.min.js') }}"></script>
+<script src="{{ asset('js/jquery.easing.1.3.js') }}"></script>
+<script src="{{ asset('js/jquery.waypoints.min.js') }}"></script>
+<script src="{{ asset('js/jquery.stellar.min.js') }}"></script>
+<script src="{{ asset('js/owl.carousel.min.js') }}"></script>
+<script src="{{ asset('js/jquery.magnific-popup.min.js') }}"></script>
+<script src="{{ asset('js/aos.js') }}"></script>
+<script src="{{ asset('js/jquery.animateNumber.min.js') }}"></script>
+<script src="{{ asset('js/scrollax.min.js') }}"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&sensor=false"></script>
+<script src="{{ asset('js/google-map.js') }}"></script>
+<script src="{{ asset('js/main.js') }}"></script>
+<!--js blog-single-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css" integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc" crossorigin="anonymous">
+
+<script src="{{ asset('js/jquery.min.js') }}"></script>
+  <script src="{{ asset('js/jquery-migrate-3.0.1.min.js') }}"></script>
+  <script src="{{ asset('js/popper.min.js') }}"></script>
+  <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+  <script src="{{ asset('js/jquery.easing.1.3.js') }}"></script>
+  <script src="{{ asset('js/jquery.waypoints.min.js') }}"></script>
+  <script src="{{ asset('js/jquery.stellar.min.js') }}"></script>
+  <script src="{{ asset('js/owl.carousel.min.js') }}"></script>
+  <script src="{{ asset('js/jquery.magnific-popup.min.js') }}"></script>
+  <script src="{{ asset('js/aos.js') }}"></script>
+  <script src="{{ asset('js/jquery.animateNumber.min.js') }}"></script>
+  <script src="{{ asset('js/scrollax.min.js') }}"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&sensor=false"></script>
+  <script src="{{ asset('js/google-map.js') }}"></script>
+  <script src="{{ asset('js/main.js') }}"></script>
+  <!-- js login -->
+
+  
+    {% endblock %}
+    
+    
+
+		
+   
+
+    <footer class="ftco-footer ftco-bg-dark ftco-section">
+      <div class="container">
+      <tr><td>
+        <div class="row mb-5">
+          <div class="col-md-6 col-lg-3">
+            <div class="ftco-footer-widget mb-5">
+            	<h2 class="ftco-heading-2">Have a Questions?</h2>
+            	<div class="block-23 mb-3">
+	              <ul>
+	                <li><span class="icon icon-map-marker"></span><span class="text">203 Fake St. Mountain View, San Francisco, California, USA</span></li>
+	                <li><a href="#"><span class="icon icon-phone"></span><span class="text">+2 392 3929 210</span></a></li>
+	                <li><a href="#"><span class="icon icon-envelope"></span><span class="text">info@yourdomain.com</span></a></li>
+	              </ul>
+	            </div>
+            </div>
+          </div></td>
+          <td>
+         
+          </div></td>
+          <td>
+          <div class="col-md-6 col-lg-3">
+            <div class="ftco-footer-widget mb-5 ml-md-4">
+             
+            </div>
+          </div></td>
+          <td>
+          <div class="col-md-6 col-lg-3">
+            <div class="ftco-footer-widget mb-5">
+            
+            	<ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-3">
+                <li class="ftco-animate"><a href="#"><span class="icon-twitter"><::before></::before></span></a></li>
+                <li class="ftco-animate"><a href="#"><span class="icon-facebook"></span><::before></::before></a></li>
+                <li class="ftco-animate"><a href="#"><span class="icon-instagram"<::before></::before>></span></a></li>
+              </ul>
+            </div>
+          </div>
+        </div></td>
+        </tr>
+        <div class="row">
+          <div class="col-md-12 text-center">
+
+            <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+  Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="icon-heart" aria-hidden="true"></i> by Doc-And-GO <a href="https://colorlib.com" target="_blank"></a>
+  <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
+          </div>
+        </div>
+      </div>
+    </footer>
+    
+ 
+
+  
+
+ 
 </html>
