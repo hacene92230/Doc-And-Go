@@ -1,0 +1,16 @@
+/* Liens CSS uniques */
+@import url('css/open-iconic-bootstrap.min.css');
+@import url('css/animate.css');
+@import url('css/owl.carousel.min.css');
+@import url('css/owl.theme.default.min.css');
+@import url('css/magnific-popup.css');
+@import url('css/aos.css');
+@import url('css/ionicons.min.css');
+@import url('css/flaticon.css');
+@import url('css/icomoon.css');
+@import url('css/style.css');
+@import url('bundles/mercuryseriesflashy/css/flashy.css');
+
+/* Liens vers les polices */
+@import url('https://fonts.googleapis.com/css?family=Work+Sans:100,200,300,400,500,600,700,800,900');
+@import url('https://fonts.googleapis.com/css?family=Fredericka+the+Great');

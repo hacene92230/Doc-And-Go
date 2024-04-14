@@ -1,6 +1,10 @@
 {% extends 'base.html.twig' %}
 
+<<<<<<< HEAD:templates/user/login.html.twig
 {% block title %}Accédé à mon compte {{ parent() }} {% endblock %}
+=======
+{% block title %}Me connecter{% endblock %}
+>>>>>>> ac16e16fadd186afa9db5b96c34d819f7090655c:templates/security/login.html.twig
 
 {% block body %}
 <form method="post">
@@ -8,12 +12,26 @@
         <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
     {% endif %}
 
+<<<<<<< HEAD:templates/user/login.html.twig
 
     <h1 class="h3 mb-3 font-weight-normal">Accès à mon compte.</h1>
     <label for="inputEmail">Votre adresse email</label>
     <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
+=======
+    {% if app.user %}
+        <div class="mb-3">
+            vous êtes déjà connecté  {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Me déconnecter</a>
+        </div>
+    {% endif %}
+
+    <h1 class="h3 mb-3 font-weight-normal">Me connecter</h1>
+    <div><label for="inputEmail">Email</label>
+    <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus></div>
+    <div>
+>>>>>>> ac16e16fadd186afa9db5b96c34d819f7090655c:templates/security/login.html.twig
     <label for="inputPassword">Mot de passe</label>
     <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+    </div>
 
     <input type="hidden" name="_csrf_token"
            value="{{ csrf_token('authenticate') }}"
@@ -26,7 +44,13 @@
     </div>
 
     <button class="btn btn-lg btn-primary" type="submit">
+<<<<<<< HEAD:templates/user/login.html.twig
         Se connecter
+=======
+        Me connecter
+>>>>>>> ac16e16fadd186afa9db5b96c34d819f7090655c:templates/security/login.html.twig
     </button>
+    <p><a href="#">Mot de passe oublié</p>
+    <p>Pas encore inscrit(e) ?<a href="{{path('app_register')}}">M'inscrire</p>
 </form>
 {% endblock %}

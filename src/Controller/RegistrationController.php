@@ -11,8 +11,7 @@ use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
-use Symfony\Component\Routing\Attribute\Route;
-use Symfony\Contracts\Translation\TranslatorInterface;
+use Symfony\Component\Routing\Annotation\Route;
 
 class RegistrationController extends AbstractController
 {
@@ -26,7 +25,7 @@ class RegistrationController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             // encode the plain password
             $user->setPassword(
-                    $userPasswordHasher->hashPassword(
+                $userPasswordHasher->hashPassword(
                     $user,
                     $form->get('plainPassword')->getData()
                 )
@@ -40,8 +39,13 @@ class RegistrationController extends AbstractController
             return $security->login($user, LoginFormAuthenticator::class, 'main');
         }
 
+<<<<<<< HEAD
         return $this->render('user/register.html.twig', [
             'registrationForm' => $form,
+=======
+        return $this->render('registration/register.html.twig', [
+            'registrationForm' => $form->createView(),
+>>>>>>> ac16e16fadd186afa9db5b96c34d819f7090655c
         ]);
     }
 }
