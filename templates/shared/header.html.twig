@@ -16,15 +16,17 @@
                 <a class="nav-link" href="#">Contact</a>
             </li>
         </ul>
-        {% if not app.user %}
-        <ul class="navbar-nav">
-            <li class="nav-item">
-                <a class="nav-link" href="{{ path("app_register")}}">Nous rejoindre</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{ path("app_login") }}">Accédé à mon compte</a>
-            </li>
-        </ul>
+        {% if app.user %}
+            {% include "shared/menuuser.html.twig" %}
+        {% else %}
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path("app_register")}}">Nous rejoindre</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path("app_login") }}">Accéder à mon compte</a>
+                </li>
+            </ul>
         {% endif %}
         <form class="form-inline my-2 my-lg-0">
             <input class="form-control mr-sm-2" type="search" placeholder="Réserver un rendez-vous" aria-label="Search">
