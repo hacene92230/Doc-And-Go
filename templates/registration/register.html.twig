@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}M'inscrire{% endblock %}
+
+{% block body %}
+    {% if app.user %}
+        <div class="mb-3">
+            Vous êtes déjà connecté en tant que {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Me déconnecter</a>
+        </div>
+    {% endif %}
+
+    <h1 class="h3 mb-3 font-weight-normal">M'inscrire</h1>
+
+    {{ form_start(registrationForm) }}
+        
+        {{ form_row(registrationForm.email, {
+            attr: {
+                class: 'form-control',
+                id: 'inputEmail',
+                autocomplete: 'email',
+                required: 'required',
+                autofocus: 'autofocus'
+            }
+        }) }}</div>
+        <div>
+          
+            {{ form_row(registrationForm.plainPassword, {
+                label: 'Mot de passe',
+                attr: {
+                    class: 'form-control',
+                    id: 'inputPassword',
+                    autocomplete: 'new-password',
+                    required: 'required'
+                }
+            }) }}
+        </div>
+        <div class="checkbox mb-3">
+            <label>
+                {{ form_widget(registrationForm.agreeTerms) }} Accepter les termes
+            </label>
+        </div>
+        <button type="submit" class="btn btn-lg btn-primary">M'inscrire</button>
+    {{ form_end(registrationForm) }}
+
+    <p>Déjà inscrit(e) ? <a href="{{ path('app_login') }}">Se connecter</a></p>
+    <p><a href="#">Mot de passe oublié</a></p>
+{% endblock %}
