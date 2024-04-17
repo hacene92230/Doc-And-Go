@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Nous rejoindre {{ parent() }} {% endblock %}
+
+{% block body %}
+    <h1>Démarez l'aventure</h1>
+
+    {{ include('user/_form.html.twig') }}
+{% endblock %}

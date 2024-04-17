@@ -16,7 +16,7 @@
                 <a class="nav-link" href="#">Contact</a>
             </li>
         </ul>
-        {% if app.user %}
+        {% if app.user and is_granted('IS_AUTHENTICATED_FULLY') %}
             {% include "shared/menuuser.html.twig" %}
         {% else %}
             <ul class="navbar-nav">
