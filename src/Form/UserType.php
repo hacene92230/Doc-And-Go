@@ -22,7 +22,6 @@ class UserType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        var_dump($options['edit_mode']);
         $builder
             ->add('firstname', TextType::class, [
                 'label' => 'Prénom',
