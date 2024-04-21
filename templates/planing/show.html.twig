@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Planing{% endblock %}
+
+{% block body %}
+    <h1>Planing</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ planing.id }}</td>
+            </tr>
+            <tr>
+                <th>DateOf</th>
+                <td>{{ planing.dateOf ? planing.dateOf|join(', ') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_planing_index') }}">back to list</a>
+
+    <a href="{{ path('app_planing_edit', {'id': planing.id}) }}">edit</a>
+
+    {{ include('planing/_delete_form.html.twig') }}
+{% endblock %}

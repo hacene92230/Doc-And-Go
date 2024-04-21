@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Planing index{% endblock %}
+
+{% block body %}
+    <h1>Planing index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>DateOf</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for planing in planings %}
+            <tr>
+                <td>{{ planing.id }}</td>
+                <td>{{ planing.dateOf ? planing.dateOf|join(', ') : '' }}</td>
+                <td>
+                    <a href="{{ path('app_planing_show', {'id': planing.id}) }}">show</a>
+                    <a href="{{ path('app_planing_edit', {'id': planing.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_planing_new') }}">Create new</a>
+{% endblock %}

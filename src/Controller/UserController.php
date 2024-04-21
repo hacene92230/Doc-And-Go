@@ -20,13 +20,19 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 class UserController extends AbstractController
 {
     #[Route('/register', name: 'app_register')]
-    public function new(Request $request, UserPasswordHasherInterface $userPasswordHasher, Security $security, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, UserPasswordHasherInterface $userPasswordHasher, Security $security, EntityManagerInterface $entityManager, UserRepository $userRepository): Response
     {
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            if (count($userRepository->findAll()) == 0) {
+                $user->setRoles(["ROLE_ADMIN"]);
+            } else {
+                $user->setRoles(["ROLE_PATIENT"]);
+            }
+
             // encode the plain password
             $user->setPassword(
                     $userPasswordHasher->hashPassword(

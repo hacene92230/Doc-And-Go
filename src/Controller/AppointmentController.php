@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Appointment;
 use App\Form\AppointmentType;
 use App\Repository\AppointmentRepository;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -39,7 +40,7 @@ class AppointmentController extends AbstractController
         return $this->render('appointment/new.html.twig', [
             'appointment' => $appointment,
             'form' => $form,
-        ]);
+                ]);
     }
 
     #[Route('/{id}', name: 'app_appointment_show', methods: ['GET'])]
