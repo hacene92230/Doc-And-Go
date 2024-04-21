@@ -60,11 +60,21 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $city = null;
 
     #[ORM\Column]
-    private ?int $zipCode = null;
+    private ?string $zipCode = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $phonenumber = null;
+
+    /**
+     * @var Collection<int, Speciality>
+     */
+    #[ORM\OneToMany(targetEntity: Speciality::class, mappedBy: 'user')]
+    private Collection $speciality;
 
     public function __construct()
     {
         $this->appointment = new ArrayCollection();
+        $this->speciality = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -244,14 +254,56 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getZipCode(): ?int
+    public function getZipCode(): ?string
     {
         return $this->zipCode;
     }
 
-    public function setZipCode(int $zipCode): static
+    public function setZipCode(string $zipCode): static
     {
         $this->zipCode = $zipCode;
+
+        return $this;
+    }
+
+    public function getPhonenumber(): ?string
+    {
+        return $this->phonenumber;
+    }
+
+    public function setPhonenumber(string $phonenumber): static
+    {
+        $this->phonenumber = $phonenumber;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Speciality>
+     */
+    public function getSpeciality(): Collection
+    {
+        return $this->speciality;
+    }
+
+    public function addSpeciality(Speciality $speciality): static
+    {
+        if (!$this->speciality->contains($speciality)) {
+            $this->speciality->add($speciality);
+            $speciality->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSpeciality(Speciality $speciality): static
+    {
+        if ($this->speciality->removeElement($speciality)) {
+            // set the owning side to null (unless already changed)
+            if ($speciality->getUser() === $this) {
+                $speciality->setUser(null);
+            }
+        }
 
         return $this;
     }

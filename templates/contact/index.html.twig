@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Contact {{ parent() }} {% endblock %}
+
+{% block body %}
+    <h1>Contact index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Sujet</th>
+                <th>Créé le</th>
+                <th>Résolu</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for contact in contacts %}
+            <tr>
+                <td>{{ contact.subject }}</td>
+                <td>{{ contact.createdAt ? contact.createdAt|date('d/m/Y') : '' }}</td>
+                <td>{{ contact.resolved ? 'Yes' : 'No' }}</td>
+                <td>
+                    <a href="{{ path('app_contact_show', {'id': contact.id}) }}">Consulter la demande</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="9">Aucun enregistrement trouvé</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_contact_new') }}">Create new</a>
+{% endblock %}

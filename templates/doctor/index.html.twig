@@ -3,13 +3,11 @@
 {% block title %}Hello DoctorController!{% endblock %}
 
 {% block body %}
-<h2>Docteurs</h2>
 {% for doctor in doctors %}
 <div class="card bordered">
     <div class="col-md-12 text-center mt-3">
         <!-- Bouton qui déclenchera la modale -->
         <button type="button" id="btnModale{{ loop.index }}" class="btn btn-primary" data-toggle="modal" data-target="#maModale{{ loop.index }}" aria-label="{{ doctor.firstName }} {{ doctor.lastName }}">
-            Consulter.
         </button>
     </div>
     <!-- Modale -->
@@ -27,10 +25,15 @@
                     <div class="border p-3">
                         <h2 class="font-weight-bold">Le trouver</h2>
                         <p>{{ doctor.street }}</p>
-                    <p>{{ doctor.city }}</p>
                     <p>{{ doctor.zipCode }}</p>
-                    </div>
-                    <div class="border p-3">
+                    <p>{{ doctor.city }}</p>
+                </div>
+                <div class="border p-3">
+                    <h2 class="font-weight-bold">Contactez-leu</h2>
+                    <p>{{ doctor.phoneNumber }}</p>
+                    <p>{{ doctor.email }}</p>
+                </div>
+                <div class="border p-3">
                         <h2 class="font-weight-bold">Spécialité</h2>
                         <p>{{ doctor.roles[0]|replace({'ROLE_': ''}) }}</p>
                     </div>
