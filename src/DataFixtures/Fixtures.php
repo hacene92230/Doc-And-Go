@@ -102,32 +102,42 @@ foreach ($specialities as $specialityName) {
 }
 $manager->flush();
 
-        // Créer 100 utilisateurs avec le rôle "ROLE_DOCTOR"
-        for ($i = 0; $i < 50; $i++) {
-            $user = new User();
-            $user->setEmail($faker->email);
-            $user->setFirstName($faker->firstName);
-            $user->setLastName($faker->lastName);
-            $user->setRoles(['ROLE_DOCTOR']);
-            
-            // Hacher le mot de passe
-            $hashedPassword = $this->passwordHasher->hashPassword($user, 'password');
-            $user->setPassword($hashedPassword);
-$user->setCreatedAt(new DateTimeImmutable());            
-$user->setStreet($faker->streetAddress);
-$user->setCity($faker->city);
-$user->setZipCode($faker->postcode);
-$user->setPhonenumber($faker->phoneNumber);
+// Obtenir le nombre de spécialités
+$specialityCount = count($specialities);
 
-$randomSpecialityIndex = array_rand($specialities);
-$randomSpecialityName = $specialities[$randomSpecialityIndex];
-$randomSpeciality = $manager->getRepository(Speciality::class)->findOneBy(['name' => $randomSpecialityName]);
-if ($randomSpeciality) {
-    $user->addSpeciality($randomSpeciality);
-}
-$manager->persist($user);      
+// Créer 15 utilisateurs avec le rôle "ROLE_DOCTOR" pour chaque spécialité
+for ($j = 0; $j < $specialityCount; $j++) {
+    $speciality = $specialities[$j];
+
+    for ($i = 0; $i < 15; $i++) {
+        $user = new User();
+        $user->setEmail($faker->email);
+        $user->setFirstName($faker->firstName);
+        $user->setLastName($faker->lastName);
+        $user->setRoles(['ROLE_DOCTOR']);
+
+        // Hacher le mot de passe
+        $hashedPassword = $this->passwordHasher->hashPassword($user, 'password');
+        $user->setPassword($hashedPassword);
+        $user->setCreatedAt(new DateTimeImmutable());            
+        $user->setStreet($faker->streetAddress);
+        $user->setCity($faker->city);
+        $user->setZipCode($faker->postcode);
+        $user->setPhonenumber($faker->phoneNumber);
+
+        // Trouver la spécialité correspondante
+        $specialityObject = $manager->getRepository(Speciality::class)->findOneBy(['name' => $speciality]);
+        if ($specialityObject) {
+            $specialityObject->addDoctor($user);
+            $manager->persist($specialityObject);
+        }
+
+        $manager->persist($user);      
+    }
+
+
+$manager->flush();
 }
 
-        $manager->flush();
     }
 }

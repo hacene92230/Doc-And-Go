@@ -65,16 +65,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255)]
     private ?string $phonenumber = null;
 
-    /**
-     * @var Collection<int, Speciality>
-     */
-    #[ORM\OneToMany(targetEntity: Speciality::class, mappedBy: 'user')]
-    private Collection $speciality;
+    #[ORM\ManyToOne(inversedBy: 'doctors')]
+    private ?Speciality $speciality = null;
 
     public function __construct()
     {
         $this->appointment = new ArrayCollection();
-        $this->speciality = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -278,32 +274,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    /**
-     * @return Collection<int, Speciality>
-     */
-    public function getSpeciality(): Collection
+    public function getSpeciality(): ?Speciality
     {
         return $this->speciality;
     }
 
-    public function addSpeciality(Speciality $speciality): static
+    public function setSpeciality(?Speciality $speciality): static
     {
-        if (!$this->speciality->contains($speciality)) {
-            $this->speciality->add($speciality);
-            $speciality->setUser($this);
-        }
-
-        return $this;
-    }
-
-    public function removeSpeciality(Speciality $speciality): static
-    {
-        if ($this->speciality->removeElement($speciality)) {
-            // set the owning side to null (unless already changed)
-            if ($speciality->getUser() === $this) {
-                $speciality->setUser(null);
-            }
-        }
+        $this->speciality = $speciality;
 
         return $this;
     }
