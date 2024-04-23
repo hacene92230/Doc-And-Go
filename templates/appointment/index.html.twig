@@ -1,41 +1,26 @@
-{% extends 'base.html.twig' %}
-
-{% block title %}Prendre un rendez-vous {{ parent() }} {% endblock %}
-
-{% block body %}
-    <h1>Prise de rendez-vous</h1>
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>DateTime</th>
-                <th>Duration</th>
-                <th>Status</th>
-                <th>Comment</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for appointment in appointments %}
-            <tr>
-                <td>{{ appointment.id }}</td>
-                <td>{{ appointment.dateTime ? appointment.dateTime|date('Y-m-d') : '' }}</td>
-                <td>{{ appointment.duration }}</td>
-                <td>{{ appointment.status }}</td>
-                <td>{{ appointment.comment }}</td>
-                <td>
-                    <a href="{{ path('app_appointment_show', {'id': appointment.id}) }}">show</a>
-                    <a href="{{ path('app_appointment_edit', {'id': appointment.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="6">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('app_appointment_new') }}">Create new</a>
-{% endblock %}
+  <div id="calendar"></div>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var calendarEl = document.getElementById('calendar');
+      var calendar = new FullCalendar.Calendar(calendarEl, {
+        locale: 'fr',
+        initialView: 'dayGridMonth',
+        selectable: true, // Permettre la sélection de dates
+        dayMaxEvents: true, // Afficher les événements dans les cases du calendrier
+        select: function(info) {
+          // Cette fonction est appelée lorsqu'une date est sélectionnée
+          var start = info.start;
+          var end = info.end;
+          var title = prompt('Nom de l\'événement :');
+          if (title) {
+            calendar.addEvent({
+              title: title,
+              start: start,
+              end: end
+            });
+          }
+        }
+      });
+      calendar.render();
+    });
+  </script>

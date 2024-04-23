@@ -44,7 +44,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @var Collection<int, appointment>
      */
-    #[ORM\OneToMany(targetEntity: appointment::class, mappedBy: 'user')]
+    #[ORM\OneToMany(targetEntity: Appointment::class, mappedBy: 'user')]
     private Collection $appointment;
 
     #[ORM\OneToOne(inversedBy: 'user', cascade: ['persist', 'remove'])]

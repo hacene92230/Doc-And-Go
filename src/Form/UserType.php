@@ -14,6 +14,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -55,7 +56,40 @@ class UserType extends AbstractType
                 'attr' => [
                     'placeholder' => 'Entrer votre Email',
                 ],
-            ]);
+            ])
+
+            ->add('street', TextType::class, [
+                'label' => 'Numéro et nom de rue',
+                'required' => false,
+                'attr' => [
+                    'placeholder' => 'Entrez votre numéro et nom de rue'
+                ]
+            ])
+
+            ->add('city', TextType::class, [
+                'label' => 'Ville',
+                'required' => false,
+                'attr' => [
+                    'placeholder' => 'Entrez le nom de la ville'
+                ]
+            ])
+
+            ->add('zipCode', NumberType::class, [
+                'label' => 'Code postal',
+                'required' => false,
+                'attr' => [
+                    'placeholder' => 'Entrer le code postal',
+                    'min' => 5
+                ]
+            ])
+
+            ->add('phoneNumber', TextType::class, [
+                'label' => 'Numéro de téléphone',
+                'required' => false,
+                'attr' => [
+                    'placeholder' => 'Entrez le numéro de téléphone'
+                ]
+                ]);
 
             if ($options['edit_mode'] != true) {
                 $builder->add(

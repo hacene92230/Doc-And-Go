@@ -24,9 +24,16 @@ class Speciality
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
+    /**
+     * @var Collection<int, Reason>
+     */
+    #[ORM\OneToMany(targetEntity: Reason::class, mappedBy: 'speciality')]
+    private Collection $reasons;
+
     public function __construct()
     {
         $this->doctors = new ArrayCollection();
+        $this->reasons = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -73,6 +80,36 @@ class Speciality
     public function setName(string $name): static
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Reason>
+     */
+    public function getReasons(): Collection
+    {
+        return $this->reasons;
+    }
+
+    public function addReason(Reason $reason): static
+    {
+        if (!$this->reasons->contains($reason)) {
+            $this->reasons->add($reason);
+            $reason->setSpeciality($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReason(Reason $reason): static
+    {
+        if ($this->reasons->removeElement($reason)) {
+            // set the owning side to null (unless already changed)
+            if ($reason->getSpeciality() === $this) {
+                $reason->setSpeciality(null);
+            }
+        }
 
         return $this;
     }

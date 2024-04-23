@@ -1,3 +1,5 @@
 {% for speciality in specialities %}
-    <a href="{{ path("app_speciality_show", {'id': speciality.id}) }}">{{ speciality.name }}</a>
+    {% if 'dent' in speciality.name|lower or 'médecin' in speciality.name|lower %}
+        <a href="{{ path("app_speciality_show", {'id': speciality.id}) }}">{{ speciality.name }}</a>
+    {% endif %}
 {% endfor %}

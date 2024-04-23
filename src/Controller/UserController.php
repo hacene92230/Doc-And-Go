@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use App\Security\LoginFormAuthenticator;
+use DateTimeImmutable;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
@@ -33,6 +34,7 @@ class UserController extends AbstractController
                 $user->setRoles(["ROLE_PATIENT"]);
             }
 
+            $user->setCreatedAt(new DateTimeImmutable());
             // encode the plain password
             $user->setPassword(
                     $userPasswordHasher->hashPassword(
