@@ -23,8 +23,8 @@ class AppointmentController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'app_appointment_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    #[Route('/new/{reasonId}', name: 'app_appointment_new', methods: ['GET', 'POST'])]
+    public function new($reasonId, Request $request, EntityManagerInterface $entityManager): Response
     {
         $appointment = new Appointment();
         $form = $this->createForm(AppointmentType::class, $appointment);

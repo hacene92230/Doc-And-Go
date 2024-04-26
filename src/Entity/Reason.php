@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ReasonRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ReasonRepository::class)]
@@ -16,8 +18,16 @@ class Reason
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
-    #[ORM\ManyToOne(inversedBy: 'reasons')]
-    private ?Speciality $speciality = null;
+    /**
+     * @var Collection<int, Speciality>
+     */
+    #[ORM\ManyToMany(targetEntity: Speciality::class, mappedBy: 'Reasons')]
+    private Collection $specialities;
+
+    public function __construct()
+    {
+        $this->specialities = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -36,14 +46,29 @@ class Reason
         return $this;
     }
 
-    public function getSpeciality(): ?Speciality
+    /**
+     * @return Collection<int, Speciality>
+     */
+    public function getSpecialities(): Collection
     {
-        return $this->speciality;
+        return $this->specialities;
     }
 
-    public function setSpeciality(?Speciality $speciality): static
+    public function addSpeciality(Speciality $speciality): static
     {
-        $this->speciality = $speciality;
+        if (!$this->specialities->contains($speciality)) {
+            $this->specialities->add($speciality);
+            $speciality->addReason($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSpeciality(Speciality $speciality): static
+    {
+        if ($this->specialities->removeElement($speciality)) {
+            $speciality->removeReason($this);
+        }
 
         return $this;
     }

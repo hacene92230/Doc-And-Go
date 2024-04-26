@@ -15,11 +15,7 @@ class ReasonType extends AbstractType
     {
         $builder
             ->add('name')
-            ->add('speciality', EntityType::class, [
-                'class' => Speciality::class,
-'choice_label' => 'id',
-            ])
-        ;
+                    ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void

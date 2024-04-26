@@ -27,21 +27,20 @@ class Speciality
     /**
      * @var Collection<int, Reason>
      */
-    #[ORM\OneToMany(targetEntity: Reason::class, mappedBy: 'speciality')]
-    private Collection $reasons;
+    #[ORM\ManyToMany(targetEntity: Reason::class, inversedBy: 'specialities')]
+    private Collection $Reasons;
 
     public function __construct()
     {
         $this->doctors = new ArrayCollection();
-        $this->reasons = new ArrayCollection();
+        $this->Reasons = new ArrayCollection();
     }
 
     public function getId(): ?int
     {
         return $this->id;
     }
-
-    
+        
     /**
      * @return Collection<int, User>
      */
@@ -89,14 +88,13 @@ class Speciality
      */
     public function getReasons(): Collection
     {
-        return $this->reasons;
+        return $this->Reasons;
     }
 
     public function addReason(Reason $reason): static
     {
-        if (!$this->reasons->contains($reason)) {
-            $this->reasons->add($reason);
-            $reason->setSpeciality($this);
+        if (!$this->Reasons->contains($reason)) {
+            $this->Reasons->add($reason);
         }
 
         return $this;
@@ -104,13 +102,9 @@ class Speciality
 
     public function removeReason(Reason $reason): static
     {
-        if ($this->reasons->removeElement($reason)) {
-            // set the owning side to null (unless already changed)
-            if ($reason->getSpeciality() === $this) {
-                $reason->setSpeciality(null);
-            }
-        }
+        $this->Reasons->removeElement($reason);
 
         return $this;
     }
+   
 }

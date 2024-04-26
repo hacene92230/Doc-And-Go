@@ -11,6 +11,8 @@
             </div>
             <a class="dropdown-item" href="{{ path("app_logout") }}">Déconnexion</a>
         </div>
-        <a class="nav-link dropdown-toggle" href="{{ path("app_planing_index") }}">Gestion de mon planing</a>
+        {% if not app.user.planing %}
+        <a class="nav-link dropdown-toggle" href="{{ path("app_planing_new") }}">Créer mon planing</a>
+    {% endif %}
     </li>
 </ul>

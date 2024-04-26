@@ -12,8 +12,32 @@
                 <td>{{ planing.id }}</td>
             </tr>
             <tr>
-                <th>DateOf</th>
-                <td>{{ planing.dateOf ? planing.dateOf|join(', ') : '' }}</td>
+                <th>WeekendStatus</th>
+                <td>{{ planing.weekendStatus ? planing.weekendStatus|json_encode : '' }}</td>
+            </tr>
+            <tr>
+                <th>ClosedDates</th>
+                <td>{{ planing.closedDates ? planing.closedDates|json_encode : '' }}</td>
+            </tr>
+            <tr>
+                <th>Openinghours</th>
+                <td>{{ planing.openinghours ? planing.openinghours|json_encode : '' }}</td>
+            </tr>
+            <tr>
+                <th>Specialdates</th>
+                <td>{{ planing.specialdates ? planing.specialdates|json_encode : '' }}</td>
+            </tr>
+            <tr>
+                <th>Defaultopeningtime</th>
+                <td>{{ planing.defaultopeningtime ? planing.defaultopeningtime|json_encode : '' }}</td>
+            </tr>
+            <tr>
+                <th>Defaultclosingtime</th>
+                <td>{{ planing.defaultclosingtime ? planing.defaultclosingtime|json_encode : '' }}</td>
+            </tr>
+            <tr>
+                <th>Weekendclosed</th>
+                <td>{{ planing.weekendclosed ? planing.weekendclosed|json_encode : '' }}</td>
             </tr>
         </tbody>
     </table>

@@ -44,7 +44,12 @@
                     </div>
                     <div class="border p-3">
                         <h2 class="font-weight-bold">Prise de rendez-vous</h2>
-                        {{ render(controller('App\\Controller\\AppointmentController::index')) }}
+{% for reason in doctor.speciality.reasons %}
+<form action="{{ path('app_appointment_new', {'reasonId': reason.id}) }}" method="get">
+    <button type="submit" class="btn btn-primary">{{ reason.name }}</button>
+</form>
+
+{% endfor %}
                     </div>
                 </div>
                 <div class="modal-footer">

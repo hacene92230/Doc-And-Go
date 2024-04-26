@@ -9,7 +9,13 @@
         <thead>
             <tr>
                 <th>Id</th>
-                <th>DateOf</th>
+                <th>WeekendStatus</th>
+                <th>ClosedDates</th>
+                <th>Openinghours</th>
+                <th>Specialdates</th>
+                <th>Defaultopeningtime</th>
+                <th>Defaultclosingtime</th>
+                <th>Weekendclosed</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -17,7 +23,13 @@
         {% for planing in planings %}
             <tr>
                 <td>{{ planing.id }}</td>
-                <td>{{ planing.dateOf ? planing.dateOf|join(', ') : '' }}</td>
+                <td>{{ planing.weekendStatus ? planing.weekendStatus|json_encode : '' }}</td>
+                <td>{{ planing.closedDates ? planing.closedDates|json_encode : '' }}</td>
+                <td>{{ planing.openinghours ? planing.openinghours|json_encode : '' }}</td>
+                <td>{{ planing.specialdates ? planing.specialdates|json_encode : '' }}</td>
+                <td>{{ planing.defaultopeningtime ? planing.defaultopeningtime|json_encode : '' }}</td>
+                <td>{{ planing.defaultclosingtime ? planing.defaultclosingtime|json_encode : '' }}</td>
+                <td>{{ planing.weekendclosed ? planing.weekendclosed|json_encode : '' }}</td>
                 <td>
                     <a href="{{ path('app_planing_show', {'id': planing.id}) }}">show</a>
                     <a href="{{ path('app_planing_edit', {'id': planing.id}) }}">edit</a>
@@ -25,7 +37,7 @@
             </tr>
         {% else %}
             <tr>
-                <td colspan="3">no records found</td>
+                <td colspan="9">no records found</td>
             </tr>
         {% endfor %}
         </tbody>

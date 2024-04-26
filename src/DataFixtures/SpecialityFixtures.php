@@ -4,6 +4,7 @@ namespace App\DataFixtures;
 
 use Faker\Factory;
 use App\Entity\User;
+use App\Entity\Reason;
 use DateTimeImmutable;
 use App\Entity\Speciality;
 use Doctrine\Persistence\ObjectManager;
@@ -94,6 +95,7 @@ foreach ($specialities as $specialityName) {
     $speciality->setName($specialityName);
     $manager->persist($speciality);
 }
+
 $manager->flush();
 }
 }
