@@ -1,0 +1,48 @@
+{% block collection_widget %}
+    {% if prototype is defined %}
+        <ul class="collection" id="{{ id }}">
+            {% for child in form %}
+                <li>{{ form_row(child) }}</li>
+            {% endfor %}
+        </ul>
+        <button type="button" class="add-item btn btn-primary btn-sm">Ajouter</button>
+    {% endif %}
+    <div id="message-container"></div>
+{% endblock %}
+
+{# templates/planing/form.html.twig #}
+
+{% form_theme form 'planing/_form_theme.html.twig' %}
+
+{{ form_start(form) }}
+    {{ form_widget(form) }}
+    <button class="btn btn-primary">{{ button_label|default('Save') }}</button>
+{{ form_end(form) }}
+
+{% block javascripts %}
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log("Document ready!");
+
+            document.querySelector('body').addEventListener('click', function(event) {
+                var target = event.target;
+                var messageContainer = document.getElementById('message-container');
+
+                if (target.classList.contains('add-item')) {
+                    console.log("Add button clicked!");
+                    messageContainer.innerHTML = "<div>Add button clicked!</div>";
+                    var collectionHolder = target.previousElementSibling;
+                    var prototype = collectionHolder.dataset.prototype;
+                    var index = collectionHolder.children.length;
+
+                    var newForm = prototype.replace(/__name__/g, index);
+                    collectionHolder.insertAdjacentHTML('beforeend', newForm);
+                } else if (target.classList.contains('remove-item')) {
+                    console.log("Remove button clicked!");
+                    messageContainer.innerHTML = "<div>Remove button clicked!</div>";
+                    target.closest('li').remove();
+                }
+            });
+        });
+    </script>
+{% endblock %}
