@@ -17,57 +17,33 @@ class PlaningType extends AbstractType
     {
         $builder
             ->add('weekendStatus', CollectionType::class, [
-                'label' => 'Statut du week-end',
                 'entry_type' => TextType::class,
                 'allow_add' => true,
                 'allow_delete' => true,
                 'prototype' => true,
-                'required' => false,
-                'entry_options' => [
-                    'label' => false,
-                    'attr' => ['placeholder' => 'Statut du week-end'],
-                ],
-                'attr' => ['class' => 'collection'],
-            ])
+                "label" => false,])
+
             ->add('closedDates', CollectionType::class, [
-                'label' => 'Dates de fermeture',
                 'entry_type' => TextType::class,
                 'allow_add' => true,
                 'allow_delete' => true,
                 'prototype' => true,
-                'required' => false,
-                'entry_options' => [
-                    'label' => false,
-                    'attr' => ['placeholder' => 'Date de fermeture'],
-                ],
-                'attr' => ['class' => 'collection'],
-            ])
+                "label" => false,])
+            
             ->add('openinghours', CollectionType::class, [
-                'label' => 'Heures d\'ouverture',
                 'entry_type' => TextType::class,
                 'allow_add' => true,
                 'allow_delete' => true,
                 'prototype' => true,
-                'required' => false,
-                'entry_options' => [
-                    'label' => false,
-                    'attr' => ['placeholder' => 'Heures d\'ouverture'],
-                ],
-                'attr' => ['class' => 'collection'],
-            ])
+                "label" => false,])
+            
             ->add('specialdates', CollectionType::class, [
-                'label' => 'Dates spéciales',
                 'entry_type' => TextType::class,
                 'allow_add' => true,
                 'allow_delete' => true,
                 'prototype' => true,
-                'required' => false,
-                'entry_options' => [
-                    'label' => false,
-                    'attr' => ['placeholder' => 'Date spéciale'],
-                ],
-                'attr' => ['class' => 'collection'],
-            ])
+                "label" => false,])
+            
             ->add('defaultopeningtime', TextType::class, [
                 'label' => 'Heure d\'ouverture par défaut',
                 'attr' => ['placeholder' => 'Heure d\'ouverture par défaut'],
@@ -76,14 +52,10 @@ class PlaningType extends AbstractType
                 'label' => 'Heure de fermeture par défaut',
                 'attr' => ['placeholder' => 'Heure de fermeture par défaut'],
             ])
+            
             ->add('weekendclosed', TextType::class, [
                 'label' => 'Week-end fermé',
                 'attr' => ['placeholder' => 'Week-end fermé'],
-            ])
-            ->add('user', EntityType::class, [
-                'label' => 'Utilisateur',
-                'class' => User::class,
-                'choice_label' => 'id',
             ]);
     }
 

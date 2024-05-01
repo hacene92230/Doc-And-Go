@@ -1,48 +1,126 @@
-{% block collection_widget %}
-    {% if prototype is defined %}
-        <ul class="collection" id="{{ id }}">
-            {% for child in form %}
-                <li>{{ form_row(child) }}</li>
-            {% endfor %}
-        </ul>
-        <button type="button" class="add-item btn btn-primary btn-sm">Ajouter</button>
-    {% endif %}
-    <div id="message-container"></div>
+{% block _planing_weekendStatus_widget %}
+<ul id="planing-weekendStatus-fields-list"
+        data-prototype="{{ form_widget(prototype)|e }}"
+        data-widget-tags="{{ '<li></li>'|e }}"
+        data-widget-counter="{{ value|length }}"
+    >
+        {% for key, weekendStatusForm in form.children %}
+            <li class="collection-item">
+                {{ form_label(weekendStatusForm) }} {# Ajoutez l'étiquette ici #}
+                {{ form_widget(weekendStatusForm) }}
+            </li>
+        {% endfor %}
+    </ul>
+
+    <button type="button" class="add-item-btn collection-btn" data-list-selector="#planing-weekendStatus-fields-list">Ajouter un élément</button>
+    <button type="button" class="remove-item-btn collection-btn" data-list-selector="#planing-weekendStatus-fields-list">Retirer un élément</button>
+
 {% endblock %}
 
-{# templates/planing/form.html.twig #}
+{% block _planing_closedDates_widget %}
+<ul id="planing-closedDates-fields-list"
+        data-prototype="{{ form_widget(prototype)|e }}"
+        data-widget-tags="{{ '<li></li>'|e }}"
+        data-widget-counter="{{ value|length }}"
+    >
+        {% for key, closedDatesForm in form.children %}
+            <li class="collection-item">
+                {{ form_label(closedDatesForm) }} {# Ajoutez l'étiquette ici #}
+                {{ form_widget(closedDatesForm) }}
+            </li>
+        {% endfor %}
+    </ul>
 
-{% form_theme form 'planing/_form_theme.html.twig' %}
+    <button type="button" class="add-item-btn collection-btn" data-list-selector="#planing-closedDates-fields-list">Ajouter un élément</button>
+    <button type="button" class="remove-item-btn collection-btn" data-list-selector="#planing-closedDates-fields-list">Retirer un élément</button>
+{% endblock %}
 
-{{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn btn-primary">{{ button_label|default('Save') }}</button>
-{{ form_end(form) }}
+{% block _planing_openinghours_widget %}
+    <ul id="planing-openinghours-fields-list"
+        data-prototype="{{ form_widget(prototype)|e }}"
+        data-widget-tags="{{ '<li></li>'|e }}"
+        data-widget-counter="{{ value|length }}"
+    >
+        {% for key, openinghoursForm in form.children %}
+            <li class="collection-item">
+                {{ form_label(openinghoursForm) }} {# Ajoutez l'étiquette ici #}
+                {{ form_widget(openinghoursForm) }}
+            </li>
+        {% endfor %}
+    </ul>
 
-{% block javascripts %}
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log("Document ready!");
+    <button type="button" class="add-item-btn collection-btn" data-list-selector="#planing-openinghours-fields-list">Ajouter un élément</button>
+    <button type="button" class="remove-item-btn collection-btn" data-list-selector="#planing-openinghours-fields-list">Retirer un élément</button>
+{% endblock %}
 
-            document.querySelector('body').addEventListener('click', function(event) {
-                var target = event.target;
-                var messageContainer = document.getElementById('message-container');
+{% block _planing_specialdates_widget %}
+    <ul id="planing-specialdates-fields-list"
+        data-prototype="{{ form_widget(prototype)|e }}"
+        data-widget-tags="{{ '<li></li>'|e }}"
+        data-widget-counter="{{ value|length }}"
+    >
+        {% for key, specialdatesForm in form.children %}
+            <li class="collection-item">
+                {{ form_label(specialdatesForm) }} {# Ajoutez l'étiquette ici #}
+                {{ form_widget(specialdatesForm) }}
+            </li>
+        {% endfor %}
+    </ul>
 
-                if (target.classList.contains('add-item')) {
-                    console.log("Add button clicked!");
-                    messageContainer.innerHTML = "<div>Add button clicked!</div>";
-                    var collectionHolder = target.previousElementSibling;
-                    var prototype = collectionHolder.dataset.prototype;
-                    var index = collectionHolder.children.length;
+    <button type="button" class="add-item-btn collection-btn" data-list-selector="#planing-specialdates-fields-list">Ajouter un élément</button>
+    <button type="button" class="remove-item-btn collection-btn" data-list-selector="#planing-specialdates-fields-list">Retirer un élément</button>
 
-                    var newForm = prototype.replace(/__name__/g, index);
-                    collectionHolder.insertAdjacentHTML('beforeend', newForm);
-                } else if (target.classList.contains('remove-item')) {
-                    console.log("Remove button clicked!");
-                    messageContainer.innerHTML = "<div>Remove button clicked!</div>";
-                    target.closest('li').remove();
-                }
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        function addItem(listSelector) {
+            var list = document.querySelector(listSelector);
+            var counter = list.children.length;
+    
+            var newWidget = list.dataset.prototype.replace(/__name__/g, counter);
+            var newElem = document.createElement('li');
+            newElem.className = 'collection-item';
+            newElem.innerHTML = newWidget;
+            list.appendChild(newElem);
+    
+            // Afficher le bouton de suppression
+            var removeButtons = document.querySelectorAll('[data-list-selector="' + listSelector + '"].remove-item-btn');
+            removeButtons.forEach(function (button) {
+                button.style.display = 'inline-block';
+            });
+        }
+    
+        function removeItem(listSelector) {
+            var list = document.querySelector(listSelector);
+            var itemsCount = list.children.length;
+            if (itemsCount > 0) {
+                list.removeChild(list.lastElementChild);
+            }
+    
+            // Masquer le bouton de suppression si la liste est vide
+            var removeButtons = document.querySelectorAll('[data-list-selector="' + listSelector + '"].remove-item-btn');
+            removeButtons.forEach(function (button) {
+                button.style.display = list.children.length > 0 ? 'inline-block' : 'none';
+            });
+        }
+    
+        document.querySelectorAll('.remove-item-btn').forEach(function (button) {
+            button.style.display = 'none';
+        });
+        document.querySelectorAll('.add-item-btn').forEach(function (button) {
+            button.addEventListener('click', function () {
+                var listSelector = this.getAttribute('data-list-selector');
+                addItem(listSelector);
             });
         });
-    </script>
+    
+        document.querySelectorAll('.remove-item-btn').forEach(function (button) {
+            button.addEventListener('click', function () {
+                var listSelector = this.getAttribute('data-list-selector');
+                removeItem(listSelector);
+            });
+        });
+    });
+    
+</script>
+
 {% endblock %}
