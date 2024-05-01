@@ -18,25 +18,28 @@ class PlaningType extends AbstractType
     {
         $builder
         ->add('startDate', DateType::class, [
-            'label' => 'Date de début',
+            'label' => 'à quelle date débute le planing',
             'attr' => ['placeholder' => 'Sélectionner une date de début'],
             'widget' => 'single_text',
         ])
         
         ->add('endDate', DateType::class, [
-            'label' => 'Date de fin',
+            'label' => 'à quelle date se termine le planing',
             'attr' => ['placeholder' => 'Sélectionner une date de fin'],
             'widget' => 'single_text',
         ])
         
         ->add('startTime', TimeType::class, [
-            'label' => 'Heure de début',
+            'label' => 'à quelle heure souhaitez-vous commencer votre journée',
             'attr' => ['placeholder' => 'Choisir une heure de début'],
+            'hours' => array_combine(range(6, 22), range(6, 22)), // Mapping des heures aux libellés
+            'minutes' => [0, 15, 30, 45], // Définition des minutes disponibles
+
             'widget' => 'choice',
         ])
         
         ->add('endTime', TimeType::class, [
-            'label' => 'Heure de fin', // Libellé du champ
+            'label' => 'Quand souhaitez-vous terminer votre journée', // Libellé du champ
             'hours' => array_combine(range(6, 22), range(6, 22)), // Mapping des heures aux libellés
             'minutes' => [0, 15, 30, 45], // Définition des minutes disponibles
             'widget' => 'choice', // Utilisation d'un widget de type choix
@@ -44,18 +47,18 @@ class PlaningType extends AbstractType
         ])
         
         ->add('weekendStatus', ChoiceType::class, [
-            'label' => 'Statut du week-end',
+            'label' => 'Choisissez l\'ouverture le week-end.',
             'placeholder' => 'Sélectionner...',
             'choices' => [
-                'Ouvert le samedi et le dimanche' => 'open_both',
-                'Ouvert le samedi, fermé le dimanche' => 'open_saturday_closed_sunday',
-                'Fermé le samedi, ouvert le dimanche' => 'closed_saturday_open_sunday',
-                'Fermé le samedi et le dimanche' => 'closed_both',
+                'Ouvert le samedi et le dimanche' => '1+1',
+                'Ouvert le samedi, fermé le dimanche' => '1-',
+                'Fermé le samedi, ouvert le dimanche' => '-1',
+                'Fermé le samedi et le dimanche' => '--',
             ],
         ])
         
         ->add('exceptionaleClosure', CollectionType::class, [
-            'label' => 'Fermetures exceptionnelles',
+            'label' => 'Insérez ci-dessous les dates de fermetures exceptionnelles',
             'entry_type' => TextType::class,
             'allow_add' => true,
             'allow_delete' => true,
