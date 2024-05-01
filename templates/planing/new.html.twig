@@ -1,11 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Planing{% endblock %}
+{% block title %}Nouveau Planing {{ parent() }} {% endblock %}
 
 {% block body %}
-    <h1>Create new Planing</h1>
+    <h1>Créer un nouveau Planing</h1>
 
     {{ include('planing/_form.html.twig') }}
-
-    <a href="{{ path('app_planing_index') }}">back to list</a>
 {% endblock %}

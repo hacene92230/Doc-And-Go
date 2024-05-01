@@ -2,14 +2,16 @@
 
 namespace App\Controller;
 
+use DateTime;
+use DateTimeImmutable;
 use App\Entity\Planing;
 use App\Form\PlaningType;
 use App\Repository\PlaningRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 #[Route('/planing')]
 class PlaningController extends AbstractController
@@ -26,10 +28,14 @@ class PlaningController extends AbstractController
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $planing = new Planing();
+        $planing->setStartDate(new DateTime());
+        $planing->setEndDate((new \DateTime())->modify('+1 month'));
         $form = $this->createForm(PlaningType::class, $planing);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $planing->setCreatedAt(new DateTimeImmutable());
+            $planing->setDoctor($this->getUser());
             $entityManager->persist($planing);
             $entityManager->flush();
 

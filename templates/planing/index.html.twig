@@ -9,13 +9,13 @@
         <thead>
             <tr>
                 <th>Id</th>
+                <th>StartDate</th>
+                <th>EndDate</th>
+                <th>StartTime</th>
+                <th>EndTime</th>
+                <th>CreatedAt</th>
                 <th>WeekendStatus</th>
-                <th>ClosedDates</th>
-                <th>Openinghours</th>
-                <th>Specialdates</th>
-                <th>Defaultopeningtime</th>
-                <th>Defaultclosingtime</th>
-                <th>Weekendclosed</th>
+                <th>ExceptionaleClosre</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -23,13 +23,13 @@
         {% for planing in planings %}
             <tr>
                 <td>{{ planing.id }}</td>
-                <td>{{ planing.weekendStatus ? planing.weekendStatus|json_encode : '' }}</td>
-                <td>{{ planing.closedDates ? planing.closedDates|json_encode : '' }}</td>
-                <td>{{ planing.openinghours ? planing.openinghours|json_encode : '' }}</td>
-                <td>{{ planing.specialdates ? planing.specialdates|json_encode : '' }}</td>
-                <td>{{ planing.defaultopeningtime ? planing.defaultopeningtime|json_encode : '' }}</td>
-                <td>{{ planing.defaultclosingtime ? planing.defaultclosingtime|json_encode : '' }}</td>
-                <td>{{ planing.weekendclosed ? planing.weekendclosed|json_encode : '' }}</td>
+                <td>{{ planing.startDate ? planing.startDate|date('Y-m-d') : '' }}</td>
+                <td>{{ planing.endDate ? planing.endDate|date('Y-m-d') : '' }}</td>
+                <td>{{ planing.startTime ? planing.startTime|date('H:i:s') : '' }}</td>
+                <td>{{ planing.endTime ? planing.endTime|date('H:i:s') : '' }}</td>
+                <td>{{ planing.createdAt ? planing.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ planing.weekendStatus }}</td>
+                <td>{{ planing.exceptionaleClosure ? planing.exceptionaleClosure|join(', ') : '' }}</td>
                 <td>
                     <a href="{{ path('app_planing_show', {'id': planing.id}) }}">show</a>
                     <a href="{{ path('app_planing_edit', {'id': planing.id}) }}">edit</a>

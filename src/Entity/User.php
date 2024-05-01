@@ -47,9 +47,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Appointment::class, mappedBy: 'user')]
     private Collection $appointment;
 
-    #[ORM\OneToOne(inversedBy: 'user', cascade: ['persist', 'remove'])]
-    private ?Planing $planing = null;
-
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
 
@@ -68,9 +65,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\ManyToOne(inversedBy: 'doctors')]
     private ?Speciality $speciality = null;
 
+    /**
+     * @var Collection<int, Planing>
+     */
+    #[ORM\OneToMany(targetEntity: Planing::class, mappedBy: 'doctor', orphanRemoval: true)]
+    private Collection $planings;
+
     public function __construct()
     {
         $this->appointment = new ArrayCollection();
+        $this->planings = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -202,18 +206,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getPlaning(): ?Planing
-    {
-        return $this->planing;
-    }
-
-    public function setPlaning(?Planing $planing): static
-    {
-        $this->planing = $planing;
-
-        return $this;
-    }
-
     public function getCreatedAt(): ?\DateTimeImmutable
     {
         return $this->createdAt;
@@ -282,6 +274,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setSpeciality(?Speciality $speciality): static
     {
         $this->speciality = $speciality;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Planing>
+     */
+    public function getPlanings(): Collection
+    {
+        return $this->planings;
+    }
+
+    public function addPlaning(Planing $planing): static
+    {
+        if (!$this->planings->contains($planing)) {
+            $this->planings->add($planing);
+            $planing->setDoctor($this);
+        }
+
+        return $this;
+    }
+
+    public function removePlaning(Planing $planing): static
+    {
+        if ($this->planings->removeElement($planing)) {
+            // set the owning side to null (unless already changed)
+            if ($planing->getDoctor() === $this) {
+                $planing->setDoctor(null);
+            }
+        }
 
         return $this;
     }

@@ -16,36 +16,36 @@ class Planing
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\OneToOne(mappedBy: 'planing', cascade: ['persist', 'remove'])]
-    private ?User $user = null;
-
-
     /**
      * @var Collection<int, Appointment>
      */
     #[ORM\OneToMany(targetEntity: Appointment::class, mappedBy: 'planing', orphanRemoval: true)]
     private Collection $appointments;
 
-    #[ORM\Column]
-    private array $weekendStatus = [];
+    #[ORM\ManyToOne(inversedBy: 'planings')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $doctor = null;
+
+    #[ORM\Column(type: Types::DATE_MUTABLE)]
+    private ?\DateTimeInterface $startDate = null;
+
+    #[ORM\Column(type: Types::DATE_MUTABLE)]
+    private ?\DateTimeInterface $endDate = null;
+
+    #[ORM\Column(type: Types::TIME_MUTABLE)]
+    private ?\DateTimeInterface $startTime = null;
+
+    #[ORM\Column(type: Types::TIME_MUTABLE)]
+    private ?\DateTimeInterface $endTime = null;
 
     #[ORM\Column]
-    private array $closedDates = [];
+    private ?\DateTimeImmutable $createdAt = null;
 
-    #[ORM\Column]
-    private array $openinghours = [];
+    #[ORM\Column(length: 255)]
+    private ?string $weekendStatus = null;
 
-    #[ORM\Column]
-    private array $specialdates = [];
-
-    #[ORM\Column]
-    private array $defaultopeningtime = [];
-
-    #[ORM\Column]
-    private array $defaultclosingtime = [];
-
-    #[ORM\Column]
-    private array $weekendclosed = [];
+    #[ORM\Column(type: Types::ARRAY)]
+    private array $exceptionaleClosure = [];
 
     public function __construct()
     {
@@ -55,28 +55,6 @@ class Planing
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getUser(): ?User
-    {
-        return $this->user;
-    }
-
-    public function setUser(?User $user): static
-    {
-        // unset the owning side of the relation if necessary
-        if ($user === null && $this->user !== null) {
-            $this->user->setPlaning(null);
-        }
-
-        // set the owning side of the relation if necessary
-        if ($user !== null && $user->getPlaning() !== $this) {
-            $user->setPlaning($this);
-        }
-
-        $this->user = $user;
-
-        return $this;
     }
 
     /**
@@ -109,86 +87,98 @@ class Planing
         return $this;
     }
 
-    public function getWeekendStatus(): array
+    public function getDoctor(): ?User
+    {
+        return $this->doctor;
+    }
+
+    public function setDoctor(?User $doctor): static
+    {
+        $this->doctor = $doctor;
+
+        return $this;
+    }
+
+    public function getStartDate(): ?\DateTimeInterface
+    {
+        return $this->startDate;
+    }
+
+    public function setStartDate(\DateTimeInterface $startDate): static
+    {
+        $this->startDate = $startDate;
+
+        return $this;
+    }
+
+    public function getEndDate(): ?\DateTimeInterface
+    {
+        return $this->endDate;
+    }
+
+    public function setEndDate(\DateTimeInterface $endDate): static
+    {
+        $this->endDate = $endDate;
+
+        return $this;
+    }
+
+    public function getStartTime(): ?\DateTimeInterface
+    {
+        return $this->startTime;
+    }
+
+    public function setStartTime(\DateTimeInterface $startTime): static
+    {
+        $this->startTime = $startTime;
+
+        return $this;
+    }
+
+    public function getEndTime(): ?\DateTimeInterface
+    {
+        return $this->endTime;
+    }
+
+    public function setEndTime(\DateTimeInterface $endTime): static
+    {
+        $this->endTime = $endTime;
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeImmutable
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeImmutable $createdAt): static
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getWeekendStatus(): ?string
     {
         return $this->weekendStatus;
     }
 
-    public function setWeekendStatus(array $weekendStatus): static
+    public function setWeekendStatus(string $weekendStatus): static
     {
         $this->weekendStatus = $weekendStatus;
 
         return $this;
     }
 
-    public function getClosedDates(): array
+    public function getExceptionaleClosure(): array
     {
-        return $this->closedDates;
+        return $this->exceptionaleClosure;
     }
 
-    public function setClosedDates(array $closedDates): static
+    public function setExceptionaleClosure(array $exceptionaleClosure): static
     {
-        $this->closedDates = $closedDates;
-
-        return $this;
-    }
-
-    public function getOpeninghours(): array
-    {
-        return $this->openinghours;
-    }
-
-    public function setOpeninghours(array $openinghours): static
-    {
-        $this->openinghours = $openinghours;
-
-        return $this;
-    }
-
-    public function getSpecialdates(): array
-    {
-        return $this->specialdates;
-    }
-
-    public function setSpecialdates(array $specialdates): static
-    {
-        $this->specialdates = $specialdates;
-
-        return $this;
-    }
-
-    public function getDefaultopeningtime(): array
-    {
-        return $this->defaultopeningtime;
-    }
-
-    public function setDefaultopeningtime(array $defaultopeningtime): static
-    {
-        $this->defaultopeningtime = $defaultopeningtime;
-
-        return $this;
-    }
-
-    public function getDefaultclosingtime(): array
-    {
-        return $this->defaultclosingtime;
-    }
-
-    public function setDefaultclosingtime(array $defaultclosingtime): static
-    {
-        $this->defaultclosingtime = $defaultclosingtime;
-
-        return $this;
-    }
-
-    public function getWeekendclosed(): array
-    {
-        return $this->weekendclosed;
-    }
-
-    public function setWeekendclosed(array $weekendclosed): static
-    {
-        $this->weekendclosed = $weekendclosed;
+        $this->exceptionaleClosure = $exceptionaleClosure;
 
         return $this;
     }

@@ -1,74 +1,19 @@
-{% block _planing_weekendStatus_widget %}
-<ul id="planing-weekendStatus-fields-list"
+{% block _planing_exceptionaleClosure_widget %}
+    <ul id="planing-exceptionaleClosure-fields-list"
         data-prototype="{{ form_widget(prototype)|e }}"
         data-widget-tags="{{ '<li></li>'|e }}"
         data-widget-counter="{{ value|length }}"
     >
-        {% for key, weekendStatusForm in form.children %}
+        {% for key, exceptionaleClosureForm in form.children %}
             <li class="collection-item">
-                {{ form_label(weekendStatusForm) }} {# Ajoutez l'étiquette ici #}
-                {{ form_widget(weekendStatusForm) }}
+                {{ form_widget(exceptionaleClosureForm) }}
             </li>
         {% endfor %}
     </ul>
 
-    <button type="button" class="add-item-btn collection-btn" data-list-selector="#planing-weekendStatus-fields-list">Ajouter un élément</button>
-    <button type="button" class="remove-item-btn collection-btn" data-list-selector="#planing-weekendStatus-fields-list">Retirer un élément</button>
+    <button type="button" class="add-item-btn collection-btn btn btn-primary" data-list-selector="#planing-exceptionaleClosure-fields-list">Ajouter un élément</button>
+    <button type="button" class="remove-item-btn collection-btn btn btn-danger" data-list-selector="#planing-exceptionaleClosure-fields-list">Retirer un élément</button>
 
-{% endblock %}
-
-{% block _planing_closedDates_widget %}
-<ul id="planing-closedDates-fields-list"
-        data-prototype="{{ form_widget(prototype)|e }}"
-        data-widget-tags="{{ '<li></li>'|e }}"
-        data-widget-counter="{{ value|length }}"
-    >
-        {% for key, closedDatesForm in form.children %}
-            <li class="collection-item">
-                {{ form_label(closedDatesForm) }} {# Ajoutez l'étiquette ici #}
-                {{ form_widget(closedDatesForm) }}
-            </li>
-        {% endfor %}
-    </ul>
-
-    <button type="button" class="add-item-btn collection-btn" data-list-selector="#planing-closedDates-fields-list">Ajouter un élément</button>
-    <button type="button" class="remove-item-btn collection-btn" data-list-selector="#planing-closedDates-fields-list">Retirer un élément</button>
-{% endblock %}
-
-{% block _planing_openinghours_widget %}
-    <ul id="planing-openinghours-fields-list"
-        data-prototype="{{ form_widget(prototype)|e }}"
-        data-widget-tags="{{ '<li></li>'|e }}"
-        data-widget-counter="{{ value|length }}"
-    >
-        {% for key, openinghoursForm in form.children %}
-            <li class="collection-item">
-                {{ form_label(openinghoursForm) }} {# Ajoutez l'étiquette ici #}
-                {{ form_widget(openinghoursForm) }}
-            </li>
-        {% endfor %}
-    </ul>
-
-    <button type="button" class="add-item-btn collection-btn" data-list-selector="#planing-openinghours-fields-list">Ajouter un élément</button>
-    <button type="button" class="remove-item-btn collection-btn" data-list-selector="#planing-openinghours-fields-list">Retirer un élément</button>
-{% endblock %}
-
-{% block _planing_specialdates_widget %}
-    <ul id="planing-specialdates-fields-list"
-        data-prototype="{{ form_widget(prototype)|e }}"
-        data-widget-tags="{{ '<li></li>'|e }}"
-        data-widget-counter="{{ value|length }}"
-    >
-        {% for key, specialdatesForm in form.children %}
-            <li class="collection-item">
-                {{ form_label(specialdatesForm) }} {# Ajoutez l'étiquette ici #}
-                {{ form_widget(specialdatesForm) }}
-            </li>
-        {% endfor %}
-    </ul>
-
-    <button type="button" class="add-item-btn collection-btn" data-list-selector="#planing-specialdates-fields-list">Ajouter un élément</button>
-    <button type="button" class="remove-item-btn collection-btn" data-list-selector="#planing-specialdates-fields-list">Retirer un élément</button>
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {

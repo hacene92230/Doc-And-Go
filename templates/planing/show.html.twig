@@ -12,32 +12,32 @@
                 <td>{{ planing.id }}</td>
             </tr>
             <tr>
+                <th>StartDate</th>
+                <td>{{ planing.startDate ? planing.startDate|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>EndDate</th>
+                <td>{{ planing.endDate ? planing.endDate|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>StartTime</th>
+                <td>{{ planing.startTime ? planing.startTime|date('H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>EndTime</th>
+                <td>{{ planing.endTime ? planing.endTime|date('H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>CreatedAt</th>
+                <td>{{ planing.createdAt ? planing.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
                 <th>WeekendStatus</th>
-                <td>{{ planing.weekendStatus ? planing.weekendStatus|json_encode : '' }}</td>
+                <td>{{ planing.weekendStatus }}</td>
             </tr>
             <tr>
-                <th>ClosedDates</th>
-                <td>{{ planing.closedDates ? planing.closedDates|json_encode : '' }}</td>
-            </tr>
-            <tr>
-                <th>Openinghours</th>
-                <td>{{ planing.openinghours ? planing.openinghours|json_encode : '' }}</td>
-            </tr>
-            <tr>
-                <th>Specialdates</th>
-                <td>{{ planing.specialdates ? planing.specialdates|json_encode : '' }}</td>
-            </tr>
-            <tr>
-                <th>Defaultopeningtime</th>
-                <td>{{ planing.defaultopeningtime ? planing.defaultopeningtime|json_encode : '' }}</td>
-            </tr>
-            <tr>
-                <th>Defaultclosingtime</th>
-                <td>{{ planing.defaultclosingtime ? planing.defaultclosingtime|json_encode : '' }}</td>
-            </tr>
-            <tr>
-                <th>Weekendclosed</th>
-                <td>{{ planing.weekendclosed ? planing.weekendclosed|json_encode : '' }}</td>
+                <th>ExceptionaleClosre</th>
+                <td>{{ planing.exceptionaleClosure ? planing.exceptionaleClosure|join(', ') : '' }}</td>
             </tr>
         </tbody>
     </table>
