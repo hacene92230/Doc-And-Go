@@ -5,7 +5,6 @@ namespace App\Controller;
 use App\Entity\Appointment;
 use App\Form\AppointmentType;
 use App\Repository\AppointmentRepository;
-use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -23,8 +22,8 @@ class AppointmentController extends AbstractController
         ]);
     }
 
-    #[Route('/new/{reasonId}', name: 'app_appointment_new', methods: ['GET', 'POST'])]
-    public function new($reasonId, Request $request, EntityManagerInterface $entityManager): Response
+    #[Route('/new', name: 'app_appointment_new', methods: ['GET', 'POST'])]
+    public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $appointment = new Appointment();
         $form = $this->createForm(AppointmentType::class, $appointment);
@@ -40,7 +39,7 @@ class AppointmentController extends AbstractController
         return $this->render('appointment/new.html.twig', [
             'appointment' => $appointment,
             'form' => $form,
-                ]);
+        ]);
     }
 
     #[Route('/{id}', name: 'app_appointment_show', methods: ['GET'])]
