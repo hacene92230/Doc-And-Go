@@ -20,7 +20,7 @@ class PlaningController extends AbstractController
     public function index(PlaningRepository $planingRepository): Response
     {
         return $this->render('planing/index.html.twig', [
-            'planings' => $planingRepository->findAll(),
+            'planings' => $planingRepository->findBy(["doctor" => $this->getUser()])
         ]);
     }
 
@@ -28,8 +28,6 @@ class PlaningController extends AbstractController
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $planing = new Planing();
-        $planing->setStartDate(new DateTime());
-        $planing->setEndDate((new \DateTime())->modify('+1 month'));
         $form = $this->createForm(PlaningType::class, $planing);
         $form->handleRequest($request);
 

@@ -1,13 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Planing{% endblock %}
+{% block title %}Modifier le planing {{ parent() }} {% endblock %}
 
 {% block body %}
-    <h1>Edit Planing</h1>
+    <h1>Modification du Planing</h1>
 
-    {{ include('planing/_form.html.twig', {'button_label': 'Update'}) }}
-
-    <a href="{{ path('app_planing_index') }}">back to list</a>
-
-    {{ include('planing/_delete_form.html.twig') }}
+    {{ include('planing/_form.html.twig', {'button_label': 'Mise à jour'}) }}
 {% endblock %}

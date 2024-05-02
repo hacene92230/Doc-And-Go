@@ -1,47 +1,31 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Planing index{% endblock %}
+{% block title %}Mes plannings{{ parent() }}{% endblock %}
 
 {% block body %}
-    <h1>Planing index</h1>
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>StartDate</th>
-                <th>EndDate</th>
-                <th>StartTime</th>
-                <th>EndTime</th>
-                <th>CreatedAt</th>
-                <th>WeekendStatus</th>
-                <th>ExceptionaleClosre</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for planing in planings %}
-            <tr>
-                <td>{{ planing.id }}</td>
-                <td>{{ planing.startDate ? planing.startDate|date('Y-m-d') : '' }}</td>
-                <td>{{ planing.endDate ? planing.endDate|date('Y-m-d') : '' }}</td>
-                <td>{{ planing.startTime ? planing.startTime|date('H:i:s') : '' }}</td>
-                <td>{{ planing.endTime ? planing.endTime|date('H:i:s') : '' }}</td>
-                <td>{{ planing.createdAt ? planing.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ planing.weekendStatus }}</td>
-                <td>{{ planing.exceptionaleClosure ? planing.exceptionaleClosure|join(', ') : '' }}</td>
-                <td>
-                    <a href="{{ path('app_planing_show', {'id': planing.id}) }}">show</a>
-                    <a href="{{ path('app_planing_edit', {'id': planing.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="9">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('app_planing_new') }}">Create new</a>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <h2>Liste des plannings :</h2>
+                {% if planings is not empty %}
+                    <ul class="list-group">
+                        {% for planing in planings %}
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <div>
+                                    <strong>Du {{ planing.startDate|date('d/m/Y') }}</strong> au <strong>{{ planing.endDate|date('d/m/Y') }}</strong>
+                                </div>
+                                <div class="btn-group" role="group">
+                                    <a href="{{ path('app_planing_show', {'id': planing.id}) }}" class="btn btn-info btn-sm">Voir</a>
+                                    <a href="{{ path('app_planing_edit', {'id': planing.id}) }}" class="btn btn-primary btn-sm">Modifier</a>
+                                    {{ include('planing/_delete_form.html.twig', {'id': planing.id}) }}
+                                </div>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p>Aucun planning trouvé.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
 {% endblock %}

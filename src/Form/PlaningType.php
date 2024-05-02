@@ -50,7 +50,7 @@ class PlaningType extends AbstractType
             'label' => 'Choisissez l\'ouverture le week-end.',
             'placeholder' => 'Sélectionner...',
             'choices' => [
-                'Ouvert le samedi et le dimanche' => '1+1',
+                'Ouvert le samedi et le dimanche' => '11',
                 'Ouvert le samedi, fermé le dimanche' => '1-',
                 'Fermé le samedi, ouvert le dimanche' => '-1',
                 'Fermé le samedi et le dimanche' => '--',

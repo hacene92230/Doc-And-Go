@@ -1,50 +1,48 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Planing{% endblock %}
+{% block title %}Détails du Planning{% endblock %}
 
 {% block body %}
-    <h1>Planing</h1>
+    <div class="container">
+        <h1 class="my-4">Détails du Planning</h1>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ planing.id }}</td>
-            </tr>
-            <tr>
-                <th>StartDate</th>
-                <td>{{ planing.startDate ? planing.startDate|date('Y-m-d') : '' }}</td>
-            </tr>
-            <tr>
-                <th>EndDate</th>
-                <td>{{ planing.endDate ? planing.endDate|date('Y-m-d') : '' }}</td>
-            </tr>
-            <tr>
-                <th>StartTime</th>
-                <td>{{ planing.startTime ? planing.startTime|date('H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>EndTime</th>
-                <td>{{ planing.endTime ? planing.endTime|date('H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>CreatedAt</th>
-                <td>{{ planing.createdAt ? planing.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>WeekendStatus</th>
-                <td>{{ planing.weekendStatus }}</td>
-            </tr>
-            <tr>
-                <th>ExceptionaleClosre</th>
-                <td>{{ planing.exceptionaleClosure ? planing.exceptionaleClosure|join(', ') : '' }}</td>
-            </tr>
-        </tbody>
-    </table>
+        <div class="card">
+            <div class="card-body">
+                <dl class="row">
+                    <dt class="col-sm-3">Date de début :</dt>
+                    <dd class="col-sm-9">{{ planing.startDate ? planing.startDate|date('d/m/Y') : '' }}</dd>
 
-    <a href="{{ path('app_planing_index') }}">back to list</a>
+                    <dt class="col-sm-3">Date de fin :</dt>
+                    <dd class="col-sm-9">{{ planing.endDate ? planing.endDate|date('d/m/Y') : '' }}</dd>
 
-    <a href="{{ path('app_planing_edit', {'id': planing.id}) }}">edit</a>
+                    <dt class="col-sm-3">Début de la journée:</dt>
+                    <dd class="col-sm-9">{{ planing.startTime ? planing.startTime|date('H:i:s') : '' }}</dd>
 
-    {{ include('planing/_delete_form.html.twig') }}
+                    <dt class="col-sm-3">Fin de la journée:</dt>
+                    <dd class="col-sm-9">{{ planing.endTime ? planing.endTime|date('H:i:s') : '' }}</dd>
+                    
+                    <dt class="col-sm-3">Statut du week-end :</dt>
+                    <dd class="col-sm-9">
+                        {% set weekendStatusText = '' %}
+                        {% if planing.weekendStatus == '--' %}
+                            {% set weekendStatusText = 'Fermé le samedi et le dimanche' %}
+                        {% elseif planing.weekendStatus == '1-' %}
+                            {% set weekendStatusText = 'Ouvert le samedi et fermé le dimanche' %}
+                        {% elseif planing.weekendStatus == '-1' %}
+                            {% set weekendStatusText = 'Ouvert le dimanche et fermé le samedi' %}
+                        {% elseif planing.weekendStatus == '11' %}
+                            {% set weekendStatusText = 'Ouvert le samedi et le dimanche' %}
+                        {% else %}
+                            {% set weekendStatusText = 'Statut non défini' %}
+                        {% endif %}
+                        {{ weekendStatusText }}
+                    </dd>
+
+                    <dt class="col-sm-3">Fermeture exceptionnelle :</dt>
+                    <dd class="col-sm-9">{{ planing.exceptionaleClosure ? planing.exceptionaleClosure|join(', ') : '' }}</dd>
+                </dl>
+            </div>
+        </div>
+
+    </div>
 {% endblock %}

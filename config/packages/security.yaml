@@ -28,19 +28,15 @@ security:
                 path: /
                 # by default, the feature is enabled by checking a checkbox in the
                 # login form, uncomment the following line to always enable it.
-                #always_remember_me: true
+                always_remember_me: true
 
-            # activate different ways to authenticate
-            # https://symfony.com/doc/current/security.html#the-firewall
-
-            # https://symfony.com/doc/current/security/impersonating_user.html
-            # switch_user: true
-
-    # Easy way to control access for large sections of your site
-    # Note: Only the *first* access control that matches will be used
     access_control:
-        # - { path: ^/admin, roles: ROLE_ADMIN }
-        # - { path: ^/profile, roles: ROLE_USER }
+        - { path: ^/planing, roles: ROLE_DOCTOR }
+
+    role_hierarchy:
+        ROLE_PATIENT:      ROLE_USER
+        ROLE_DOCTOR:       ROLE_USER
+        ROLE_ADMIN: [ROLE_USER, ROLE_PATIENT, ROLE_DOCTOR, ROLE_ALLOWED_TO_SWITCH]
 
 when@test:
     security:
