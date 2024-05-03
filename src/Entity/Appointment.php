@@ -17,9 +17,6 @@ class Appointment
     #[ORM\Column(type: Types::DATE_IMMUTABLE)]
     private ?\DateTimeImmutable $dateTime = null;
 
-    #[ORM\Column]
-    private ?int $duration = null;
-
     #[ORM\Column(length: 255)]
     private ?string $status = null;
 
@@ -46,18 +43,6 @@ class Appointment
     public function setDateTime(\DateTimeImmutable $dateTime): static
     {
         $this->dateTime = $dateTime;
-
-        return $this;
-    }
-
-    public function getDuration(): ?int
-    {
-        return $this->duration;
-    }
-
-    public function setDuration(int $duration): static
-    {
-        $this->duration = $duration;
 
         return $this;
     }

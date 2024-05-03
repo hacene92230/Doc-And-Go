@@ -18,18 +18,8 @@ class AppointmentType extends AbstractType
             ->add('dateTime', null, [
                 'widget' => 'single_text'
             ])
-            ->add('duration')
-            ->add('status')
-            ->add('comment')
-            ->add('user', EntityType::class, [
-                'class' => User::class,
-'choice_label' => 'id',
-            ])
-            ->add('planing', EntityType::class, [
-                'class' => Planing::class,
-'choice_label' => 'id',
-            ])
-        ;
+
+            ->add('comment');
     }
 
     public function configureOptions(OptionsResolver $resolver): void

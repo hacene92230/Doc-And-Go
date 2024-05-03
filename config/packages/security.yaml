@@ -32,6 +32,7 @@ security:
 
     access_control:
         - { path: ^/planing, roles: ROLE_DOCTOR }
+        - { path: ^/appointment, roles: ROLE_PATIENT }
 
     role_hierarchy:
         ROLE_PATIENT:      ROLE_USER
