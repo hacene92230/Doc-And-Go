@@ -10,7 +10,6 @@
             <tr>
                 <th>Id</th>
                 <th>DateTime</th>
-                <th>Duration</th>
                 <th>Status</th>
                 <th>Comment</th>
                 <th>actions</th>
@@ -21,7 +20,6 @@
             <tr>
                 <td>{{ appointment.id }}</td>
                 <td>{{ appointment.dateTime ? appointment.dateTime|date('Y-m-d') : '' }}</td>
-                <td>{{ appointment.duration }}</td>
                 <td>{{ appointment.status }}</td>
                 <td>{{ appointment.comment }}</td>
                 <td>
@@ -37,5 +35,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_appointment_new') }}">Create new</a>
+
 {% endblock %}

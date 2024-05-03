@@ -32,8 +32,15 @@ class AppointmentController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $dateTime = $appointment->getDateTime();
+            $appointment->setStatus("confirmer");
+foreach ($doctor->getPlanings() as $planning) {
+    if ($dateTime >= $planning->getStartDate() && $dateTime <= $planning->getEndDate()) {
+        $appointment->setPlaning($planning);
+        break;
+    }
+}
 
-            
             $entityManager->persist($appointment);
             $entityManager->flush();
 
