@@ -30,28 +30,45 @@ class AppointmentController extends AbstractController
         $appointment = new Appointment();
         $form = $this->createForm(AppointmentType::class, $appointment);
         $form->handleRequest($request);
-
+    
         if ($form->isSubmitted() && $form->isValid()) {
             $dateTime = $appointment->getDateTime();
             $appointment->setStatus("confirmer");
-foreach ($doctor->getPlanings() as $planning) {
-    if ($dateTime >= $planning->getStartDate() && $dateTime <= $planning->getEndDate()) {
-        $appointment->setPlaning($planning);
-        break;
-    }
-}
+    
+            foreach ($doctor->getPlanings() as $planning) {
+                if ($dateTime >= $planning->getStartDate() && $dateTime <= $planning->getEndDate()) {
+                    $isDateAvailable = true;
+                    foreach ($planning->getAppointments() as $existingAppointment) {
+                        if ($existingAppointment->getDateTime() == $dateTime) {
+                            $isDateAvailable = false;
+                                                        break; // Sortir de la boucle si la date est déjà prise
+                        }
+                    }
+                    
+                    // Si la date est disponible, associer le planning correspondant
+                    if ($isDateAvailable) {
+                        $appointment->setPlaning($planning);
+                        break; // Sortir de la boucle foreach une fois que le planning est associé
+                    }
+                    else {
+                        return $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);
+                    }  
+                    }
+                }
+            
 
             $entityManager->persist($appointment);
             $entityManager->flush();
-
+    
             return $this->redirectToRoute('app_appointment_index', [], Response::HTTP_SEE_OTHER);
         }
-                   return $this->render('appointment/new.html.twig', [
+        
+        return $this->render('appointment/new.html.twig', [
             'form' => $form,
-                    'doctor' => $doctor,
+            'doctor' => $doctor,
         ]);
     }
-
+    
     #[Route('/{id}', name: 'app_appointment_show', methods: ['GET'])]
     public function show(Appointment $appointment): Response
     {
