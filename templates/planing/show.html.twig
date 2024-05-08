@@ -1,48 +1,23 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Détails du Planning{% endblock %}
+{% block title %}Planing{% endblock %}
 
 {% block body %}
-    <div class="container">
-        <h1 class="my-4">Détails du Planning</h1>
+    <h1>Planing</h1>
 
-        <div class="card">
-            <div class="card-body">
-                <dl class="row">
-                    <dt class="col-sm-3">Date de début :</dt>
-                    <dd class="col-sm-9">{{ planing.startDate ? planing.startDate|date('d/m/Y') : '' }}</dd>
-
-                    <dt class="col-sm-3">Date de fin :</dt>
-                    <dd class="col-sm-9">{{ planing.endDate ? planing.endDate|date('d/m/Y') : '' }}</dd>
-
-                    <dt class="col-sm-3">Début de la journée:</dt>
-                    <dd class="col-sm-9">{{ planing.startTime ? planing.startTime|date('H:i:s') : '' }}</dd>
-
-                    <dt class="col-sm-3">Fin de la journée:</dt>
-                    <dd class="col-sm-9">{{ planing.endTime ? planing.endTime|date('H:i:s') : '' }}</dd>
-                    
-                    <dt class="col-sm-3">Statut du week-end :</dt>
-                    <dd class="col-sm-9">
-                        {% set weekendStatusText = '' %}
-                        {% if planing.weekendStatus == '--' %}
-                            {% set weekendStatusText = 'Fermé le samedi et le dimanche' %}
-                        {% elseif planing.weekendStatus == '1-' %}
-                            {% set weekendStatusText = 'Ouvert le samedi et fermé le dimanche' %}
-                        {% elseif planing.weekendStatus == '-1' %}
-                            {% set weekendStatusText = 'Ouvert le dimanche et fermé le samedi' %}
-                        {% elseif planing.weekendStatus == '11' %}
-                            {% set weekendStatusText = 'Ouvert le samedi et le dimanche' %}
-                        {% else %}
-                            {% set weekendStatusText = 'Statut non défini' %}
-                        {% endif %}
-                        {{ weekendStatusText }}
-                    </dd>
-
-                    <dt class="col-sm-3">Fermeture exceptionnelle :</dt>
-                    <dd class="col-sm-9">{{ planing.exceptionaleClosure ? planing.exceptionaleClosure|join(', ') : '' }}</dd>
-                </dl>
+    <div>
+        <h2>{{ planing.startDate ? planing.startDate|date('Y-m-d') : '' }} - {{ planing.endDate ? planing.endDate|date('Y-m-d') : '' }}</h2>
+        <p>Nombre de jours de travail: {{ planing.startDate ? planing.startDate.diff(planing.endDate).days }}</p>
+        
+        <h2>Jours de travail:</h3>
+        {% for dayWork in planing.dayWorks %}
+            <div>
+                <h3>Date: {{ dayWork.date ? dayWork.date|date('d/m/Y') : '' }}</h3>
+                <p>Heure de début: {{ dayWork.startHour ? dayWork.startHour|date('H:i') : '' }}</p>
+                <p>Heure de fin: {{ dayWork.endHour ? dayWork.endHour|date('H:i') : '' }}</p>
+                <p>Durée des créneaux (en minutes): {{ dayWork.slotDuration }}</p>
+                <a href="{{ path('app_day_work_edit', {'id': dayWork.id}) }}" class="btn btn-warning mr-2">Modifier Ce jour.</a>
             </div>
-        </div>
-
+        {% endfor %}
     </div>
 {% endblock %}

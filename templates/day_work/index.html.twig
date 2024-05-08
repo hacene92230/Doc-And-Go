@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}DayWork index{% endblock %}
+
+{% block body %}
+    <h1>DayWork index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>StartHour</th>
+                <th>EndHour</th>
+                <th>SlotDuration</th>
+                <th>Date</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for day_work in day_works %}
+            <tr>
+                <td>{{ day_work.id }}</td>
+                <td>{{ day_work.startHour ? day_work.startHour|date('H:i:s') : '' }}</td>
+                <td>{{ day_work.endHour ? day_work.endHour|date('H:i:s') : '' }}</td>
+                <td>{{ day_work.slotDuration }}</td>
+                <td>{{ day_work.date ? day_work.date|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('app_day_work_show', {'id': day_work.id}) }}">show</a>
+                    <a href="{{ path('app_day_work_edit', {'id': day_work.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_day_work_new') }}">Create new</a>
+{% endblock %}

@@ -29,11 +29,11 @@ class ContactType extends AbstractType
         ])
 
         ->add('subject',TextType::class, [
-            'label' => "Sujet de votre contact"
+            'label' => "Objet de votre demansde"
         ])
 
         ->add('content',TextareaType::class, [
-            'label' => "Contenu de votre message"
+            'label' => "Saisir le contenu de votre message"
         ] )
         ;
     }

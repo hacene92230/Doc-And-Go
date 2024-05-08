@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use DateTime;
+use DateInterval;
 use App\Entity\User;
 use App\Entity\Reason;
 use App\Entity\Appointment;
@@ -30,42 +32,18 @@ class AppointmentController extends AbstractController
         $appointment = new Appointment();
         $form = $this->createForm(AppointmentType::class, $appointment);
         $form->handleRequest($request);
-    
+        foreach($doctor->getPlanings() as $valeur) {
+$valeur->getEndDate();
+                     
+}
+                
         if ($form->isSubmitted() && $form->isValid()) {
-            $dateTime = $appointment->getDateTime();
-            $appointment->setStatus("confirmer");
-    
-            foreach ($doctor->getPlanings() as $planning) {
-                if ($dateTime >= $planning->getStartDate() && $dateTime <= $planning->getEndDate()) {
-                    $isDateAvailable = true;
-                    foreach ($planning->getAppointments() as $existingAppointment) {
-                        if ($existingAppointment->getDateTime() == $dateTime) {
-                            $isDateAvailable = false;
-                                                        break; // Sortir de la boucle si la date est déjà prise
-                        }
-                    }
-                    
-                    // Si la date est disponible, associer le planning correspondant
-                    if ($isDateAvailable) {
-                        $appointment->setPlaning($planning);
-                        break; // Sortir de la boucle foreach une fois que le planning est associé
-                    }
-                    else {
-                        return $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);
-                    }  
-                    }
-                }
-            
 
             $entityManager->persist($appointment);
             $entityManager->flush();
-    
-            return $this->redirectToRoute('app_appointment_index', [], Response::HTTP_SEE_OTHER);
         }
-        
         return $this->render('appointment/new.html.twig', [
             'form' => $form,
-            'doctor' => $doctor,
         ]);
     }
     
@@ -105,4 +83,48 @@ class AppointmentController extends AbstractController
 
         return $this->redirectToRoute('app_appointment_index', [], Response::HTTP_SEE_OTHER);
     }
+
+    #[Route('/creneaux/{doctor}', name: 'app_available_slots', methods: ['GET'])]
+    public function availableSlots(User $doctor, EntityManagerInterface $entityManager, AppointmentRepository $appointment): Response
+    {
+        $planningData = [];
+    
+        foreach ($doctor->getPlanings() as $planning) {
+            $availableSlots = [];
+            $startDate = $planning->getStartDate()->format('Y-m-d');
+            $endDate = $planning->getEndDate()->format('Y-m-d');
+            $startTime = $planning->getStartTime()->format('H:i');
+            $endTime = $planning->getEndTime()->format('H:i');
+    
+            $currentDate = clone $planning->getStartDate();
+            $endDate = clone $planning->getEndDate();
+    
+            while ($currentDate <= $endDate) {
+                $slotStartDate = $currentDate->format('Y-m-d');
+                $slotStartTime = max($currentDate, $planning->getStartTime());
+                $slotEndTime = min((clone $slotStartTime)->setTime($planning->getEndTime()->format('H'), $planning->getEndTime()->format('i')), $endDate);
+    
+                while ($slotStartTime < $slotEndTime) {
+                    $availableSlots[] = [
+                        'startDate' => $slotStartDate,
+                        'startTime' => $slotStartTime->format('H:i'),
+                        'endTime' => $slotStartTime->add(new DateInterval('PT30M'))->format('H:i'),
+                    ];
+                }
+    
+                $currentDate->modify('+1 day');
+            }
+    
+            $planningData[] = [
+                'startDate' => $startDate,
+                'endDate' => $endDate,
+                'startTime' => $startTime,
+                'endTime' => $endTime,
+                'slots' => $availableSlots,
+            ];
+        }
+    
+        return $this->json($planningData);
+    }
+    
 }

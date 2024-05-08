@@ -1,6 +1,181 @@
-{% form_theme form 'planing/_form_theme.html.twig' %}
+{# templates/form.html.twig #}
 
+{# Début du formulaire #}
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Valider mon planing') }}</button>
+
+<div id="step1">
+    <h2>Étape 1: Sélectionnez les dates</h2>
+
+    {# Première étape: Champs startDate et endDate #}
+    <div class="form-row">
+        {{ form_label(form.startDate, 'Date de début', {'label_attr': {'class': 'col-md-2'}}) }}
+        <div class="col-md-10">
+            {{ form_widget(form.startDate, {'attr': {'class': 'form-control'}, 'id': 'planning_startDate'}) }}
+            {{ form_errors(form.startDate) }}
+        </div>
+    </div>
+
+    <div class="form-row">
+        {{ form_label(form.endDate, 'Date de fin', {'label_attr': {'class': 'col-md-2'}}) }}
+        <div class="col-md-10">
+            {{ form_widget(form.endDate, {'attr': {'class': 'form-control'}, 'id': 'planning_endDate'}) }}
+            {{ form_errors(form.endDate) }}
+        </div>
+    </div>
+
+    <button type="button" id="nextStep1">Suivant</button>
+</div>
+
+<div id="step2" style="display: none;">
+    <h2 id="step2Title">Étape 2: Configuration du planning</h2>
+    <p id="intervalDisplay"></p>
+
+    {# Deuxième étape: Les autres champs du formulaire #}
+    <div id="dayWorksContainer">
+        {{ form_label(form.dayWorks) }}
+        <div id="dayWorksList" data-prototype="{{ form_widget(form.dayWorks.vars.prototype)|e('html_attr') }}"></div>
+        <button type="button" id="showMore" style="display: none;">Voir plus</button>
+        <button type="button" id="showLess" style="display: none;">Voir moins</button>
+    </div>
+
+    <button type="button" id="prevStep2">Précédent</button>
+    <button type="button" id="nextStep2">Suivant</button>
+</div>
+
+<div id="step3" style="display: none;">
+    <h2>Récapitulatif</h2>
+
+    <p>Date de début sélectionnée: <span id="startDateDisplay"></span></p>
+    <p>Date de fin sélectionnée: <span id="endDateDisplay"></span></p>
+
+    {# Troisième étape: Autres champs du formulaire, si nécessaire #}
+
+    <button type="button" id="prevStep3">Précédent</button>
+    <button type="submit">Créer</button>
+</div>
+
 {{ form_end(form) }}
+{# Fin du formulaire #}
+
+{# Inclure jQuery #}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+{# Script JavaScript pour gérer les étapes #}
+<script>
+    $(document).ready(function() {
+        // Obtenir la date actuelle au format ISO
+        var now = new Date().toISOString().split("T")[0];
+
+        // Préremplir le champ de date de début avec la date actuelle
+        $('#planning_startDate').val(now);
+
+        // Définir la date de fin comme un jour après la date de début lors du chargement de la page
+        var startDate = new Date($('#planning_startDate').val());
+        var endDate = new Date(startDate);
+        endDate.setDate(startDate.getDate() + 1);
+        $('#planning_endDate').val(endDate.toISOString().split("T")[0]);
+
+        // Gérer la navigation entre les étapes du formulaire
+        $('#nextStep1').click(function() {
+            var startDate = $('#planning_startDate').val();
+            var endDate = $('#planning_endDate').val();
+            if (startDate === '' || endDate === '') {
+                alert('Veuillez sélectionner les dates de début et de fin.');
+                return;
+            }
+            $('#step1').hide();
+            $('#step2').show();
+        });
+
+        $('#prevStep2').click(function() {
+            $('#step2').hide();
+            $('#step1').show();
+        });
+
+        $('#nextStep2').click(function() {
+            $('#step2').hide();
+            $('#step3').show();
+        });
+
+        $('#prevStep3').click(function() {
+            $('#step3').hide();
+            $('#step2').show();
+        });
+
+        // Afficher les dates sélectionnées au format "jour/mois/année"
+        $('#planning_startDate, #planning_endDate').change(function() {
+            var startDate = new Date($('#planning_startDate').val());
+            var endDate = new Date($('#planning_endDate').val());
+
+            // Vérifier si la date de fin est égale à la date de début
+            if (endDate <= startDate) {
+                // Si oui, définir la date de fin comme un jour après la date de début
+                endDate.setDate(startDate.getDate() + 1);
+                $('#planning_endDate').val(endDate.toISOString().split("T")[0]);
+                alert("La date de fin doit être ultérieure à la date de début. La date de fin a été ajustée.");
+            }
+
+            var startDateString = startDate.toLocaleDateString('fr-FR', { year: 'numeric', month: 'long', day: 'numeric' });
+            var endDateString = endDate.toLocaleDateString('fr-FR', { year: 'numeric', month: 'long', day: 'numeric' });
+            $('#startDateDisplay').text(startDateString);
+            $('#endDateDisplay').text(endDateString);
+
+            // Calculer le nombre de jours entre les deux dates
+            var daysDifference = Math.round((endDate - startDate) / (1000 * 60 * 60 * 24));
+
+            // Afficher l'intervalle choisi
+            $('#intervalDisplay').text('Vous avez choisi de créer un planning du ' + startDateString + ' au ' + endDateString);
+
+            // Pré-remplir les champs de date de la collection dayWorks avec les dates correspondantes
+            var dayWorksStartDate = new Date(startDate);
+            var dayWorksList = $('#dayWorksList');
+            dayWorksList.empty();
+            for (var i = 0; i < daysDifference; i++) {
+                var day = new Date(dayWorksStartDate);
+                day.setDate(day.getDate() + i);
+                var formattedDate = day.toLocaleDateString('fr-FR', { year: 'numeric', month: 'long', day: 'numeric' });
+                var dayWorkHTML = '<div><h2>' + formattedDate + '</h2>' + dayWorksList.attr('data-prototype').replace(/__name__/g, i) + '</div>';
+                dayWorksList.append(dayWorkHTML);
+                // Pré-remplir le champ de date de la collection dayWorks avec la date correspondante
+                var dateInput = $('#planning_dayWorks_' + i + '_date');
+                dateInput.val(day.toISOString().split("T")[0]);
+            }
+
+            // Afficher ou cacher le bouton "Voir plus" en fonction du nombre de jours
+            $('#showMore').toggle(daysDifference > 7);
+
+            // Afficher 7 éléments de dayWorks par défaut
+            $('#dayWorksList').children('div').slice(7).hide();
+
+            // Afficher ou cacher le bouton "Voir moins" en fonction du nombre de jours initial
+            $('#showLess').toggle(false);
+        });
+
+        // Empêcher la sélection de dates antérieures à la date actuelle
+        $('#planning_startDate, #planning_endDate').on('change', function() {
+            var selectedDate = new Date($(this).val());
+            var currentDate = new Date(now);
+
+            if (selectedDate < currentDate) {
+                $(this).val(now);
+            }
+        });
+
+        // Gérer l'affichage de plus ou moins de 7 éléments de dayWorks
+        $('#showMore').click(function() {
+            $('#dayWorksList').children('div:hidden').slice(0, 7).show();
+            $('#showLess').show();
+            if ($('#dayWorksList').children('div:hidden').length === 0) {
+                $(this).hide();
+            }
+        });
+
+        $('#showLess').click(function() {
+            $('#dayWorksList').children('div:visible').slice(-7).hide();
+            $('#showMore').show();
+            if ($('#dayWorksList').children('div:visible').length <= 7) {
+                $(this).hide();
+            }
+        });
+    });
+</script>

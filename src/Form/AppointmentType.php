@@ -2,13 +2,14 @@
 
 namespace App\Form;
 
-use App\Entity\Appointment;
-use App\Entity\Planing;
 use App\Entity\User;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use App\Entity\Planing;
+use App\Entity\Appointment;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class AppointmentType extends AbstractType
 {
@@ -19,7 +20,10 @@ class AppointmentType extends AbstractType
                 'widget' => 'single_text'
             ])
 
-            ->add('comment');
+            ->add('comment', TextType::class, [
+               "label" => false,
+               "required" => false, 
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}DayWork{% endblock %}
+
+{% block body %}
+    <h1>DayWork</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ day_work.id }}</td>
+            </tr>
+            <tr>
+                <th>StartHour</th>
+                <td>{{ day_work.startHour ? day_work.startHour|date('H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>EndHour</th>
+                <td>{{ day_work.endHour ? day_work.endHour|date('H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>SlotDuration</th>
+                <td>{{ day_work.slotDuration }}</td>
+            </tr>
+            <tr>
+                <th>Date</th>
+                <td>{{ day_work.date ? day_work.date|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_day_work_index') }}">back to list</a>
+
+    <a href="{{ path('app_day_work_edit', {'id': day_work.id}) }}">edit</a>
+
+    {{ include('day_work/_delete_form.html.twig') }}
+{% endblock %}

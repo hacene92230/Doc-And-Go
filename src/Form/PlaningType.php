@@ -3,13 +3,15 @@
 namespace App\Form;
 
 use App\Entity\Planing;
+use App\Form\DayWorkType;
+use Symfony\Component\Form\FormView;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\TimeType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
 class PlaningType extends AbstractType
@@ -28,43 +30,15 @@ class PlaningType extends AbstractType
             'attr' => ['placeholder' => 'Sélectionner une date de fin'],
             'widget' => 'single_text',
         ])
-        
-        ->add('startTime', TimeType::class, [
-            'label' => 'à quelle heure souhaitez-vous commencer votre journée',
-            'attr' => ['placeholder' => 'Choisir une heure de début'],
-            'hours' => array_combine(range(6, 22), range(6, 22)), // Mapping des heures aux libellés
-            'minutes' => [0, 15, 30, 45], // Définition des minutes disponibles
 
-            'widget' => 'choice',
-        ])
-        
-        ->add('endTime', TimeType::class, [
-            'label' => 'Quand souhaitez-vous terminer votre journée', // Libellé du champ
-            'hours' => array_combine(range(6, 22), range(6, 22)), // Mapping des heures aux libellés
-            'minutes' => [0, 15, 30, 45], // Définition des minutes disponibles
-            'widget' => 'choice', // Utilisation d'un widget de type choix
-            'with_seconds' => false, // Désactivation de l'affichage des secondes
-        ])
-        
-        ->add('weekendStatus', ChoiceType::class, [
-            'label' => 'Choisissez l\'ouverture le week-end.',
-            'placeholder' => 'Sélectionner...',
-            'choices' => [
-                'Ouvert le samedi et le dimanche' => '11',
-                'Ouvert le samedi, fermé le dimanche' => '1-',
-                'Fermé le samedi, ouvert le dimanche' => '-1',
-                'Fermé le samedi et le dimanche' => '--',
-            ],
-        ])
-        
-        ->add('exceptionaleClosure', CollectionType::class, [
-            'label' => 'Insérez ci-dessous les dates de fermetures exceptionnelles',
-            'entry_type' => TextType::class,
-            'allow_add' => true,
-            'allow_delete' => true,
-            'prototype' => true,
-            'attr' => ['placeholder' => 'Ajouter une fermeture exceptionnelle'],
-        ]);
+            ->add('dayWorks', CollectionType::class, [
+                'entry_type' => DayWorkType::class,
+                "label" => false,
+                'allow_add' => true,
+                'allow_delete' => true,
+                'by_reference' => false,
+                // Configurez ici les options supplémentaires si nécessaire
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
@@ -73,4 +47,4 @@ class PlaningType extends AbstractType
             'data_class' => Planing::class,
         ]);
     }
-    }
+}

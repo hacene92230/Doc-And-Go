@@ -32,24 +32,16 @@ class Planing
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $endDate = null;
 
-    #[ORM\Column(type: Types::TIME_MUTABLE)]
-    private ?\DateTimeInterface $startTime = null;
-
-    #[ORM\Column(type: Types::TIME_MUTABLE)]
-    private ?\DateTimeInterface $endTime = null;
-
-    #[ORM\Column]
-    private ?\DateTimeImmutable $createdAt = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $weekendStatus = null;
-
-    #[ORM\Column(type: Types::ARRAY)]
-    private array $exceptionaleClosure = [];
-
+    /**
+     * @var Collection<int, DayWork>
+     */
+    #[ORM\OneToMany(targetEntity: DayWork::class, mappedBy: 'planing', orphanRemoval: true, cascade: ['persist'])]
+    private Collection $dayWorks;
+    
     public function __construct()
     {
         $this->appointments = new ArrayCollection();
+        $this->dayWorks = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -123,62 +115,32 @@ class Planing
         return $this;
     }
 
-    public function getStartTime(): ?\DateTimeInterface
+    /**
+     * @return Collection<int, DayWork>
+     */
+    public function getDayWorks(): Collection
     {
-        return $this->startTime;
+        return $this->dayWorks;
     }
 
-    public function setStartTime(\DateTimeInterface $startTime): static
+    public function addDayWork(DayWork $dayWork): static
     {
-        $this->startTime = $startTime;
+        if (!$this->dayWorks->contains($dayWork)) {
+            $this->dayWorks->add($dayWork);
+            $dayWork->setPlaning($this);
+        }
 
         return $this;
     }
 
-    public function getEndTime(): ?\DateTimeInterface
+    public function removeDayWork(DayWork $dayWork): static
     {
-        return $this->endTime;
-    }
-
-    public function setEndTime(\DateTimeInterface $endTime): static
-    {
-        $this->endTime = $endTime;
-
-        return $this;
-    }
-
-    public function getCreatedAt(): ?\DateTimeImmutable
-    {
-        return $this->createdAt;
-    }
-
-    public function setCreatedAt(\DateTimeImmutable $createdAt): static
-    {
-        $this->createdAt = $createdAt;
-
-        return $this;
-    }
-
-    public function getWeekendStatus(): ?string
-    {
-        return $this->weekendStatus;
-    }
-
-    public function setWeekendStatus(string $weekendStatus): static
-    {
-        $this->weekendStatus = $weekendStatus;
-
-        return $this;
-    }
-
-    public function getExceptionaleClosure(): array
-    {
-        return $this->exceptionaleClosure;
-    }
-
-    public function setExceptionaleClosure(array $exceptionaleClosure): static
-    {
-        $this->exceptionaleClosure = $exceptionaleClosure;
+        if ($this->dayWorks->removeElement($dayWork)) {
+            // set the owning side to null (unless already changed)
+            if ($dayWork->getPlaning() === $this) {
+                $dayWork->setPlaning(null);
+            }
+        }
 
         return $this;
     }

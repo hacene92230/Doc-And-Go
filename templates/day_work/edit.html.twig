@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier le jour du {{ day_work.date|date('d/m/Y') }} }} {{ parent() }} {% endblock %}
+
+{% block body %}
+    <h1>Modification du {{ day_work.date|date('d/m/Y') }}</h1>
+
+    {{ include('day_work/_form.html.twig', {'button_label': 'Mise à jour'}) }}
+{% endblock %}

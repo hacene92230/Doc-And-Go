@@ -9,9 +9,10 @@
             <div class="dropdown-item">
             {{ include('user/_delete_form.html.twig') }}
             </div>
-            <a class="dropdown-item" href="{{ path("app_logout") }}">Déconnexion</a>
-        </div>
-        <a class="nav-link dropdown-toggle" href="{{ path("app_planing_new") }}">Créer un planing</a>
-    <a class="nav-link dropdown-toggle" href="{{ path("app_planing_index") }}">Mes planings</a>    
+            <a class="dropdown-item" href="{{ path("app_logout") }}">Déconnexion</a>       </div>     
 </li>
 </ul>
+{% if is_granted('ROLE_DOCTOR') %}
+<a class="nav-link dropdown-toggle" href="{{ path("app_planing_new") }}">Créer un planing</a>
+<a class="nav-link dropdown-toggle" href="{{ path("app_planing_index") }}">Mes planings</a>    
+{% endif %}

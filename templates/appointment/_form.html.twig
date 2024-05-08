@@ -5,7 +5,7 @@
 <div id="step1">
     {% for planning in doctor.planings %}
         <div class="interval-container" data-start-date="{{ planning.startDate|date('Y-m-d') }}" data-end-date="{{ planning.endDate|date('Y-m-d') }}">
-            <h3>{{ planning.startDate|date('d/m/Y') }} - {{ planning.endDate|date('d/m/Y') }}</h3>
+            <h3>Du {{ planning.startDate|date('d/m/Y') }} au {{ planning.endDate|date('d/m/Y') }}</h3>
             <!-- Bouton pour afficher/masquer les dates -->
             <button class="btn btn-sm btn-primary afficher">Afficher</button>
             <div class="dates-container" style="display: none;">
@@ -27,7 +27,9 @@
     <button type="button" class="btn btn-primary" id="nextStep1">Suivant</button>
 </div>
 <div id="step2" style="display: none;">
-    {{ form_row(form.comment, { 'attr': {'class': 'form-control'} }) }}
+    {{ form_label(form.comment, 'Commentaire') }}
+    {{ form_row(form.comment, { 'attr': {'class': 'form-control', 'placeholder': 'Entrez votre commentaire ici'} }) }}
+
     <button type="button" class="btn btn-primary" id="prevStep2">Précédent</button>
     <button type="button" class="btn btn-primary" id="nextStep2">Suivant</button>
 </div>
@@ -140,6 +142,7 @@
                 recapDateTime.textContent = formatDate(selectedDate);
             });
         });
+    
     });
 </script>
 {% endblock %}
