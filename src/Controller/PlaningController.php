@@ -23,7 +23,7 @@ class PlaningController extends AbstractController
     }
 
     #[Route('/new', name: 'app_planing_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(PlaningRepository $planingRepository, Request $request, EntityManagerInterface $entityManager): Response
     {
         $planing = new Planing();
         $form = $this->createForm(PlaningType::class, $planing);
@@ -31,10 +31,37 @@ class PlaningController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $planing->setDoctor($this->getUser());
+$doctorPlanings = $planingRepository->findBy(["doctor" => $this->getUser()]);
+$startDate = $form->get('startDate')->getData();
+$endDate = $form->get('endDate')->getData();
+$formData = $request->request->get('form');
+
+// Examiner les jours de travail avec des dates vides
+$workdaysWithEmptyDates = [];
+foreach ($formData['dayWorks'] as $index => $dayWork) {
+    if (empty($dayWork['date'])) {
+        // Si la date est vide, enregistrer l'index du jour de travail
+        $workdaysWithEmptyDates[] = $index;
+    }
+}
+var_dump($workdaysWithEmptyDates); die();
+foreach ($doctorPlanings as $existingPlaning) {
+    // Récupérer les dates de début et de fin de chaque planning existant
+    $existingStartDate = $existingPlaning->getStartDate();
+    $existingEndDate = $existingPlaning->getEndDate();
+
+    // Vérifier s'il y a un chevauchement entre les dates
+    if (($startDate >= $existingStartDate && $startDate <= $existingEndDate) ||
+        ($endDate >= $existingStartDate && $endDate <= $existingEndDate) ||
+        ($startDate <= $existingStartDate && $endDate >= $existingEndDate)) {
+        $this->addFlash('danger', 'Erreur, il existe déjà un planing dans l\'intervall choisis.');
+        return $this->redirectToRoute('app_planing_new');
+    }
+}
 
             $entityManager->persist($planing);
             $entityManager->flush();
-
+            $this->addFlash('success', 'Création de votre planing avec succès.');
             return $this->redirectToRoute('app_planing_index', [], Response::HTTP_SEE_OTHER);
         }
 

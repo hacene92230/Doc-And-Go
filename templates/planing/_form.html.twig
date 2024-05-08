@@ -10,7 +10,7 @@
     <div class="form-row">
         {{ form_label(form.startDate, 'Date de début', {'label_attr': {'class': 'col-md-2'}}) }}
         <div class="col-md-10">
-            {{ form_widget(form.startDate, {'attr': {'class': 'form-control'}, 'id': 'planning_startDate'}) }}
+            {{ form_widget(form.startDate, {'attr': {'class': 'form-control'}, 'id': 'planing_startDate'}) }}
             {{ form_errors(form.startDate) }}
         </div>
     </div>
@@ -18,7 +18,7 @@
     <div class="form-row">
         {{ form_label(form.endDate, 'Date de fin', {'label_attr': {'class': 'col-md-2'}}) }}
         <div class="col-md-10">
-            {{ form_widget(form.endDate, {'attr': {'class': 'form-control'}, 'id': 'planning_endDate'}) }}
+            {{ form_widget(form.endDate, {'attr': {'class': 'form-control'}, 'id': 'planing_endDate'}) }}
             {{ form_errors(form.endDate) }}
         </div>
     </div>
@@ -67,19 +67,19 @@
         var now = new Date().toISOString().split("T")[0];
 
         // Préremplir le champ de date de début avec la date actuelle
-        $('#planning_startDate').val(now);
+        $('#planing_startDate').val(now);
 
         // Définir la date de fin comme un jour après la date de début lors du chargement de la page
-        var startDate = new Date($('#planning_startDate').val());
+        var startDate = new Date($('#planing_startDate').val());
         var endDate = new Date(startDate);
         endDate.setDate(startDate.getDate() + 1);
-        $('#planning_endDate').val(endDate.toISOString().split("T")[0]);
+        $('#planing_endDate').val(endDate.toISOString().split("T")[0]);
 
         // Gérer la navigation entre les étapes du formulaire
         $('#nextStep1').click(function() {
-            var startDate = $('#planning_startDate').val();
-            var endDate = $('#planning_endDate').val();
-            if (startDate === '' || endDate === '') {
+            var startDateString = $('#startDateDisplay').text().trim();
+            var endDateString = $('#endDateDisplay').text().trim();
+            if (!startDateString || !endDateString) {
                 alert('Veuillez sélectionner les dates de début et de fin.');
                 return;
             }
@@ -103,15 +103,24 @@
         });
 
         // Afficher les dates sélectionnées au format "jour/mois/année"
-        $('#planning_startDate, #planning_endDate').change(function() {
-            var startDate = new Date($('#planning_startDate').val());
-            var endDate = new Date($('#planning_endDate').val());
+        $('#planing_startDate, #planing_endDate').change(function() {
+            var startDate = new Date($('#planing_startDate').val());
+            var endDate = new Date($('#planing_endDate').val());
 
+            
+    // Vérifier si les dates sont valides
+    if (isNaN(startDate.getTime()) || isNaN(endDate.getTime())) {
+        // Si une date est invalide, afficher un message d'erreur et réinitialiser les champs
+        alert('Veuillez sélectionner des dates valides.');
+        $(this).val(now); // Réinitialiser le champ avec la date actuelle
+        return;
+    }
+    
             // Vérifier si la date de fin est égale à la date de début
             if (endDate <= startDate) {
                 // Si oui, définir la date de fin comme un jour après la date de début
                 endDate.setDate(startDate.getDate() + 1);
-                $('#planning_endDate').val(endDate.toISOString().split("T")[0]);
+                $('#planing_endDate').val(endDate.toISOString().split("T")[0]);
                 alert("La date de fin doit être ultérieure à la date de début. La date de fin a été ajustée.");
             }
 
@@ -137,7 +146,7 @@
                 var dayWorkHTML = '<div><h2>' + formattedDate + '</h2>' + dayWorksList.attr('data-prototype').replace(/__name__/g, i) + '</div>';
                 dayWorksList.append(dayWorkHTML);
                 // Pré-remplir le champ de date de la collection dayWorks avec la date correspondante
-                var dateInput = $('#planning_dayWorks_' + i + '_date');
+                var dateInput = $('#planing_dayWorks_' + i + '_date');
                 dateInput.val(day.toISOString().split("T")[0]);
             }
 
@@ -152,7 +161,7 @@
         });
 
         // Empêcher la sélection de dates antérieures à la date actuelle
-        $('#planning_startDate, #planning_endDate').on('change', function() {
+        $('#planing_startDate, #planing_endDate').on('change', function() {
             var selectedDate = new Date($(this).val());
             var currentDate = new Date(now);
 
