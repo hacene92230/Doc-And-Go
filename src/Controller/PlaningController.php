@@ -34,17 +34,7 @@ class PlaningController extends AbstractController
 $doctorPlanings = $planingRepository->findBy(["doctor" => $this->getUser()]);
 $startDate = $form->get('startDate')->getData();
 $endDate = $form->get('endDate')->getData();
-$formData = $request->request->get('form');
 
-// Examiner les jours de travail avec des dates vides
-$workdaysWithEmptyDates = [];
-foreach ($formData['dayWorks'] as $index => $dayWork) {
-    if (empty($dayWork['date'])) {
-        // Si la date est vide, enregistrer l'index du jour de travail
-        $workdaysWithEmptyDates[] = $index;
-    }
-}
-var_dump($workdaysWithEmptyDates); die();
 foreach ($doctorPlanings as $existingPlaning) {
     // Récupérer les dates de début et de fin de chaque planning existant
     $existingStartDate = $existingPlaning->getStartDate();

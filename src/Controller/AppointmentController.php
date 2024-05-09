@@ -22,7 +22,7 @@ class AppointmentController extends AbstractController
     public function index(AppointmentRepository $appointmentRepository): Response
     {
         return $this->render('appointment/index.html.twig', [
-            'appointments' => $appointmentRepository->findAll(),
+            'appointments' => $appointmentRepository->findBy(["user" => $this->getUser()]),
         ]);
     }
 
@@ -32,18 +32,16 @@ class AppointmentController extends AbstractController
         $appointment = new Appointment();
         $form = $this->createForm(AppointmentType::class, $appointment);
         $form->handleRequest($request);
-        foreach($doctor->getPlanings() as $valeur) {
-$valeur->getEndDate();
-                     
-}
-                
-        if ($form->isSubmitted() && $form->isValid()) {
 
+        if ($form->isSubmitted() && $form->isValid()) {
+                    
+        
             $entityManager->persist($appointment);
             $entityManager->flush();
-        }
+        }        
         return $this->render('appointment/new.html.twig', [
             'form' => $form,
+"planings" => $doctor->getPlanings(),
         ]);
     }
     
