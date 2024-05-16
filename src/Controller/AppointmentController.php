@@ -13,6 +13,7 @@ use App\Repository\AppointmentRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 #[Route('/appointment')]
@@ -31,20 +32,28 @@ class AppointmentController extends AbstractController
     {
         $appointment = new Appointment();
         $form = $this->createForm(AppointmentType::class, $appointment);
+
+        $form = $this->createForm(AppointmentType::class, $appointment);
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-                    
-        
+$appointment->setStatus("confirmer");
+var_dump($form->get('time')->getData());
+
+
             $entityManager->persist($appointment);
             $entityManager->flush();
-        }        
+
+            return $this->redirectToRoute('app_home');
+        }
+
         return $this->render('appointment/new.html.twig', [
-            'form' => $form,
-"planings" => $doctor->getPlanings(),
+            'form' => $form->createView(),
+            'planings' => $doctor->getPlanings(),
         ]);
     }
-    
+
     #[Route('/{id}', name: 'app_appointment_show', methods: ['GET'])]
     public function show(Appointment $appointment): Response
     {

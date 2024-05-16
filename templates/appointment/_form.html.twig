@@ -1,6 +1,31 @@
-{% for planing in planings%}
-{% for slot in planing.dayworks %}
-<h2>{{ slot.date|date('d/m/Y') }}</h2>
+{{ form_start(form) }}
 
-{% endfor %}
-{% endfor %}
+<div>
+    <h2>Choisissez un créneau horaire :</h2>
+    {% for planing in planings %}
+        {% for slot in planing.dayWorks %}
+            <h3>{{ slot.date|date("d/m/Y") }}</h3>
+            {% set startTime = slot.startHour %}
+            {% set endTime = slot.endHour %}
+            {% set duration = slot.slotDuration %} {# Durée du créneau en minutes #}
+
+            {% for i in 0..((endTime|date("U") - startTime|date("U")) / 60 / duration - 1) %}
+                {% set currentSlot = startTime|date("H:i") %}
+                <p>
+                    <label>
+                        <input type="radio" name="form[time]" value="{{ currentSlot }}">
+                        {{ currentSlot }}
+                    </label>
+                </p>
+                {% set startTime = startTime|date_modify('+' ~ duration ~ 'minutes') %}
+            {% endfor %}
+        {% endfor %}
+    {% endfor %}
+</div>
+<div>
+    <h2>Commentaire :</h2>
+    {{ form_row(form.comment) }}
+</div>
+<button class="btn">{{ button_label|default('Réserver') }}</button>
+
+{{ form_end(form) }}

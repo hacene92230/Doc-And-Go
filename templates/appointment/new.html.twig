@@ -5,6 +5,5 @@
 {% block body %}
 
 <h1>Prendre un rendez-vous avec {{ planings[0].doctor.firstName }}</h1>
-<p>Dans un premier temps veuillez choisir l'intervall de date dans lequel vous souhaitez prendre un  rendez-vous.</p>
     {{ include('appointment/_form.html.twig') }}
 {% endblock %}

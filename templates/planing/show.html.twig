@@ -8,7 +8,7 @@
     <div>
         <h2>{{ planing.startDate ? planing.startDate|date('Y-m-d') : '' }} - {{ planing.endDate ? planing.endDate|date('Y-m-d') : '' }}</h2>
         <p>Nombre de jours de travail: {{ planing.startDate ? planing.startDate.diff(planing.endDate).days }}</p>
-        
+
         <h2>Jours de travail:</h3>
         {% for dayWork in planing.dayWorks %}
             <div>
@@ -20,4 +20,39 @@
             </div>
         {% endfor %}
     </div>
+
+    <h2>Calendrier:</h2>
+    <div id="calendar"></div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/5.10.1/core/main.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/5.10.1/daygrid/main.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/5.10.1/core/main.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/5.10.1/daygrid/main.min.css" rel="stylesheet" />
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var calendarEl = document.getElementById('calendar');
+
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                plugins: [ 'dayGrid' ],
+                events: [
+                    // Liste des événements à afficher sur le calendrier
+                    {% for dayWork in planing.dayWorks %}
+                        {
+                            title: 'Travail', // Titre de l'événement
+                            start: '{{ dayWork.date ? dayWork.date|date('Y-m-d') : '' }}', // Date de début
+                            url: '{{ path('app_day_work_edit', {'id': dayWork.id}) }}' // URL pour modifier l'événement
+                        },
+                    {% endfor %}
+                ],
+                eventClick: function(info) {
+                    if (info.event.url) {
+                        window.location.href = info.event.url;
+                    }
+                }
+            });
+
+            calendar.render();
+        });
+    </script>
 {% endblock %}

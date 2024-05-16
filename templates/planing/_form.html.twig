@@ -107,15 +107,6 @@
             var startDate = new Date($('#planing_startDate').val());
             var endDate = new Date($('#planing_endDate').val());
 
-            
-    // Vérifier si les dates sont valides
-    if (isNaN(startDate.getTime()) || isNaN(endDate.getTime())) {
-        // Si une date est invalide, afficher un message d'erreur et réinitialiser les champs
-        alert('Veuillez sélectionner des dates valides.');
-        $(this).val(now); // Réinitialiser le champ avec la date actuelle
-        return;
-    }
-    
             // Vérifier si la date de fin est égale à la date de début
             if (endDate <= startDate) {
                 // Si oui, définir la date de fin comme un jour après la date de début
@@ -148,7 +139,6 @@
                 // Pré-remplir le champ de date de la collection dayWorks avec la date correspondante
                 var dateInput = $('#planing_dayWorks_' + i + '_date');
                 dateInput.val(day.toISOString().split("T")[0]);
-                dayWorksStartDate.setDate(dayWorksStartDate.getDate() + 1);
             }
 
             // Afficher ou cacher le bouton "Voir plus" en fonction du nombre de jours
