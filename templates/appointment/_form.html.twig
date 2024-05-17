@@ -1,3 +1,5 @@
+{# templates/appointment/new.html.twig #}
+
 {{ form_start(form) }}
 
 <div>
@@ -7,13 +9,14 @@
             <h3>{{ slot.date|date("d/m/Y") }}</h3>
             {% set startTime = slot.startHour %}
             {% set endTime = slot.endHour %}
-            {% set duration = slot.slotDuration %} {# Durée du créneau en minutes #}
+            {% set duration = slot.slotDuration %}
 
             {% for i in 0..((endTime|date("U") - startTime|date("U")) / 60 / duration - 1) %}
                 {% set currentSlot = startTime|date("H:i") %}
+                {% set formattedSlot = slot.date|date('Y-m-d') ~ ' ' ~ currentSlot %}
                 <p>
                     <label>
-                        <input type="radio" name="form[time]" value="{{ currentSlot }}">
+                        <input type="radio" name="form[dateTime]" value="{{ formattedSlot }}" onclick="updateHiddenField('{{ formattedSlot }}')">
                         {{ currentSlot }}
                     </label>
                 </p>
@@ -22,10 +25,20 @@
         {% endfor %}
     {% endfor %}
 </div>
+
 <div>
     <h2>Commentaire :</h2>
     {{ form_row(form.comment) }}
+</div><div style="display: none;">
+    {{ form_widget(form.dateTime, {'attr': {'class': 'hidden-dateTime-field'}}) }}
 </div>
+
 <button class="btn">{{ button_label|default('Réserver') }}</button>
 
 {{ form_end(form) }}
+
+<script>
+    function updateHiddenField(value) {
+        document.querySelector('.hidden-dateTime-field').value = value;
+    }
+</script>

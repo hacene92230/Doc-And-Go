@@ -29,8 +29,8 @@ class Appointment
     #[ORM\JoinColumn(nullable: false)]
     private ?Planing $planing = null;
 
-    #[ORM\Column(type: Types::TIME_MUTABLE)]
-    private ?\DateTimeInterface $time = null;
+    #[ORM\Column]
+    private ?\DateTimeImmutable $DateTime = null;
 
     public function getId(): ?int
     {
@@ -85,15 +85,16 @@ class Appointment
         return $this;
     }
 
-    public function getTime(): ?\DateTimeInterface
+    public function getDateTime(): ?\DateTimeImmutable
     {
-        return $this->time;
+        return $this->DateTime;
     }
 
-    public function setTime(\DateTimeInterface $time): static
+    public function setDateTime(\DateTimeImmutable $DateTime): static
     {
-        $this->time = $time;
+        $this->DateTime = $DateTime;
 
         return $this;
     }
+
 }
