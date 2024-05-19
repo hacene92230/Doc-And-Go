@@ -6,52 +6,32 @@
     <div class="container mt-5">
         <h1 class="mb-4">Appointment Calendar</h1>
 
-        <div id="calendar"></div>
+        <div id="appointments" class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Heure</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="appointment-list">
+                    {% for appointment in appointments %}
+                        <tr>
+                            <td>{{ appointment.dateTime|date("d/m/Y") }}</td>
+                            <td>{{ appointment.dateTime|date("h:m") }}</td>
+                            <td>{{ appointment.status }}</td>
+                            <td>
+                                <a href="{{ path('app_appointment_edit', {'id': appointment.id}) }}" class="btn btn-primary mr-2">Modifier</a>
+                                <div>
+                                    {{ include('appointment/_delete_form.html.twig', {'appointment': appointment}) }}
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
     </div>
-
-    {% block javascripts %}
-        {{ parent() }}
-        <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                var calendarEl = document.getElementById('calendar');
-
-                var calendar = new FullCalendar.Calendar(calendarEl, {
-                    initialView: 'dayGridMonth',
-                    themeSystem: 'bootstrap',
-                    headerToolbar: {
-                        left: 'prev,next today',
-                        center: 'title',
-                        right: 'dayGridMonth,timeGridWeek,timeGridDay'
-                    },
-                    events: [
-                        {% for appointment in appointments %}
-                            {
-                                title: '{{ appointment.status }}',
-                                start: '{{ appointment.dateTime|date('Y-m-d') }}',
-                                url: '{{ path('app_appointment_show', {'id': appointment.id}) }}'
-                            },
-                        {% endfor %}
-                    ],
-                    eventClick: function(info) {
-                        info.jsEvent.preventDefault();
-                        window.location = info.event.url;
-                    },
-                    locale: 'fr', // Définir la langue du calendrier
-                    timeZone: 'UTC', // Définir le fuseau horaire
-                    buttonText: { // Libellés des boutons
-                        today: 'Aujourd\'hui',
-                        month: 'Mois',
-                        week: 'Semaine',
-                        day: 'Jour'
-                    },
-                    dayMaxEventRows: true, // Affichage d'un lien "plus" pour les événements dépassant une certaine limite par jour
-                    eventLimit: true, // Lien "plus" pour les événements dépassant la hauteur de la journée
-                    editable: false, // Désactiver la modification des événements dans le calendrier
-                    eventTextColor: '#ffffff' // Couleur du texte des événements
-                });
-
-                calendar.render();
-            });
-        </script>
-    {% endblock %}
 {% endblock %}

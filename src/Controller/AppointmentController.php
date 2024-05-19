@@ -116,48 +116,4 @@ public function new(User $doctor, Request $request, EntityManagerInterface $enti
 
         return $this->redirectToRoute('app_appointment_index', [], Response::HTTP_SEE_OTHER);
     }
-
-    #[Route('/creneaux/{doctor}', name: 'app_available_slots', methods: ['GET'])]
-    public function availableSlots(User $doctor, EntityManagerInterface $entityManager, AppointmentRepository $appointment): Response
-    {
-        $planningData = [];
-    
-        foreach ($doctor->getPlanings() as $planning) {
-            $availableSlots = [];
-            $startDate = $planning->getStartDate()->format('Y-m-d');
-            $endDate = $planning->getEndDate()->format('Y-m-d');
-            $startTime = $planning->getStartTime()->format('H:i');
-            $endTime = $planning->getEndTime()->format('H:i');
-    
-            $currentDate = clone $planning->getStartDate();
-            $endDate = clone $planning->getEndDate();
-    
-            while ($currentDate <= $endDate) {
-                $slotStartDate = $currentDate->format('Y-m-d');
-                $slotStartTime = max($currentDate, $planning->getStartTime());
-                $slotEndTime = min((clone $slotStartTime)->setTime($planning->getEndTime()->format('H'), $planning->getEndTime()->format('i')), $endDate);
-    
-                while ($slotStartTime < $slotEndTime) {
-                    $availableSlots[] = [
-                        'startDate' => $slotStartDate,
-                        'startTime' => $slotStartTime->format('H:i'),
-                        'endTime' => $slotStartTime->add(new DateInterval('PT30M'))->format('H:i'),
-                    ];
-                }
-    
-                $currentDate->modify('+1 day');
-            }
-    
-            $planningData[] = [
-                'startDate' => $startDate,
-                'endDate' => $endDate,
-                'startTime' => $startTime,
-                'endTime' => $endTime,
-                'slots' => $availableSlots,
-            ];
-        }
-    
-        return $this->json($planningData);
-    }
-    
 }
