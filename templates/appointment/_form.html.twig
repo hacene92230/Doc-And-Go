@@ -1,11 +1,23 @@
 {# templates/appointment/new.html.twig #}
 
-{{ form_start(form) }}
+{{ form_start(form, { 'attr': {'id': 'appointment-form'} }) }}
 
-<div>
+<div class="container mt-4">
     <h2>Choisissez un créneau horaire :</h2>
+    {% set groupSize = 5 %}
+    {% set currentGroup = 0 %}
+    {% set slotCount = 0 %}
+
     {% for planing in planings %}
         {% for slot in planing.dayWorks %}
+            {% if slotCount % groupSize == 0 %}
+                {% if slotCount > 0 %}
+                    </div> {# Fermeture du groupe précédent #}
+                {% endif %}
+                {% set currentGroup = currentGroup + 1 %}
+                <div id="group-{{ currentGroup }}" class="slot-group" style="{% if currentGroup != 1 %}display: none;{% endif %}">
+            {% endif %}
+
             <h3>{{ slot.date|date("d/m/Y") }}</h3>
             {% set startTime = slot.startHour %}
             {% set endTime = slot.endHour %}
@@ -14,31 +26,139 @@
             {% for i in 0..((endTime|date("U") - startTime|date("U")) / 60 / duration - 1) %}
                 {% set currentSlot = startTime|date("H:i") %}
                 {% set formattedSlot = slot.date|date('Y-m-d') ~ ' ' ~ currentSlot %}
-                <p>
-                    <label>
-                        <input type="radio" name="form[dateTime]" value="{{ formattedSlot }}" onclick="updateHiddenField('{{ formattedSlot }}')">
-                        {{ currentSlot }}
-                    </label>
-                </p>
+
+                {# Vérifier si le créneau est déjà réservé #}
+                {% if formattedSlot not in reservedSlots %}
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="appointment[dateTime]" value="{{ formattedSlot }}" id="slot-{{ loop.index }}">
+                        <label class="form-check-label" for="slot-{{ loop.index }}">
+                            <span>{{ currentSlot }}</span> {# Afficher l'heure #}
+                        </label>
+                    </div>
+                {% endif %}
                 {% set startTime = startTime|date_modify('+' ~ duration ~ 'minutes') %}
             {% endfor %}
+
+            {% set slotCount = slotCount + 1 %}
         {% endfor %}
     {% endfor %}
+    </div> {# Fermeture du dernier groupe #}
 </div>
 
-<div>
+<div class="btn-group mt-4">
+    <button id="prev-button" class="btn btn-secondary" type="button" onclick="showPreviousGroup()">Afficher les créneaux précédents</button>
+    <button id="next-button" class="btn btn-secondary" type="button" onclick="showNextGroup()">Afficher les créneaux suivants</button>
+</div>
+
+<div class="mt-4">
     <h2>Commentaire :</h2>
-    {{ form_row(form.comment) }}
-</div><div style="display: none;">
-    {{ form_widget(form.dateTime, {'attr': {'class': 'hidden-dateTime-field'}}) }}
+    {{ form_row(form.comment, {'attr': {'class': 'form-control'}}) }}
 </div>
 
-<button class="btn">{{ button_label|default('Réserver') }}</button>
+<div style="display: none;">
+    {# Champ DateTime avec ID unique pour JavaScript #}
+    {{ form_row(form.dateTime, {'attr': {'id': 'appointment_dateTime'}}) }}
+</div>
+<button type="button" class="btn btn-primary mt-4" id="reservationButton">Réserver</button>
 
 {{ form_end(form) }}
 
+<!-- Confirmation Dialog -->
+<div class="modal fade" id="confirmationDialog" tabindex="-1" aria-labelledby="confirmationDialogLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="confirmationDialogLabel">Confirmation de réservation</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p><strong>Créneau horaire :</strong> <span id="confirm-slot"></span></p>
+                <p><strong>Commentaire :</strong> <span id="confirm-comment"></span></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                <button id="confirmButton" type="button" class="btn btn-primary">Confirmer</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+
 <script>
-    function updateHiddenField(value) {
-        document.querySelector('.hidden-dateTime-field').value = value;
+    $(document).ready(function() {
+        // Event listener for reservation button
+        $('#reservationButton').click(function() {
+            const selectedSlot = $('input[name="appointment[dateTime]"]:checked').val();
+            const comment = $('#appointment_comment').val() || 'Aucun commentaire saisi';
+
+            if (!selectedSlot) {
+                alert('Veuillez sélectionner un créneau horaire.');
+                return;
+            }
+
+            // Remplir le champ datetime avec le créneau choisi
+            $('#appointment_dateTime').val(selectedSlot);
+
+            // Formatage de la date pour l'affichage dans le récapitulatif
+            const formattedDate = moment(selectedSlot).format('DD/MM/YYYY à HH:mm');
+
+            $('#confirm-slot').text(formattedDate);
+            $('#confirm-comment').text(comment);
+            $('#confirmationDialog').modal('show');
+        });
+
+        // Event listener for confirmation button
+        $('#confirmButton').click(function() {
+            $('#confirmationDialog').modal('hide');
+            $('#appointment-form').submit();
+        });
+        
+        // Masquer le bouton précédent au chargement de la page si au début des 5 premiers jours
+        if ($('#group-1').is(':visible')) {
+            $('#prev-button').hide();
+        }
+
+        // Mettre à jour le champ DateTime lorsque l'utilisateur sélectionne un créneau
+        $('input[name="appointment[dateTime]"]').change(function() {
+            const selectedSlot = $(this).val();
+            $('#appointment_dateTime').val(selectedSlot);
+        });
+    });
+
+    function showPreviousGroup() {
+        var currentGroup = $('.slot-group:visible').first();
+        var prevGroup = currentGroup.prev('.slot-group');
+
+        currentGroup.hide();
+        prevGroup.show();
+
+        // Cacher le bouton précédent s'il est au début des 5 premiers jours
+        if (prevGroup.attr('id') == 'group-1') {
+            $('#prev-button').hide();
+        }
+
+        // Afficher le bouton suivant
+        $('#next-button').show();
+    }
+
+    function showNextGroup() {
+        var currentGroup = $('.slot-group:visible').first();
+        var nextGroup = currentGroup.next('.slot-group');
+
+        currentGroup.hide();
+        nextGroup.show();
+
+        // Afficher le bouton précédent
+        $('#prev-button').show();
+
+        // Cacher le bouton suivant s'il est à la fin des 5 premiers jours
+        if (nextGroup.next('.slot-group').length == 0) {
+            $('#next-button').hide();
+        }
     }
 </script>

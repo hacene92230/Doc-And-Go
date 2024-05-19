@@ -27,49 +27,60 @@ class AppointmentController extends AbstractController
         ]);
     }
 
-    #[Route('/new/{doctor}', name: 'app_appointment_new', methods: ['GET', 'POST'])]
-    public function new(User $doctor, Request $request, EntityManagerInterface $entityManager): Response
-    {
-        $appointment = new Appointment();
-        $form = $this->createForm(AppointmentType::class, $appointment);
+// src/Controller/AppointmentController.php
+
+#[Route('/new/{doctor}', name: 'app_appointment_new', methods: ['GET', 'POST'])]
+public function new(User $doctor, Request $request, EntityManagerInterface $entityManager): Response
+{
+    $appointment = new Appointment();
+    $form = $this->createForm(AppointmentType::class, $appointment);
     
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            $appointment->setStatus("confirmer");
-            $dateSelected = $form->getData()->getDateTime();
-            $dateOnly = $dateSelected->format('Y-m-d');
-            
-            $dayWorkFound = null;
-            foreach ($doctor->getPlanings() as $planing) {
-                foreach ($planing->getDayWorks() as $dayWork) {
-                    if ($dayWork->getDate()->format('Y-m-d') === $dateOnly) {
-                        $dayWorkFound = $dayWork;
-                        $appointment->setPlaning($dayWork->getPlaning());
-                        $appointment->setUser($this->getUser());
-                        break 2; // Sortir des deux boucles
-                    }
+    $form->handleRequest($request);
+    if ($form->isSubmitted() && $form->isValid()) {
+        $appointment->setStatus("confirmer");
+        $dateSelected = $form->getData()->getDateTime();
+        $dateOnly = $dateSelected->format('Y-m-d');
+        
+        $dayWorkFound = null;
+        foreach ($doctor->getPlanings() as $planing) {
+            foreach ($planing->getDayWorks() as $dayWork) {
+                if ($dayWork->getDate()->format('Y-m-d') === $dateOnly) {
+                    $dayWorkFound = $dayWork;
+                    $appointment->setPlaning($dayWork->getPlaning());
+                    $appointment->setUser($this->getUser());
+                    break 2; // Sortir des deux boucles
                 }
             }
-    
-            if ($dayWorkFound !== null) {
-                // Si un DayWork correspondant est trouvé, continuez
-                $entityManager->persist($appointment);
-                $entityManager->flush();
-    
-                return $this->redirectToRoute('app_home');
-            } else {
-                // Si aucun DayWork correspondant n'est trouvé, vous pouvez gérer ce cas
-                $this->addFlash('error', 'Aucun créneau disponible pour cette date.');
-            }
         }
-    
-        return $this->render('appointment/new.html.twig', [
-            'form' => $form->createView(),
-            'planings' => $doctor->getPlanings(),
-        ]);
+
+        if ($dayWorkFound !== null) {
+            // Si un DayWork correspondant est trouvé, continuez
+            $entityManager->persist($appointment);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_home');
+        } else {
+            // Si aucun DayWork correspondant n'est trouvé, vous pouvez gérer ce cas
+            $this->addFlash('error', 'Aucun créneau disponible pour cette date.');
+        }
     }
-    
-    #[Route('/{id}', name: 'app_appointment_show', methods: ['GET'])]
+
+    // Récupérer les créneaux déjà réservés pour chaque planing
+    $reservedSlots = [];
+    foreach ($doctor->getPlanings() as $planing) {
+        foreach ($planing->getAppointments() as $existingAppointment) {
+            $reservedSlots[] = $existingAppointment->getDateTime()->format('Y-m-d H:i');
+        }
+    }
+
+    return $this->render('appointment/new.html.twig', [
+        'form' => $form->createView(),
+        'planings' => $doctor->getPlanings(),
+        'reservedSlots' => $reservedSlots,
+    ]);
+}
+
+        #[Route('/{id}', name: 'app_appointment_show', methods: ['GET'])]
     public function show(Appointment $appointment): Response
     {
         return $this->render('appointment/show.html.twig', [
