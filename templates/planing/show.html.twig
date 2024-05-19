@@ -10,49 +10,15 @@
         <p>Nombre de jours de travail: {{ planing.startDate ? planing.startDate.diff(planing.endDate).days }}</p>
 
         <h2>Jours de travail:</h3>
-        {% for dayWork in planing.dayWorks %}
+        {% for day_work in planing.dayWorks %}
             <div>
-                <h3>Date: {{ dayWork.date ? dayWork.date|date('d/m/Y') : '' }}</h3>
-                <p>Heure de début: {{ dayWork.startHour ? dayWork.startHour|date('H:i') : '' }}</p>
-                <p>Heure de fin: {{ dayWork.endHour ? dayWork.endHour|date('H:i') : '' }}</p>
-                <p>Durée des créneaux (en minutes): {{ dayWork.slotDuration }}</p>
-                <a href="{{ path('app_day_work_edit', {'id': dayWork.id}) }}" class="btn btn-warning mr-2">Modifier Ce jour.</a>
+                <h3>Date: {{ day_work.date ? day_work.date|date('d/m/Y') : '' }}</h3>
+                <p>Heure de début: {{ day_work.startHour ? day_work.startHour|date('H:i') : '' }}</p>
+                <p>Heure de fin: {{ day_work.endHour ? day_work.endHour|date('H:i') : '' }}</p>
+                <p>Durée des créneaux (en minutes): {{ day_work.slotDuration }}</p>
+                <a href="{{ path('app_day_work_edit', {'id': day_work.id}) }}" class="btn btn-warning mr-2">Modifier Ce jour.</a>
+                {{ include('day_work/_delete_form.html.twig') }}
             </div>
         {% endfor %}
     </div>
-
-    <h2>Calendrier:</h2>
-    <div id="calendar"></div>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/5.10.1/core/main.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/5.10.1/daygrid/main.min.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/5.10.1/core/main.min.css" rel="stylesheet" />
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/5.10.1/daygrid/main.min.css" rel="stylesheet" />
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            var calendarEl = document.getElementById('calendar');
-
-            var calendar = new FullCalendar.Calendar(calendarEl, {
-                plugins: [ 'dayGrid' ],
-                events: [
-                    // Liste des événements à afficher sur le calendrier
-                    {% for dayWork in planing.dayWorks %}
-                        {
-                            title: 'Travail', // Titre de l'événement
-                            start: '{{ dayWork.date ? dayWork.date|date('Y-m-d') : '' }}', // Date de début
-                            url: '{{ path('app_day_work_edit', {'id': dayWork.id}) }}' // URL pour modifier l'événement
-                        },
-                    {% endfor %}
-                ],
-                eventClick: function(info) {
-                    if (info.event.url) {
-                        window.location.href = info.event.url;
-                    }
-                }
-            });
-
-            calendar.render();
-        });
-    </script>
 {% endblock %}

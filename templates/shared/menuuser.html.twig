@@ -13,6 +13,7 @@
 </li>
 </ul>
 {% if is_granted('ROLE_DOCTOR') %}
+<a class="nav-link dropdown-toggle" href="{{ path("app_appointment_all") }}">Mes prochains rendez-vous patientelle</a>
 <a class="nav-link dropdown-toggle" href="{{ path("app_planing_new") }}">Créer un planing</a>
 <a class="nav-link dropdown-toggle" href="{{ path("app_planing_index") }}">Mes planings</a>    
 {% endif %}

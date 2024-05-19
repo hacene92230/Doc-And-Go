@@ -1,0 +1,191 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Rendez-vous patients{% endblock %}
+
+{% block body %}
+    <style>
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .page-title {
+            font-size: 2em;
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .date-group {
+            margin-bottom: 20px;
+        }
+
+        .date-title {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+            color: #555;
+        }
+
+        .appointments {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .appointment-card {
+            background: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .appointment-details {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .appointment-time {
+            font-size: 1.1em;
+            color: #555;
+        }
+
+        .appointment-comment {
+            font-size: 1.1em;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .appointment-user {
+            font-size: 1.1em;
+        }
+
+        .label {
+            font-weight: bold;
+            color: #333;
+        }
+
+        .user-link {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .user-link:hover {
+            text-decoration: underline;
+        }
+
+        .no-appointments {
+            text-align: center;
+            font-size: 1.2em;
+            color: #999;
+            margin-top: 20px;
+        }
+
+        .dropdown-menu {
+            width: 100%;
+        }
+    </style>
+
+    <div class="container">
+        <h1 class="page-title">Prochains rendez-vous de mes patients</h1>
+
+        {% set now = "now"|date("U") %}
+
+        <div class="dropdown mb-3">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="upcomingAppointmentsDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Rendez-vous à venir
+            </button>
+            <div class="dropdown-menu" aria-labelledby="upcomingAppointmentsDropdown">
+                <div class="p-3">
+                    {% set has_upcoming_appointments = false %}
+                    {% set current_date = null %}
+                    {% for appointment in appointments %}
+                        {% if appointment.dateTime|date("U") >= now %}
+                            {% set has_upcoming_appointments = true %}
+                            {% set appointment_date = appointment.dateTime|date('d/m/Y') %}
+                            {% if appointment_date != current_date %}
+                                {% if current_date is not null %}
+                                    </div>
+                                {% endif %}
+                                {% set current_date = appointment_date %}
+                                <div class="date-group">
+                                    <h3 class="date-title">{{ current_date }}</h3>
+                                    <div class="appointments">
+                            {% endif %}
+                            <div class="appointment-card">
+                                <div class="appointment-details">
+                                    <div class="appointment-time">
+                                        <span class="label">Heure :</span> {{ appointment.dateTime|date('H:i') }}
+                                    </div>
+                                </div>
+                                <div class="appointment-comment">
+                                    <span class="label">Commentaire :</span> {{ appointment.comment }}
+                                </div>
+                                <div class="appointment-user">
+                                    <span class="label">Réservé par :</span> 
+                                    <a href="{{ path('app_user_show', {'id': appointment.user.id}) }}" class="user-link">{{ appointment.user.firstName }}</a>
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                    {% if current_date is not null %}
+                        </div>
+                    {% endif %}
+                    {% if not has_upcoming_appointments %}
+                        <p class="no-appointments">Aucun rendez-vous à venir à afficher.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <div class="dropdown mb-3">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="pastAppointmentsDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Rendez-vous passés
+            </button>
+            <div class="dropdown-menu" aria-labelledby="pastAppointmentsDropdown">
+                <div class="p-3">
+                    {% set has_past_appointments = false %}
+                    {% set current_date = null %}
+                    {% for appointment in appointments %}
+                        {% if appointment.dateTime|date("U") < now %}
+                            {% set has_past_appointments = true %}
+                            {% set appointment_date = appointment.dateTime|date('d/m/Y') %}
+                            {% if appointment_date != current_date %}
+                                {% if current_date is not null %}
+                                    </div>
+                                {% endif %}
+                                {% set current_date = appointment_date %}
+                                <div class="date-group">
+                                    <h3 class="date-title">{{ current_date }}</h3>
+                                    <div class="appointments">
+                            {% endif %}
+                            <div class="appointment-card">
+                                <div class="appointment-details">
+                                    <div class="appointment-time">
+                                        <span class="label">Heure :</span> {{ appointment.dateTime|date('H:i') }}
+                                    </div>
+                                </div>
+                                <div class="appointment-comment">
+                                    <span class="label">Commentaire :</span> {{ appointment.comment }}
+                                </div>
+                                <div class="appointment-user">
+                                    <span class="label">Réservé par :</span> 
+                                    <a href="{{ path('app_user_show', {'id': appointment.user.id}) }}" class="user-link">{{ appointment.user.firstName }}</a>
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                    {% if current_date is not null %}
+                        </div>
+                    {% endif %}
+                    {% if not has_past_appointments %}
+                        <p class="no-appointments">Aucun rendez-vous passé à afficher.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

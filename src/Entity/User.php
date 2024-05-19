@@ -71,6 +71,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Planing::class, mappedBy: 'doctor', orphanRemoval: true)]
     private Collection $planings;
 
+    #[ORM\Column(length: 255)]
+    private ?string $gender = null;
+
     public function __construct()
     {
         $this->appointment = new ArrayCollection();
@@ -304,6 +307,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $planing->setDoctor(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getGender(): ?string
+    {
+        return $this->gender;
+    }
+
+    public function setGender(string $gender): static
+    {
+        $this->gender = $gender;
 
         return $this;
     }

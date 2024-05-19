@@ -80,32 +80,36 @@ public function new(User $doctor, Request $request, EntityManagerInterface $enti
     ]);
 }
 
-        #[Route('/{id}', name: 'app_appointment_show', methods: ['GET'])]
-    public function show(Appointment $appointment): Response
-    {
-        return $this->render('appointment/show.html.twig', [
-            'appointment' => $appointment,
-        ]);
-    }
+#[Route('/all', name: 'app_appointment_all', methods: ['GET'])]
+public function all(AppointmentRepository $appointmentRepository): Response
+{
+    // Récupérer l'utilisateur connecté
+    $user = $this->getUser();
 
-    #[Route('/{id}/edit', name: 'app_appointment_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Appointment $appointment, EntityManagerInterface $entityManager): Response
-    {
-        $form = $this->createForm(AppointmentType::class, $appointment);
-        $form->handleRequest($request);
+    // Vérifier si l'utilisateur est un médecin
+    if ($this->isGranted('ROLE_DOCTOR')) {
+        // Récupérer les planings de l'utilisateur
+        $planings = $user->getPlanings();
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->flush();
+        // Initialise un tableau pour stocker tous les rendez-vous
+        $allAppointments = [];
 
-            return $this->redirectToRoute('app_appointment_index', [], Response::HTTP_SEE_OTHER);
+        // Parcourir les planings pour récupérer les rendez-vous de chaque planing
+        foreach ($planings as $planing) {
+            $appointments = $planing->getAppointments();
+            // Fusionner les rendez-vous dans un seul tableau
+            $allAppointments = array_merge($allAppointments, $appointments->toArray());
         }
 
-        return $this->render('appointment/edit.html.twig', [
-            'appointment' => $appointment,
-            'form' => $form,
+        return $this->render('appointment/all.html.twig', [
+            'appointments' => $allAppointments,
         ]);
     }
 
+    // Redirection ou traitement si l'utilisateur n'est pas un médecin
+}
+
+    
     #[Route('/{id}', name: 'app_appointment_delete', methods: ['POST'])]
     public function delete(Request $request, Appointment $appointment, EntityManagerInterface $entityManager): Response
     {
