@@ -32,7 +32,9 @@
                             <td>{{ appointment.status }}</td>
                             <td>
                                 <div>
+                                    {% if appointment.status == "confirmé" %}
                                     {{ include('appointment/_delete_form.html.twig', {'appointment': appointment}) }}
+                                {%endif %}
                                 </div>
                             </td>
                         </tr>
