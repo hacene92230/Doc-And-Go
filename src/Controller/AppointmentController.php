@@ -8,6 +8,7 @@ use App\Entity\User;
 use App\Entity\Reason;
 use App\Entity\Appointment;
 use App\Form\AppointmentType;
+use App\Controller\StatusController;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\AppointmentRepository;
 use Symfony\Component\HttpFoundation\Request;
@@ -55,7 +56,7 @@ public function new(User $doctor, Request $request, EntityManagerInterface $enti
             // Si un DayWork correspondant est trouvé, continuez
             $entityManager->persist($appointment);
             $entityManager->flush();
-
+            $this->addFlash('success', 'Rendez-vous confirmé avec succès, les informations vous serons envoyer par email.');
             return $this->redirectToRoute('app_home');
         } else {
             // Si aucun DayWork correspondant n'est trouvé, vous pouvez gérer ce cas
@@ -79,7 +80,7 @@ public function new(User $doctor, Request $request, EntityManagerInterface $enti
 }
 
 #[Route('/all', name: 'app_appointment_all', methods: ['GET'])]
-public function all(AppointmentRepository $appointmentRepository): Response
+public function all(AppointmentRepository $appointmentRepository, StatusController $statusController): Response
 {
     // Récupérer l'utilisateur connecté
     $user = $this->getUser();
@@ -98,13 +99,11 @@ public function all(AppointmentRepository $appointmentRepository): Response
             // Fusionner les rendez-vous dans un seul tableau
             $allAppointments = array_merge($allAppointments, $appointments->toArray());
         }
-
-        return $this->render('appointment/all.html.twig', [
-            'appointments' => $allAppointments,
-        ]);
     }
-
-    // Redirection ou traitement si l'utilisateur n'est pas un médecin
+    return $this->render('appointment/all.html.twig', [
+        'appointments' => $allAppointments,
+        "statusList" => $statusController->getStatusList(),
+    ]);
 }
 
     #[Route('/{id}', name: 'app_appointment_delete', methods: ['POST'])]

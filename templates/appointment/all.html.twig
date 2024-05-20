@@ -136,9 +136,20 @@
                                     <span class="label">Réservé par :</span> 
                                     <a href="{{ path('app_user_show', {'id': appointment.user.id}) }}" class="user-link">{{ appointment.user.firstName }}</a>
                                 </div>
-                                <div>
-                                    <a href="" class="modify-status-link">Modifier le statut</a>
+                                <div class="row">
+                                    <h3>Status ({{ appointment.status }})</h3>
+                                    {% for status in statusList %}
+                                        <div class="col-3">
+                                            <form action="{{ path('app_status_edit', {'appointment': appointment.id}) }}" method="POST">
+                                                <input type="hidden" name="_method" value="PUT">
+                                                <input type="hidden" name="status" value="{{ status }}">
+                                                <button type="submit" class="btn btn-primary">{{ status }}</button>
+                                            </form>
+                                        </div>
+                                    {% endfor %}
                                 </div>
+                            </div>      
+
                             </div>
                         {% endif %}
                     {% endfor %}
@@ -186,9 +197,22 @@
                                     <span class="label">Réservé par :</span> 
                                     <a href="{{ path('app_user_show', {'id': appointment.user.id}) }}" class="user-link">{{ appointment.user.firstName }}</a>
                                 </div>
-                                <div>
-                                    <a href="" class="modify-status-link">Modifier le statut</a>
+
+                                <div class="row">
+                                    <h3>Status ({{ appointment.status }})</h3>
+                                    {% for status in statusList %}
+                                        <div class="col-3">
+                                            <form action="{{ path('app_status_edit', {'appointment': appointment.id}) }}" method="POST">
+                                                {% if appointment.status != status %}
+                                                <input type="hidden" name="_method" value="PUT">
+                                                <input type="hidden" name="status" value="{{ status }}">
+                                                <button type="submit" class="btn btn-primary">{{ status }}</button>
+                                            {% endif %}
+                                            </form>
+                                        </div>
+                                    {% endfor %}
                                 </div>
+                            </div>      
                             </div>
                         {% endif %}
                     {% endfor %}
