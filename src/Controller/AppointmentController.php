@@ -27,8 +27,6 @@ class AppointmentController extends AbstractController
         ]);
     }
 
-// src/Controller/AppointmentController.php
-
 #[Route('/new/{doctor}', name: 'app_appointment_new', methods: ['GET', 'POST'])]
 public function new(User $doctor, Request $request, EntityManagerInterface $entityManager): Response
 {
@@ -109,7 +107,6 @@ public function all(AppointmentRepository $appointmentRepository): Response
     // Redirection ou traitement si l'utilisateur n'est pas un médecin
 }
 
-    
     #[Route('/{id}', name: 'app_appointment_delete', methods: ['POST'])]
     public function delete(Request $request, Appointment $appointment, EntityManagerInterface $entityManager): Response
     {

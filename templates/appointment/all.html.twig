@@ -86,6 +86,15 @@
         .dropdown-menu {
             width: 100%;
         }
+
+        .modify-status-link {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .modify-status-link:hover {
+            text-decoration: underline;
+        }
     </style>
 
     <div class="container">
@@ -126,6 +135,9 @@
                                 <div class="appointment-user">
                                     <span class="label">Réservé par :</span> 
                                     <a href="{{ path('app_user_show', {'id': appointment.user.id}) }}" class="user-link">{{ appointment.user.firstName }}</a>
+                                </div>
+                                <div>
+                                    <a href="" class="modify-status-link">Modifier le statut</a>
                                 </div>
                             </div>
                         {% endif %}
@@ -173,6 +185,9 @@
                                 <div class="appointment-user">
                                     <span class="label">Réservé par :</span> 
                                     <a href="{{ path('app_user_show', {'id': appointment.user.id}) }}" class="user-link">{{ appointment.user.firstName }}</a>
+                                </div>
+                                <div>
+                                    <a href="" class="modify-status-link">Modifier le statut</a>
                                 </div>
                             </div>
                         {% endif %}
