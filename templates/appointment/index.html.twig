@@ -29,10 +29,10 @@
                                 </button>
                             </td>
                             <td>{{ appointment.dateTime|date("H:i") }}</td>
-                            <td>{{ appointment.status }}</td>
+                            <td>{{ appointment.statu.name }}</td>
                             <td>
                                 <div>
-                                    {% if appointment.status == "confirmé" %}
+                                    {% if appointment.statu.name == "confirmé" %}
                                     {{ include('appointment/_delete_form.html.twig', {'appointment': appointment}) }}
                                 {%endif %}
                                 </div>

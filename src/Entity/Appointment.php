@@ -15,10 +15,6 @@ class Appointment
     #[ORM\Column]
     private ?int $id = null;
 
-
-    #[ORM\Column(length: 255)]
-    private ?string $status = null;
-
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $comment = null;
 
@@ -32,21 +28,13 @@ class Appointment
     #[ORM\Column]
     private ?\DateTimeImmutable $DateTime = null;
 
+    #[ORM\ManyToOne(inversedBy: 'appointments')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Statu $statu = null;
+
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getStatus(): ?string
-    {
-        return $this->status;
-    }
-
-    public function setStatus(string $status): static
-    {
-        $this->status = $status;
-
-        return $this;
     }
 
     public function getComment(): ?string
@@ -93,6 +81,18 @@ class Appointment
     public function setDateTime(\DateTimeImmutable $DateTime): static
     {
         $this->DateTime = $DateTime;
+
+        return $this;
+    }
+
+    public function getStatu(): ?Statu
+    {
+        return $this->statu;
+    }
+
+    public function setStatu(?Statu $statu): static
+    {
+        $this->statu = $statu;
 
         return $this;
     }

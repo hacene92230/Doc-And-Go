@@ -8,6 +8,7 @@ use App\Entity\User;
 use App\Entity\Reason;
 use App\Entity\Appointment;
 use App\Form\AppointmentType;
+use App\Repository\StatuRepository;
 use App\Controller\StatusController;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\AppointmentRepository;
@@ -29,14 +30,14 @@ class AppointmentController extends AbstractController
     }
 
 #[Route('/new/{doctor}', name: 'app_appointment_new', methods: ['GET', 'POST'])]
-public function new(User $doctor, Request $request, EntityManagerInterface $entityManager): Response
+public function new(User $doctor, Request $request, EntityManagerInterface $entityManager, StatuRepository $statuRepository): Response
 {
     $appointment = new Appointment();
     $form = $this->createForm(AppointmentType::class, $appointment);
     
     $form->handleRequest($request);
     if ($form->isSubmitted() && $form->isValid()) {
-        $appointment->setStatus("confirmer");
+        $appointment->setStatu($statuRepository->findOneBy(["name" => "confirmer"]));
         $dateSelected = $form->getData()->getDateTime();
         $dateOnly = $dateSelected->format('Y-m-d');
         
