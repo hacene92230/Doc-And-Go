@@ -1,0 +1,5 @@
+{
+    "require": {
+        "symfony/webhook": "^7.0"
+    }
+}

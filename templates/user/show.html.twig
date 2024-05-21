@@ -1,34 +1,27 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}User{% endblock %}
+{% block title %}{{ user.firstName }} - Profil{% endblock %}
 
 {% block body %}
-    <h1>User</h1>
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <h1 class="text-center mb-4">Profil de {{ user.firstName }}</h1>
+                <div class="card mb-3">
+                    <div class="card-body">
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ user.id }}</td>
-            </tr>
-            <tr>
-                <th>Email</th>
-                <td>{{ user.email }}</td>
-            </tr>
-            <tr>
-                <th>Roles</th>
-                <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
-            </tr>
-            <tr>
-                <th>Password</th>
-                <td>{{ user.password }}</td>
-            </tr>
-        </tbody>
-    </table>
+                        <p class="card-text">Email: {{ user.email }}</p>
+                        <p class="card-text">Prénom: {{ user.firstName }}</p>
+                        <p class="card-text">Nom: {{ user.lastName }}</p>
+                        <p class="card-text">Rôles: {{ user.roles ? user.roles|json_encode : 'N/A' }}</p>
+                        <p class="card-text">Date de création: {{ user.createdAt ? user.createdAt|date('d/m/Y H:i:s') : 'N/A' }}</p>
+                        <p class="card-text">Adresse: {{ user.street }}, {{ user.zipCode }} {{ user.city }}</p>
+                        <p class="card-text">Numéro de téléphone: {{ user.phonenumber }}</p>
+                        <p class="card-text">Genre: {{ user.gender }}</p>
 
-    <a href="{{ path('app_user_index') }}">back to list</a>
-
-    <a href="{{ path('app_user_edit', {'id': user.id}) }}">edit</a>
-
-    {{ include('user/_delete_form.html.twig') }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

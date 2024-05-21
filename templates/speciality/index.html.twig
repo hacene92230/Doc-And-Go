@@ -1,5 +1,69 @@
-{% for speciality in specialities %}
-    {% if 'dent' in speciality.name|lower or 'médecin' in speciality.name|lower %}
-        <a href="{{ path("app_speciality_show", {'id': speciality.id}) }}">{{ speciality.name }}</a>
-    {% endif %}
-{% endfor %}
+    <style>
+        .speciality {
+            display: none;
+        }
+        #pagination-controls {
+            margin-top: 20px;
+            text-align: center;
+        }
+        #prev-btn, #next-btn {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            margin: 5px;
+        }
+        #prev-btn:disabled, #next-btn:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+    </style>
+    <div id="specialities-container">
+        {% for speciality in specialities %}
+            <a href="{{ path('app_speciality_show', {'id': speciality.id}) }}" class="speciality">{{ speciality.name }}</a>
+        {% endfor %}
+    </div>
+    <div id="pagination-controls">
+        <button id="prev-btn">Précédent</button>
+        <button id="next-btn">Suivant</button>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            var itemsPerPage = 5;
+            var currentPage = 1;
+            var totalItems = $('.speciality').length;
+            var totalPages = Math.ceil(totalItems / itemsPerPage);
+
+            function showPage(page) {
+                $('.speciality').hide();
+                var start = (page - 1) * itemsPerPage;
+                var end = start + itemsPerPage;
+                $('.speciality').slice(start, end).show();
+                currentPage = page;
+                updateButtons();
+            }
+
+            function updateButtons() {
+                $('#prev-btn').prop('disabled', currentPage === 1);
+                $('#next-btn').prop('disabled', currentPage === totalPages);
+            }
+
+            $('#prev-btn').click(function() {
+                if (currentPage > 1) {
+                    showPage(currentPage - 1);
+                }
+            });
+
+            $('#next-btn').click(function() {
+                if (currentPage < totalPages) {
+                    showPage(currentPage + 1);
+                }
+            });
+
+            // Show the first page initially
+            showPage(1);
+        });
+    </script>

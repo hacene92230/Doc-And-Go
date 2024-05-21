@@ -1,0 +1,49 @@
+{# templates/search/new.html.twig #}
+{{ form_start(form, {'attr': {'id': 'myForm'}}) }}
+<div class="form-row align-items-center">
+    <div class="col">
+        {{ form_row(form.searchField, {'attr': {'class': 'form-control', 'placeholder': 'Recherche...'}}) }}
+    </div>
+</div>
+{{ form_end(form) }}
+
+<div id="results"></div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    var typingTimer;                // Timer identifier
+    var doneTypingInterval = 500;  // Temps d'attente en millisecondes (0,5 seconde)
+
+    $(document).ready(function() {
+        $('#searchField').on('input', function() {
+            clearTimeout(typingTimer);  // Effacer le timer précédent
+            typingTimer = setTimeout(performSearch, doneTypingInterval);  // Lancer une recherche après une pause
+        });
+    });
+
+    function performSearch() {
+        let searchTerm = $('#searchField').val();
+        console.log("Termes de recherche:", searchTerm); // Log pour débogage
+        if (searchTerm.length > 2) {
+            $.ajax({
+                url: "{{ path('app_search_ajax') }}",
+                type: 'GET',
+                data: { searchField: searchTerm },
+                success: function(data) {
+                    console.log("Données reçues:", data); // Log pour débogage
+                    let resultsDiv = $('#results');
+                    resultsDiv.empty();
+                    if (data.length > 0) {
+                        data.forEach(function(item) {
+                            resultsDiv.append('<p>' + item.firstName + ' ' + item.lastName + ' (' + item.specialty + ')</p>');
+                        });
+                    } else {
+                        resultsDiv.append('<p>Aucun résultat trouvé</p>');
+                    }
+                }
+            });
+        } else {
+            $('#results').empty();
+        }
+    }
+</script>
