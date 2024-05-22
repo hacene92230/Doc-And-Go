@@ -44,13 +44,17 @@
                     </div>
                     <div class="border p-3">
                         <h2 class="font-weight-bold">Prise de rendez-vous</h2>
-{% for reason in doctor.speciality.reasons %}
+                        {% if doctor.planings is not empty %}
+                        {% for reason in doctor.speciality.reasons %}
 <form action="{{ path('app_appointment_new', {'doctor': doctor.id}) }}" method="post">
     <button type="submit" class="btn btn-primary">{{ reason.name }}</button>
 </form>
-
 {% endfor %}
-                    </div>
+{% else %}
+<p>Aucun créneau n'est pour le moment 
+ disponible</p>
+ {% endif %}
+</div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>

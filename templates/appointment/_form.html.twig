@@ -1,5 +1,4 @@
-{# templates/appointment/new.html.twig #}
-
+{% if planings is not empty %}
 {{ form_start(form, { 'attr': {'id': 'appointment-form'} }) }}
 
 <div class="container mt-4">
@@ -162,3 +161,6 @@
         }
     }
 </script>
+{% else %}
+<p>Pas de disponibilité pour ce docteur.</p>
+{% endif %}

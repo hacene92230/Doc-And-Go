@@ -37,7 +37,7 @@ public function new(User $doctor, Request $request, EntityManagerInterface $enti
     
     $form->handleRequest($request);
     if ($form->isSubmitted() && $form->isValid()) {
-        $appointment->setStatu($statuRepository->findOneBy(["name" => "confirmer"]));
+        $appointment->setStatu($statuRepository->findOneBy(["name" => "confirmé"]));
         $dateSelected = $form->getData()->getDateTime();
         $dateOnly = $dateSelected->format('Y-m-d');
         
