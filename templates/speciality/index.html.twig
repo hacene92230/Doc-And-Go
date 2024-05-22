@@ -1,3 +1,9 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nos spécialitées médicales {{ parent() }} {% endblock %}
+
+{% block body %}
+<h1>Spécialités</h1>
     <style>
         .speciality {
             display: none;
@@ -67,3 +73,4 @@
             showPage(1);
         });
     </script>
+    {% endblock %}
