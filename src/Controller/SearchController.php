@@ -1,21 +1,27 @@
 <?php
-
 namespace App\Controller;
 
-use App\Entity\User;
 use App\Form\SearchType;
+use App\Entity\Speciality;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Doctrine\ORM\EntityManagerInterface;
 
 #[Route('/search')]
 class SearchController extends AbstractController
 {
-    #[Route('/new', name: 'app_search_new', methods: ['GET'])]
-    public function new(Request $request): Response
+    private $entityManager;
+
+    public function __construct(EntityManagerInterface $entityManager)
+    {
+        $this->entityManager = $entityManager;
+    }
+
+    #[Route('/', name: 'app_search_index', methods: ['GET'])]
+    public function index(Request $request): Response
     {
         $form = $this->createForm(SearchType::class);
 
@@ -24,44 +30,34 @@ class SearchController extends AbstractController
         ]);
     }
 
-    #[Route('/ajax', name: 'app_search_ajax', methods: ['GET'])]
-    public function ajaxSearch(Request $request, EntityManagerInterface $entityManager): JsonResponse
+    #[Route('/new', name: 'app_search_new', methods: ['POST'])]
+    public function new(Request $request): Response
     {
-        $searchTerm = $request->query->get('searchField');
-        if (!$searchTerm) {
-            return new JsonResponse([]);
+        if (!$request->isXmlHttpRequest()) {
+            return new JsonResponse(['error' => 'Requête invalide.'], Response::HTTP_BAD_REQUEST);
         }
 
-        $queryBuilder = $entityManager->createQueryBuilder();
+        $data = json_decode($request->getContent(), true);
+        $searchTerm = $data['searchField'] ?? '';
 
-        $query = $queryBuilder->select('u')
-            ->from(User::class, 'u')
-            ->leftJoin('u.speciality', 's')
-            ->where('u.roles LIKE :role')
-            ->andWhere($queryBuilder->expr()->orX(
-                $queryBuilder->expr()->like('u.firstName', ':searchTerm'),
-                $queryBuilder->expr()->like('u.lastName', ':searchTerm'),
-                $queryBuilder->expr()->like('s.name', ':searchTerm')
-            ))
-            ->setParameter('role', '%"ROLE_Doctor"%')
-            ->setParameter('searchTerm', '%' . $searchTerm . '%')
-            ->getQuery();
-
-        $results = $query->getResult();
-        // Log pour débogage
-        error_log('Termes de recherche: ' . $searchTerm);
-        error_log('Nombre de résultats: ' . count($results));
-
-        // Convert results to array to be sent as JSON response
-        $formattedResults = [];
-        foreach ($results as $result) {
-            $formattedResults[] = [
-                'firstName' => $result->getFirstName(),
-                'lastName' => $result->getLastName(),
-                'specialty' => ($result->getSpecialty()) ? $result->getSpecialty()->getName() : '',
-            ];
+        if (empty($searchTerm) || strlen($searchTerm) < 4) {
+            return new JsonResponse(['error' => 'Le terme de recherche doit comporter au moins 4 caractères.'], Response::HTTP_BAD_REQUEST);
         }
 
-        return new JsonResponse($formattedResults);
+        try {
+            $query = $this->entityManager->createQueryBuilder()
+                ->select('s.name')
+                ->from(Speciality::class, 's')
+                ->where('s.name LIKE :term')
+                ->setParameter('term', '%' . $searchTerm . '%')
+                ->getQuery();
+
+            $results = $query->getResult();
+
+            $formattedResults = array_column($results, 'name');
+            return new JsonResponse($formattedResults);
+        } catch (\Exception $e) {
+            return new JsonResponse(['error' => 'Une erreur est survenue lors de la recherche.'], Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
     }
 }
