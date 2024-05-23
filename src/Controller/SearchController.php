@@ -36,28 +36,36 @@ class SearchController extends AbstractController
         if (!$request->isXmlHttpRequest()) {
             return new JsonResponse(['error' => 'Requête invalide.'], Response::HTTP_BAD_REQUEST);
         }
-
+    
         $data = json_decode($request->getContent(), true);
         $searchTerm = $data['searchField'] ?? '';
-
+    
         if (empty($searchTerm) || strlen($searchTerm) < 4) {
             return new JsonResponse(['error' => 'Le terme de recherche doit comporter au moins 4 caractères.'], Response::HTTP_BAD_REQUEST);
         }
-
+    
         try {
             $query = $this->entityManager->createQueryBuilder()
-                ->select('s.name')
+                ->select('s.name', 's.id')
                 ->from(Speciality::class, 's')
                 ->where('s.name LIKE :term')
                 ->setParameter('term', '%' . $searchTerm . '%')
                 ->getQuery();
-
+    
             $results = $query->getResult();
-
-            $formattedResults = array_column($results, 'name');
+    
+            // Formater les résultats pour inclure l'ID
+            $formattedResults = [];
+            foreach ($results as $result) {
+                $formattedResults[] = [
+                    'id' => $result['id'],
+                    'name' => $result['name']
+                ];
+            }
+    
             return new JsonResponse($formattedResults);
         } catch (\Exception $e) {
             return new JsonResponse(['error' => 'Une erreur est survenue lors de la recherche.'], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
-}
+    }

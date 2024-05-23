@@ -1,20 +1,31 @@
-{{ form_start(form, {'attr': {'id': 'searchForm'}}) }}
-<div id="searchTermsContainer"></div>
-<div class="form-row align-items-center">
-    <div class="col">
-        {{ form_row(form.searchField) }}
+<div class="flex items-center justify-center">
+    <div class="flex items-center">
+        {{ form_start(form, {'attr': {'id': 'searchForm'}}) }}
+        <div class="form-row align-items-center">
+            <div class="col">
+                {{ form_row(form.searchField) }}
+            </div>
+        </div>
+        {{ form_end(form) }}
     </div>
 </div>
-{{ form_end(form) }}
 
 <div id="searchResultsContainer"></div>
-
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         var form = document.getElementById('searchForm');
         var searchField = document.getElementById('search_searchField');
         var searchResultsContainer = document.getElementById('searchResultsContainer');
         var actionUrl = "{{ path('app_search_new') }}";
+        var specialityShowBaseUrl = "{{ path('app_speciality_show', { 'id': 0 }) }}";
+        specialityShowBaseUrl = specialityShowBaseUrl.replace(/0$/, '');
+
+        // Empêcher la soumission du formulaire avec la touche Entrée
+        searchField.addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+            }
+        });
 
         searchField.addEventListener('input', function() {
             var searchTerm = searchField.value;
@@ -38,7 +49,9 @@
                     if (data.error) {
                         searchResultsContainer.innerHTML = `<div class="alert alert-danger">${data.error}</div>`;
                     } else {
-                        searchResultsContainer.innerHTML = data.map(item => `<div>${item}</div>`).join('');
+                        searchResultsContainer.innerHTML = data.map(item => 
+                            `<a href="${specialityShowBaseUrl}${item.id}">${item.name}</a>`
+                        ).join('');
                     }
                 })
                 .catch(error => {

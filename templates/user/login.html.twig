@@ -9,15 +9,27 @@
     {% endif %}
 
 
-    <h1 class="h3 mb-3 font-weight-normal">Accès à mon compte.</h1>
+    <h1 class="h3 mb-3 font-weight-normal">CONNEXION.</h1>
+
+
+<div class="flex items-center mb-6">
+<div class="w-1/3">
     <label for="inputEmail">Votre adresse email</label>
-    <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
-    <label for="inputPassword">Mot de passe</label>
-    <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+ </div>
+<div class="w-2/3">
+    <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control bg-gray-50 border border-gray-400 rounded-lg " autocomplete="email" required autofocus>
+</div>
+  </div> 
+   
+<div class="flex items-center mb-6">
+    <div class="w-1/3">
+<label for="inputPassword">Mot de passe</label>
+   </div>  <input type="password" name="password" id="inputPassword" class="form-control class="form-control bg-gray-50 border border-gray-400 rounded-lg" autocomplete="current-password" required>
+</div>
+  </div>
 
     <input type="hidden" name="_csrf_token"
-           value="{{ csrf_token('authenticate') }}"
-    >
+           value="{{ csrf_token('authenticate') }}" >
 
     <div class="checkbox mb-3">
         <label>

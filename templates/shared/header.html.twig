@@ -1,31 +1,49 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="{{ path('app_home') }}">
-        <i class="fas fa-home"></i> DOC-AND-GO
-    </a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        {{ render(controller('App\\Controller\\SearchController::index')) }}
-        <a class="nav-link" href="{{ path("app_speciality_index") }}">Prendre un rendez-vous</a>
-
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
-                <a class="nav-link" href="{{ path("app_contact_new") }}">Contact</a>
-            </li>
-        </ul>
-        {% if app.user and is_granted('IS_AUTHENTICATED_FULLY') %}
-            {% include "shared/menuuser.html.twig" %}
-        {% else %}
-            <ul class="navbar-nav">
+<nav class="bg-gray-100 p-4">
+    <div class="container mx-auto flex items-center justify-between">
+        <a class="text-xl font-bold flex items-center" href="{{ path('app_home') }}">
+            <img src="{{ asset('images/logo-doc-and-go.png') }}" alt="DOC-AND-GO" class="h-8 mr-2">
+        </a>
+        <button class="block lg:hidden p-2 border rounded text-gray-700" id="navbar-toggler">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="w-full lg:flex lg:items-center lg:w-auto hidden lg:block" id="navbar-content">
+            <!-- Liens du menu -->
+            <ul class="flex flex-col lg:flex-row lg:space-x-8 items-center w-full lg:w-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ path("app_register")}}">Nous rejoindre</a>
+                    <a class="nav-link text-gray-700 block lg:inline-block mt-2 lg:mt-0" href="{{ path('app_contact_new') }}">Contact</a>
                 </li>
+                {% if app.user %}
+                    {% include 'shared/menuuser.html.twig' %}
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link text-gray-700 block lg:inline-block mt-2 lg:mt-0" href="{{ path('app_register') }}">Nous rejoindre</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-gray-700 block lg:inline-block mt-2 lg:mt-0" href="{{ path('app_login') }}">Accéder à mon compte</a>
+                    </li>
+                {% endif %}
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ path("app_login") }}">Accéder à mon compte</a>
+                    <a class="bg-vert hover:bg-green-700 text-white font-bold py-2 px-4 rounded inline-flex items-center mt-2 lg:mt-0" href="{{ path('app_speciality_index') }}">
+                        <i class="fas fa-calendar-alt mr-2"></i>
+                        Prendre un rendez-vous
+                    </a>
                 </li>
             </ul>
-        {% endif %}
+            <!-- Barre de recherche -->
+            <div class="flex flex-col lg:flex-row lg:items-center w-full lg:w-auto mt-4 lg:mt-0">
+                {{ render(controller('App\\Controller\\SearchController::index')) }}
+            </div>
+        </div>
     </div>
 </nav>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var navbarToggler = document.getElementById('navbar-toggler');
+        var navbarContent = document.getElementById('navbar-content');
+
+        navbarToggler.addEventListener('click', function() {
+            navbarContent.classList.toggle('hidden');
+        });
+    });
+</script>

@@ -1,19 +1,83 @@
-<ul class="navbar-nav">
-    <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            {{ app.user.firstName }} ({{ app.user.roles[0]|replace({'ROLE_': ''}) }})
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <a class="dropdown-item" href="{{ path("app_user_edit", {'id': app.user.id}) }}">Modifier mon profil</a>
-            <a class="dropdown-item" href="{{ path("app_appointment_index", {'id': app.user.id}) }}">Mes rendez-vous</a>
-            <div class="dropdown-item">
-            {{ include('user/_delete_form.html.twig') }}
+<div class="relative">
+    <!-- Bouton pour ouvrir le dropdown utilisateur -->
+    <button class="text-black hover:text-gray-700 focus:outline-none" id="user-menu-toggle">
+        <i class="fas fa-user mr-2"></i> {{ app.user.firstName }} <i class="fas fa-caret-down"></i>
+    </button>
+
+    <!-- Dropdown menu utilisateur -->
+    <div class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-10 hidden" id="user-menu">
+        <div class="py-1" role="none">
+            <a href="{{ path("app_user_edit", {'id': app.user.id}) }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Modifier mon profil</a>
+            <a href="{{ path("app_appointment_index", {'id': app.user.id}) }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Mes rendez-vous</a>
+            <div class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">
+                {{ include('user/_delete_form.html.twig') }}
             </div>
-            <a class="dropdown-item" href="{{ path("app_logout") }}">Déconnexion</a>       </div>     
-</li>
-</ul>
-{% if is_granted('ROLE_DOCTOR') %}
-<a class="nav-link dropdown-toggle" href="{{ path("app_appointment_all") }}">Mes prochains rendez-vous patientelle</a>
-<a class="nav-link dropdown-toggle" href="{{ path("app_planing_new") }}">Créer un planing</a>
-<a class="nav-link dropdown-toggle" href="{{ path("app_planing_index") }}">Mes planings</a>    
-{% endif %}
+            <a href="{{ path("app_logout") }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Déconnexion</a>
+        </div>
+    </div>
+</div>
+
+<!-- Bouton pour ouvrir le dropdown gestion -->
+<div class="relative ml-4">
+    <button class="text-black hover:text-gray-700 focus:outline-none" id="gestion-menu-toggle">
+        Gestion <i class="fas fa-caret-down"></i>
+    </button>
+
+    <!-- Dropdown menu gestion -->
+    <div class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-10 hidden" id="gestion-menu">
+        <div class="py-1" role="none">
+            <a href="{{ path("app_appointment_all") }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Mes prochains rendez-vous avec les patients</a>
+            <a href="{{ path("app_planing_new") }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Créer un planning</a>
+            <a href="{{ path("app_planing_index") }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Mes plannings</a>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var userMenuToggle = document.getElementById('user-menu-toggle');
+        var userMenu = document.getElementById('user-menu');
+        var gestionMenuToggle = document.getElementById('gestion-menu-toggle');
+        var gestionMenu = document.getElementById('gestion-menu');
+
+        // Fonction pour fermer tous les menus
+        function closeAllMenus() {
+            userMenu.classList.add('hidden');
+            gestionMenu.classList.add('hidden');
+        }
+
+        // Fonction pour fermer les menus lorsqu'on clique en dehors d'eux
+        document.addEventListener('click', function(event) {
+            var isClickInsideUserMenu = userMenu.contains(event.target);
+            var isClickInsideGestionMenu = gestionMenu.contains(event.target);
+            var isClickOnUserMenuToggle = userMenuToggle.contains(event.target);
+            var isClickOnGestionMenuToggle = gestionMenuToggle.contains(event.target);
+            
+            if (!isClickInsideUserMenu && !isClickOnUserMenuToggle) {
+                userMenu.classList.add('hidden');
+            }
+            
+            if (!isClickInsideGestionMenu && !isClickOnGestionMenuToggle) {
+                gestionMenu.classList.add('hidden');
+            }
+        });
+
+        // Fermer les menus lorsqu'on appuie sur la touche Échap
+        document.addEventListener('keydown', function(event) {
+            if (event.key === "Escape") {
+                closeAllMenus();
+            }
+        });
+
+        // Gestion de l'ouverture et de la fermeture des menus
+        userMenuToggle.addEventListener('click', function() {
+            userMenu.classList.toggle('hidden');
+            gestionMenu.classList.add('hidden');
+        });
+
+        gestionMenuToggle.addEventListener('click', function() {
+            gestionMenu.classList.toggle('hidden');
+            userMenu.classList.add('hidden');
+        });
+    });
+</script>

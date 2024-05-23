@@ -53,6 +53,7 @@ class UserController extends AbstractController
 
         return $this->render('user/new.html.twig', [
             'form' => $form,
+            'edit_mode' => false,
         ]);
     }
 
@@ -105,6 +106,7 @@ if($user != $this->getUser())
         return $this->render('user/edit.html.twig', [
             'user' => $user,
             'form' => $form,
+            'edit_mode' => true,
         ]);
     }
 

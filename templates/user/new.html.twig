@@ -3,7 +3,9 @@
 {% block title %} Nous rejoindre {{ parent() }} {% endblock %}
 
 {% block body %}
-    <h1>Démarez l'aventure</h1>
+    <div class="mt-8"> <!-- Ajout de la marge en haut -->
+        <h1 class="text-center">Démarez l'aventure</h1>
+    </div>
 
     {{ include('user/_form.html.twig') }}
 {% endblock %}

@@ -12,9 +12,7 @@ class SearchType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('searchField', TextType::class, [
-                "label" => "Saisir les termes de votre recherche",
-            ]);
+            ->add('searchField', TextType::class, ["label" => false]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
