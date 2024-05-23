@@ -1,16 +1,18 @@
 <div class="flex items-center justify-center">
     <div class="flex items-center">
-        {{ form_start(form, {'attr': {'id': 'searchForm'}}) }}
-        <div class="form-row align-items-center">
-            <div class="col">
-                {{ form_row(form.searchField) }}
+        <form id="searchForm">
+            <div class="form-row align-items-center">
+                <div class="col">
+                    <label for="search_searchField">Recherche :</label>
+                    <input type="text" id="search_searchField" name="searchField" class="form-control">
+                </div>
             </div>
-        </div>
-        {{ form_end(form) }}
+        </form>
     </div>
 </div>
 
 <div id="searchResultsContainer"></div>
+
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         var form = document.getElementById('searchForm');
@@ -46,20 +48,21 @@
                     return response.json();
                 })
                 .then(data => {
-                    if (data.error) {
-                        searchResultsContainer.innerHTML = `<div class="alert alert-danger">${data.error}</div>`;
+                    if (data.length === 0) {
+                        searchResultsContainer.innerHTML = '<h2 class="text-red-500">Erreur: Aucun résultat trouvé.</h2>';
                     } else {
-                        searchResultsContainer.innerHTML = data.map(item => 
-                            `<a href="${specialityShowBaseUrl}${item.id}">${item.name}</a>`
-                        ).join('');
+                        searchResultsContainer.innerHTML = '<h2 class="text-center text-red-500">Résultats de la recherche :</h2>' + 
+                                                            data.map(item => `<a href="${specialityShowBaseUrl}${item.id}">${item.name}</a>`).join('');
                     }
                 })
                 .catch(error => {
                     console.error('Erreur:', error);
-                    searchResultsContainer.innerHTML = `<div class="alert alert-danger">Erreur: ${error.message}</div>`;
+                    searchResultsContainer.innerHTML = '<h2 class="text-red-500">Erreur: ' + error.message + '</h2>';
                 });
+            } else if (searchTerm.length === 0) {
+                searchResultsContainer.innerHTML = '';
             } else {
-                searchResultsContainer.innerHTML = '<div class="alert alert-warning">Le terme de recherche doit comporter au moins 4 caractères.</div>';
+                searchResultsContainer.innerHTML = '<h2 class="text-red-500">Erreur: Le terme de recherche doit comporter au moins 4 caractères.</h2>';
             }
         });
     });
