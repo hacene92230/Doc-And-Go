@@ -1,0 +1,61 @@
+        {% extends 'base.html.twig' %}
+
+{% block title %} Nos formules {{ parent() }} {% endblock %}
+
+{% block body %}
+<div class="container mx-auto px-4 py-8">
+    <h1 class="text-3xl font-bold mb-4">Nos Formules d'Abonnement</h1>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <!-- Abonnement Annuel -->
+        <div class="bg-gray-100 p-6 rounded-lg">
+            <h2 class="text-xl font-bold mb-4 flex items-center"><span class="iconify text-green-500 mr-2" data-icon="bx:bxs-badge-check"></span> Abonnement Annuel</h2>
+            <p class="text-gray-700 mb-4">Pour seulement <span class="text-green-500 font-bold">550 euros par an</span>, bénéficiez de :</p>
+            <ul class="list-disc pl-6 mb-4">
+                <li><span class="iconify text-green-500 mr-2" data-icon="bi:receipt-cutoff"></span> Gestion des facturations</li>
+                <li><span class="iconify text-green-500 mr-2" data-icon="bx:bxs-calendar-event"></span> Système de prise de rendez-vous fiable et performant</li>
+                <li><span class="iconify text-green-500 mr-2" data-icon="icon-park-outline:video-medical"></span> Possibilité de téléconsultation</li>
+                <li><span class="iconify text-green-500 mr-2" data-icon="ri:database-2-fill"></span> Stockage sécurisé des données médicales</li>
+                <li><span class="iconify text-green-500 mr-2" data-icon="bx:bxs-calendar"></span> Calendrier de disponibilité en ligne</li>
+                <li><span class="iconify text-green-500 mr-2" data-icon="fa-solid:headset"></span> Support client prioritaire</li>
+                <li><span class="iconify text-green-500 mr-2" data-icon="ri:file-list-fill"></span> Intégration avec les systèmes de gestion existants</li>
+                <li><span class="iconify text-green-500 mr-2" data-icon="twemoji:scroll"></span> Accès à une base de données de médicaments et de traitements</li>
+                <li><span class="iconify text-green-500 mr-2" data-icon="iconoir:alarm-1"></span> Système de rappels automatiques pour les patients</li>
+                <li><span class="iconify text-green-500 mr-2" data-icon="bi:box"></span> Fonctionnalité de gestion des stocks pour les fournitures médicales</li>
+            </ul>
+            <p class="text-gray-700 mb-4">Moyens de paiement acceptés :</p>
+            <ul class="flex">
+                <li class="mr-4"><span class="iconify text-green-500 text-2xl" data-icon="simple-icons:visa"></span></li>
+                <li class="mr-4"><span class="iconify text-green-500 text-2xl" data-icon="simple-icons:mastercard"></span></li>
+                <li class="mr-4"><span class="iconify text-green-500 text-2xl" data-icon="simple-icons:paypal"></span></li>
+            </ul>
+            <p class="mt-6 text-gray-600">* Fonctionnalités additionnelles disponibles</p>
+        </div>
+
+        <!-- Abonnement Mensuel -->
+        <div class="bg-gray-100 p-6 rounded-lg">
+            <h2 class="text-xl font-bold mb-4 flex items-center"><span class="iconify text-green-500 mr-2" data-icon="bx:bxs-time-five"></span> Abonnement Mensuel (Sans Engagement)</h2>
+            <p class="text-gray-700 mb-4">Pour seulement <span class="text-green-500 font-bold">60 euros par mois</span>, bénéficiez de :</p>
+            <ul class="list-disc pl-6 mb-4">
+                <li><span class="iconify text-green-500 mr-2" data-icon="icon-park-outline:prescription"></span> Gestion des facturations</li>
+                <li><span class="iconify text-green-500 mr-2" data-icon="ic:sharp-event"></span> Système de prise de rendez-vous fiable et performant</li>
+                <li><span class="iconify text-green-500 mr-2" data-icon="mdi:video-plus"></span> Possibilité de téléconsultation</li>
+                <li><span class="iconify text-green-500 mr-2" data-icon="grommet-icons:document-lock"></span> Stockage sécurisé des données médicales</li>
+                <li><span class="iconify text-green-500 mr-2" data-icon="bx:bxs-calendar-check"></span> Calendrier de disponibilité en ligne</li>
+                <li><span class="iconify text-green-500 mr-2" data-icon="emojione-monotone:headphone-loud"></span> Support client standard</li>
+                <li><span class="iconify text-green-500 mr-2" data-icon="ci:api"></span> Notifications automatiques</li>
+                <li><span class="iconify text-green-500 mr-2" data-icon="bx:bxs-folder-open"></span> Module de gestion des dossiers médicaux électroniques (DME)</li>
+                <li><span class="iconify text-green-500 mr-2" data-icon="twemoji:lab-coat"></span> Intégration avec des services de laboratoire pour l'envoi et la réception des résultats d'analyses</li>
+                <li><span class="iconify text-green-500 mr-2" data-icon="ph:prescription-bottle"></span> Fonctionnalité de prescription électronique</li>
+            </ul>
+            <p class="text-gray-700 mb-4">Moyens de paiement acceptés :</p>
+            <ul class="flex">
+                <li class="mr-4"><span class="iconify text-green-500 text-2xl" data-icon="simple-icons:visa"></span></li>
+                <li class="mr-4"><span class="iconify text-green-500 text-2xl" data-icon="simple-icons:mastercard"></span></li>
+                <li class="mr-4"><span class="iconify text-green-500 text-2xl" data-icon="simple-icons:paypal"></span></li>
+            </ul>
+            <p class="mt-6 text-gray-600">* Sans engagement, vous pouvez annuler à tout moment.</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

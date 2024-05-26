@@ -1,49 +1,109 @@
-<nav class="bg-gray-100 p-4">
-    <div class="container mx-auto flex items-center justify-between">
-        <a class="text-xl font-bold flex items-center" href="{{ path('app_home') }}">
-            <img src="{{ asset('images/logo-doc-and-go.png') }}" alt="DOC-AND-GO" class="h-8 mr-2">
-        </a>
-        <button class="block lg:hidden p-2 border rounded text-gray-700" id="navbar-toggler">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="w-full lg:flex lg:items-center lg:w-auto hidden lg:block" id="navbar-content">
-            <!-- Liens du menu -->
-            <ul class="flex flex-col lg:flex-row lg:space-x-8 items-center w-full lg:w-auto">
-                <li class="nav-item">
-                    <a class="nav-link text-gray-700 block lg:inline-block mt-2 lg:mt-0" href="{{ path('app_contact_new') }}">Contact</a>
-                </li>
-                {% if app.user %}
-                    {% include 'shared/menuuser.html.twig' %}
-                {% else %}
-                    <li class="nav-item">
-                        <a class="nav-link text-gray-700 block lg:inline-block mt-2 lg:mt-0" href="{{ path('app_register') }}">Nous rejoindre</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-gray-700 block lg:inline-block mt-2 lg:mt-0" href="{{ path('app_login') }}">Accéder à mon compte</a>
-                    </li>
-                {% endif %}
-                <li class="nav-item">
-                    <a class="bg-vert hover:bg-green-700 text-white font-bold py-2 px-4 rounded inline-flex items-center mt-2 lg:mt-0" href="{{ path('app_speciality_index') }}">
-                        <i class="fas fa-calendar-alt mr-2"></i>
-                        Prendre un rendez-vous
-                    </a>
-                </li>
-            </ul>
-            <!-- Barre de recherche -->
-            <div class="flex flex-col lg:flex-row lg:items-center w-full lg:w-auto mt-4 lg:mt-0">
-                {{ render(controller('App\\Controller\\SearchController::index')) }}
+    <style>
+        /* Style pour les boutons "Je suis patient" et "Je suis docteur" */
+        .rectangle-button {
+            border-radius: 0; /* Pas de coins arrondis */
+            padding: 8px 16px; /* Ajustez le rembourrage selon vos préférences */
+        }
+
+        /* Style pour l'icône à côté du texte */
+        .rectangle-button i {
+            margin-right: 8px; /* Ajustez la marge selon vos préférences */
+        }
+    </style>
+
+    <nav class="bg-vert-fonce p-4 font-sans shadow-md">
+        <div class="container mx-auto flex items-center justify-between">
+            <a class="text-xl font-bold flex items-center text-white" href="{{ path('app_home') }}">
+                <img src="{{ asset('images/logo-doc-and-go.png') }}" alt="DOC-AND-GO" class="h-8 mr-2">
+            </a>
+
+            {% if not app.user %}
+            <!-- Boutons Patients et Docteurs -->
+            <div class="flex items-center space-x-6">
+                <!-- Bouton Docteur -->
+                <div class="relative">
+                    <button class="rectangle-button bg-white text-gray-800 text-sm font-semibold shadow-md hover:shadow-lg focus:outline-none" id="doctor-menu-toggle">
+                        <i class="fas fa-user-md"></i> Vous êtes docteur
+                    </button>
+                    <div class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-10 hidden" id="doctor-menu">
+                        <div class="py-1">
+                            <a href="{{ path('app_formule') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Nos formules</a>
+                            <a href="{{ path('app_avantage') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Nos avantages</a>
+                            <a href="{{ path('app_contact_new') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Nous contacter</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bouton Patient -->
+                <div class="relative">
+                    <button class="rectangle-button bg-white text-gray-800 text-sm font-semibold shadow-md hover:shadow-lg focus:outline-none" id="patient-menu-toggle">
+                        <i class="fas fa-user"></i> Vous êtes patient
+                    </button>
+                    <div class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-10 hidden" id="patient-menu">
+                        <div class="py-1">
+                            <a href="{{ path('app_register') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Nous rejoindre</a>
+                            <a href="{{ path('app_login') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Accéder à mon compte</a>
+                                            <a href="{{ path('app_contact_new') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Contact</a>
+                        </div>
+                    </div>
+                </div>
+{% else %}
+{% include("shared/menuuser.html.twig") %}
+{% endif %}
+{% if is_granted('ROLE_ADMIN') %}
+{% include("shared/menuadmin.html.twig") %}
+{% endif %}
+
+                <!-- Barre de recherche -->
+                <div class="container mx-auto">
+                    {{ render(controller('App\\Controller\\SearchController::index')) }}
+                </div>
             </div>
         </div>
-    </div>
-</nav>
+    </nav>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var doctorMenuToggle = document.getElementById('doctor-menu-toggle');
+            var doctorMenu = document.getElementById('doctor-menu');
+            var patientMenuToggle = document.getElementById('patient-menu-toggle');
+            var patientMenu = document.getElementById('patient-menu');
 
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        var navbarToggler = document.getElementById('navbar-toggler');
-        var navbarContent = document.getElementById('navbar-content');
+            // Fonction pour fermer tous les menus
+            function closeAllMenus() {
+                doctorMenu.classList.add('hidden');
+                patientMenu.classList.add('hidden');
+            }
 
-        navbarToggler.addEventListener('click', function() {
-            navbarContent.classList.toggle('hidden');
+            // Fermer les menus lorsqu'on appuie sur la touche Échap
+            document.addEventListener('keydown', function(event) {
+                if (event.key === "Escape") {
+                    closeAllMenus();
+                }
+            });
+
+            // Gestion de l'ouverture et de la fermeture des menus
+            doctorMenuToggle.addEventListener('click', function(event) {
+                event.stopPropagation();
+                doctorMenu.classList.toggle('hidden');
+                patientMenu.classList.add('hidden');
+            });
+
+            patientMenuToggle.addEventListener('click', function(event) {
+                event.stopPropagation();
+                patientMenu.classList.toggle('hidden');
+                doctorMenu.classList.add('hidden');
+            });
+
+            // Fermer les menus lorsqu'on clique en dehors d'eux
+            document.addEventListener('click', function(event) {
+                if (!doctorMenu.contains(event.target) && !doctorMenuToggle.contains(event.target)) {
+                    doctorMenu.classList.add('hidden');
+                }
+
+                if (!patientMenu.contains(event.target) && !patientMenuToggle.contains(event.target)) {
+                    patientMenu.classList.add('hidden');
+                }
+            });
         });
-    });
-</script>
+    </script>
