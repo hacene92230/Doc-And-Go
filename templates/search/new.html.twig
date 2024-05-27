@@ -1,95 +1,95 @@
-<div class="mt-6 flex items-center justify-center">
-    <div class="p-2 rounded-lg shadow-lg w-full max-w-lg bg-transparent">       
-    <form id="searchForm">
+<div class="flex items-center justify-center min-h-screen bg-gray-100">
+    <div class="p-6 rounded-lg shadow-lg w-full max-w-lg bg-white">       
+        <form id="searchForm" class="mb-4">
             <label for="search_searchField" class="sr-only">Recherche :</label>
             <input type="text" id="search_searchField" name="searchField" placeholder="Recherche" class="w-full bg-gray-200 focus:outline-none focus:ring focus:border-blue-300 border border-gray-300 rounded-lg py-2 px-4">
         </form>
 
-        <div class="mt-4">
+        <div class="flex items-center justify-between">
+            <button id="clearSearchFieldButton" class="bg-red-500 text-white py-2 px-4 rounded-lg shadow-md focus:outline-none" disabled>Effacer la recherche</button>
             <button class="bg-blue-500 text-white py-2 px-4 rounded-lg shadow-md focus:outline-none" id="filterButton">Filtres <span id="filterCount">0</span></button>
-            <div id="filterOptions" class="hidden mt-4">
-                <button id="applyButton">Appliquer</button>
+            <button id="clearFiltersButton" class="bg-red-500 text-white py-2 px-4 rounded-lg shadow-md focus:outline-none" disabled>Effacer tous les filtres</button>
+        </div>
+
+        <div id="filterOptions" class="hidden mt-4 border-t border-gray-300 pt-4">
+            <div class="mb-4">
+                <h3 class="text-lg font-semibold mb-2">Spécialités :</h3>
                 <div>
-                    <h3 class="text-lg font-semibold mb-2">Spécialités :</h3>
-                    <div>
-                        <label class="inline-flex items-center">
-                            <input type="checkbox" name="speciality" value="generaliste" class="form-checkbox text-blue-500">
-                            <span class="ml-2">Généraliste</span>
-                        </label>
-                    </div>
-                    <div>
-                        <label class="inline-flex items-center">
-                            <input type="checkbox" name="speciality" value="dentiste" class="form-checkbox text-blue-500">
-                            <span class="ml-2">Dentiste</span>
-                        </label>
-                    </div>
-                    <div>
-                        <label class="inline-flex items-center">
-                            <input type="checkbox" name="speciality" value="oftalmologue" class="form-checkbox text-blue-500">
-                            <span class="ml-2">Ophtalmologue</span>
-                        </label>
-                    </div>
+                    <label class="inline-flex items-center">
+                        <input type="checkbox" name="speciality" value="generaliste" class="form-checkbox text-blue-500">
+                        <span class="ml-2">Généraliste</span>
+                    </label>
                 </div>
-                <div class="mt-4">
-                    <h3 class="text-lg font-semibold mb-2">Moyen de paiement :</h3>
-                    <div>
-                        <label class="inline-flex items-center">
-                            <input type="checkbox" name="payment" value="espece" class="form-checkbox text-blue-500">
-                            <span class="ml-2">Espèce</span>
-                        </label>
-                    </div>
-                    <div>
-                        <label class="inline-flex items-center">
-                            <input type="checkbox" name="payment" value="cheque" class="form-checkbox text-blue-500">
-                            <span class="ml-2">Chèque</span>
-                        </label>
-                    </div>
-                    <div>
-                        <label class="inline-flex items-center">
-                            <input type="checkbox" name="payment" value="carte_bancaire" class="form-checkbox text-blue-500">
-                            <span class="ml-2">Carte bancaire</span>
-                        </label>
-                    </div>
-                    <div>
-                        <label class="inline-flex items-center">
-                            <input type="checkbox" name="payment" value="paypal" class="form-checkbox text-blue-500">
-                            <span class="ml-2">Paypal</span>
-                        </label>
-                    </div>
+                <div>
+                    <label class="inline-flex items-center">
+                        <input type="checkbox" name="speciality" value="dentiste" class="form-checkbox text-blue-500">
+                        <span class="ml-2">Dentiste</span>
+                    </label>
                 </div>
-                <div class="mt-4">
-                    <h3 class="text-lg font-semibold mb-2">Je veux être soigné par :</h3>
-                    <div>
-                        <label class="inline-flex items-center">
-                            <input type="checkbox" name="gender" value="homme" class="form-checkbox text-blue-500">
-                            <span class="ml-2">Homme</span>
-                        </label>
-                    </div>
-                    <div>
-                        <label class="inline-flex items-center">
-                            <input type="checkbox" name="gender" value="femme" class="form-checkbox text-blue-500">
-                            <span class="ml-2">Femme</span>
-                        </label>
-                    </div>
-                    <div>
-                        <label class="inline-flex items-center">
-                            <input type="checkbox" name="gender" value="indifferent" class="form-checkbox text-blue-500">
-                            <span class="ml-2">Indifférent</span>
-                        </label>
-                    </div>
+                <div>
+                    <label class="inline-flex items-center">
+                        <input type="checkbox" name="speciality" value="oftalmologue" class="form-checkbox text-blue-500">
+                        <span class="ml-2">Ophtalmologue</span>
+                    </label>
                 </div>
             </div>
+            
+            <div class="mb-4">
+                <h3 class="text-lg font-semibold mb-2">Moyen de paiement :</h3>
+                <div>
+                    <label class="inline-flex items-center">
+                        <input type="checkbox" name="payment" value="espece" class="form-checkbox text-blue-500">
+                        <span class="ml-2">Espèce</span>
+                    </label>
+                </div>
+                <div>
+                    <label class="inline-flex items-center">
+                        <input type="checkbox" name="payment" value="cheque" class="form-checkbox text-blue-500">
+                        <span class="ml-2">Chèque</span>
+                    </label>
+                </div>
+                <div>
+                    <label class="inline-flex items-center">
+                        <input type="checkbox" name="payment" value="carte_bancaire" class="form-checkbox text-blue-500">
+                        <span class="ml-2">Carte bancaire</span>
+                    </label>
+                </div>
+                <div>
+                    <label class="inline-flex items-center">
+                        <input type="checkbox" name="payment" value="paypal" class="form-checkbox text-blue-500">
+                        <span class="ml-2">Paypal</span>
+                    </label>
+                </div>
+            </div>
+            
+            <div class="mb-4">
+                <h3 class="text-lg font-semibold mb-2">Je veux être soigné par :</h3>
+                <div>
+                    <label class="inline-flex items-center">
+                        <input type="checkbox" name="gender" value="homme" class="form-checkbox text-blue-500">
+                        <span class="ml-2">Homme</span>
+                    </label>
+                </div>
+                <div>
+                    <label class="inline-flex items-center">
+                        <input type="checkbox" name="gender" value="femme" class="form-checkbox text-blue-500">
+                        <span class="ml-2">Femme</span>
+                    </label>
+                </div>
+            </div>
+
+            <button id="applyButton" class="bg-green-500 text-white py-2 px-4 rounded-lg shadow-md focus:outline-none">Appliquer</button>
         </div>
     </div>
 </div>
 <div id="filter"></div>
-
 <div id="searchResultsContainer" class="container mx-auto py-8"></div>
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     var searchField = document.getElementById('search_searchField');
     var searchResultsContainer = document.getElementById('searchResultsContainer');
+    var searchForm = document.getElementById('searchForm');
     var actionUrl = "{{ path('app_search_show') }}";
     var specialityShowBaseUrl = "{{ path('app_speciality_show', { 'id': 0 }) }}";
     specialityShowBaseUrl = specialityShowBaseUrl.replace(/0$/, '');
@@ -99,6 +99,8 @@ document.addEventListener('DOMContentLoaded', function() {
     var filterCount = document.getElementById('filterCount');
     var applyButton = document.getElementById('applyButton');
     var filterDisplay = document.getElementById('filter');
+    var clearFiltersButton = document.getElementById('clearFiltersButton');
+    var clearSearchFieldButton = document.getElementById('clearSearchFieldButton');
     var appliedFilters = [];
 
     // Fonction pour mettre à jour l'état du bouton "Filtres"
@@ -114,8 +116,10 @@ document.addEventListener('DOMContentLoaded', function() {
     function updateFilterCount() {
         if (appliedFilters.length === 0) {
             filterCount.textContent = "Aucun filtre appliqué";
+            clearFiltersButton.disabled = true;
         } else {
             filterCount.textContent = appliedFilters.length + " filtres appliqués";
+            clearFiltersButton.disabled = false;
         }
         filterDisplay.textContent = filterCount.textContent;
     }
@@ -133,6 +137,15 @@ document.addEventListener('DOMContentLoaded', function() {
         applyButton.disabled = appliedFilters.length === 0;
     }
 
+    // Fonction pour effacer tous les filtres
+    function clearFilters() {
+        var checkboxes = document.querySelectorAll('input[type=checkbox]');
+        checkboxes.forEach(function(checkbox) {
+            checkbox.checked = false;
+        });
+        applyFilters();
+    }
+
     // Ajouter un écouteur sur les cases à cocher pour appliquer les filtres
     var filterCheckboxes = document.querySelectorAll('input[type=checkbox]');
     filterCheckboxes.forEach(function(checkbox) {
@@ -144,6 +157,11 @@ document.addEventListener('DOMContentLoaded', function() {
         applyFilters();
         filterOptions.classList.add('hidden');
         updateFilterButton();
+    });
+
+    // Ajouter un écouteur sur le bouton "Effacer tous les filtres" pour effacer les filtres
+    clearFiltersButton.addEventListener('click', function() {
+        clearFilters();
     });
 
     // Ajouter un écouteur sur le bouton "Filtres" pour ouvrir ou fermer les filtres
@@ -192,7 +210,31 @@ document.addEventListener('DOMContentLoaded', function() {
         } else {
             searchResultsContainer.innerHTML = '<h2 class="text-red-500">Erreur: Le terme de recherche doit comporter au moins 4 caractères.</h2>';
         }
+
+        // Mettre à jour l'état du bouton "Effacer la recherche"
+        updateClearSearchButton();
     });
+
+    // Ajouter un écouteur sur le formulaire pour bloquer la soumission si la validation échoue
+    searchForm.addEventListener('submit', function(event) {
+        var searchTerm = searchField.value;
+        if (searchTerm.length < 4) {
+            event.preventDefault(); // Bloquer la soumission du formulaire
+            searchResultsContainer.innerHTML = '<h2 class="text-red-500">Erreur: Le terme de recherche doit comporter au moins 4 caractères.</h2>';
+        }
+    });
+
+    // Ajouter un écouteur sur le bouton "Effacer la recherche" pour effacer le champ de recherche
+    clearSearchFieldButton.addEventListener('click', function() {
+        searchField.value = '';
+        searchResultsContainer.innerHTML = '';
+        updateClearSearchButton();
+    });
+
+    // Fonction pour mettre à jour l'état du bouton "Effacer la recherche"
+    function updateClearSearchButton() {
+        clearSearchFieldButton.disabled = searchField.value.length <= 2;
+    }
 
     // Mettre à jour l'état initial du bouton "Filtres"
     updateFilterButton();
@@ -203,5 +245,4 @@ document.addEventListener('DOMContentLoaded', function() {
     // Mettre à jour le nombre de filtres appliqués
     updateFilterCount();
 });
-
 </script>
