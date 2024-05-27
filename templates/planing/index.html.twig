@@ -3,24 +3,26 @@
 {% block title %}Mes Planings {{ parent() }} {% endblock %}
 
 {% block body %}
-    <div class="container">
-        <h1 class="mb-4">Mes planings</h1>
+    <div class="container py-2">
+        <h1 class="text-3xl mb-6 text-center" >Mes planings</h1>
 
-        <div class="row">
+        <div class="grid grid-cols-3 mx-10">
             {% for planing in planings %}
-                <div class="col-md-4 mb-4">
-                    <div class="card">
-                        <div class="card-body">
-                            <h2><a href="{{ path('app_planing_show', {'id': planing.id}) }}" class="card-title h5">{{ planing.startDate ? planing.startDate|date('d/m/Y') }} - {{ planing.endDate ? planing.endDate|date('d/m/Y') }}</a></h2>
-                            <p class="card-text">Nombre de jours de travail: {{ planing.dayWorks|length }}</p>
-                            <a href="{{ path('app_planing_edit', {'id': planing.id}) }}" class="btn btn-warning mr-2">Modifier</a>
-                            {{ include('planing/_delete_form.html.twig') }}
+                <div class="max-w-sm rounded overflow-hidden shadow-lg">
+                    <div class="px-2 py-4">
+                        <div class="font-bold text-xl mb-2">
+                            <a href="{{ path('app_planing_show', {'id': planing.id}) }}" class="text-blue-500 hover:underline">{{ planing.startDate ? planing.startDate|date('d/m/Y') }} - {{ planing.endDate ? planing.endDate|date('d/m/Y') }}</a>
                         </div>
+                        <p class="text-gray-700 mb-4">Nombre de jours de travail: {{ planing.dayWorks|length }}</p>
+                        <a href="{{ path('app_planing_edit', {'id': planing.id}) }}" class="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded my-2 mx-2">Modifier</a>
+                       
+ {{ include('planing/_delete_form.html.twig') }} 
+
                     </div>
                 </div>
             {% else %}
                 <div class="col">
-                    <p>Aucun enregistrement trouvé</p>
+                    <p class="text-gray-700">Aucun enregistrement trouvé</p>
                 </div>
             {% endfor %}
         </div>

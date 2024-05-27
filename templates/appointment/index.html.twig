@@ -3,83 +3,105 @@
 {% block title %}Mes rendez-vous{% endblock %}
 
 {% block body %}
-    <div class="container mt-5">
-        <h1 class="mb-4">
-            Rendez-vous de {{ app.user.gender }}
-            <span class="last-name">{{ app.user.lastName }}</span>
-            <span class="first-name">{{ app.user.firstName }}</span>
-        </h1>
+<div class="container text-center">
+    <h1 class="text-2xl font-bold mb-12">
+        Rendez-vous de {{ app.user.gender }}
+        <span class="last-name">{{ app.user.lastName }}</span>
+        <span class="first-name">{{ app.user.firstName }}</span>
+    </h1>
 
-        <div id="appointments" class="table-responsive">
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th>Date</th>
-                        <th>Heure</th>
-                        <th>Status</th>
-                        <th>Actions</th>
+    <div id="appointments" class="overflow-x-auto">
+        <table class="min-w-full bg-white border border-gray-200 shadow-md">
+            <thead class="bg-gray-100">
+                <tr>
+                    <th class="py-2 px-4 border-b">Date</th>
+                    <th class="py-2 px-4 border-b">Heure</th>
+                    <th class="py-2 px-4 border-b">Status</th>
+                    <th class="py-2 px-4 border-b">Actions</th>
+                </tr>
+            </thead>
+            <tbody id="appointment-list">
+                {% for appointment in appointments %}
+                    <tr class="bg-white hover:bg-gray-50">
+                        <td class="py-2 px-4 border-b">
+                                {{ appointment.dateTime|date("d/m/Y") }}
+                            
+                        </td>
+                        <td class="py-2 px-4 border-b">{{ appointment.dateTime|date("H:i") }}</td>
+                        <td class="py-2 px-4 border-b">{{ appointment.statu.name }}</td>
+                        <td class=" flex py-2 px-4 border-b">                         
+						
+
+				<div class="flex-1 w-16">
+
+					<button type="button" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 my-2 mx-2 rounded" onclick="openModal({{ loop.index }})">Voir plus d'info</button>
+
+				</div>
+				<div class="flex-1 w-16">	
+
+                               		 {% if appointment.statu.name == "confirmé" %}
+                                   		 {{ include('appointment/_delete_form.html.twig', {'appointment': appointment}) }}
+                               		 {% endif %}
+
+                            	</div>
+ 				
+                        </td>
                     </tr>
-                </thead>
-                <tbody id="appointment-list">
-                    {% for appointment in appointments %}
-                        <tr>
-                            <td>
-                                <button type="button" class="btn btn-link" data-toggle="modal" data-target="#appointmentModal{{ loop.index }}">
-                                    {{ appointment.dateTime|date("d/m/Y") }}
+
+
+
+
+                    <!-- Modal -->
+                    <div id="appointmentModal{{ loop.index }}" class="hidden fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center">
+                        <div class="bg-white rounded-lg overflow-hidden shadow-xl transform transition-all max-w-lg w-full">
+                            <div class="px-4 py-2 bg-gray-100 border-b">
+                                <h5 class="text-lg font-bold">Détails du rendez-vous</h5>
+                                <button onclick="closeModal({{ loop.index }})" class="text-red-700 hover:text-red-800 ml-96">
+                                    <i class="fas fa-times"></i>
                                 </button>
-                            </td>
-                            <td>{{ appointment.dateTime|date("H:i") }}</td>
-                            <td>{{ appointment.statu.name }}</td>
-                            <td>
-                                <div>
-                                    {% if appointment.statu.name == "confirmé" %}
-                                    {{ include('appointment/_delete_form.html.twig', {'appointment': appointment}) }}
-                                {%endif %}
-                                </div>
-                            </td>
-                        </tr>
+                            </div>
+                            <div class="p-4">
+                                <h3 class="text-xl font-bold mb-2">Info du rendez-vous</h3>
+                                <p><strong>Date:</strong> {{ appointment.dateTime|date("d/m/Y") }}</p>
+                                <p><strong>Heure:</strong> {{ appointment.dateTime|date("H:i") }}</p>
 
-                        <!-- Modal -->
-                        <div class="modal fade" id="appointmentModal{{ loop.index }}" tabindex="-1" aria-labelledby="appointmentModalLabel{{ loop.index }}" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="appointmentModalLabel{{ loop.index }}">Détails du rendez-vous</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <h3>Info du rendez-vous</h3>
-                                        <p><strong>Date:</strong> {{ appointment.dateTime|date("d/m/Y") }}</p>
-                                        <p><strong>Heure:</strong> {{ appointment.dateTime|date("H:i") }}</p>
+                                <h3 class="text-xl font-bold mt-4 mb-2">S'y rendre</h3>
+                                <p><strong>Adresse:</strong></p>
+                                <p><strong>{{ appointment.planing.doctor.street }}</strong></p>
+                                <p>{{ appointment.planing.doctor.zipcode }}</p>
+                                <p>{{ appointment.planing.doctor.city }}</p>
 
-                                        <h3>S'y rendre</h3>
-                                        <p><strong>Adresse:</strong></p>
-                                        <p><strong>{{ appointment.planing.doctor.street }}</strong></p>
-                                        <p>{{ appointment.planing.doctor.zipcode }}</p>
-                                        <p>{{ appointment.planing.doctor.city }}</p>
+                                <h3 class="text-xl font-bold mt-4 mb-2">Contactez-le</h3>
+                                <p><strong>Téléphone:</strong> {{ appointment.planing.doctor.phoneNumber }}</p>
+                                <p><strong>Email:</strong> {{ appointment.planing.doctor.email }}</p>
 
-                                        <h3>Contactez-le</h3>
-                                        <p><strong>Téléphone:</strong> {{ appointment.planing.doctor.phoneNumber }}</p>
-                                        <p><strong>Email:</strong> {{ appointment.planing.doctor.email }}</p>
-
-                                        <h3>Information du docteur</h3>
-                                        <ul>
-                                            {% for speciality in appointment.planing.doctor.speciality %}
-                                                <li>{{ speciality.name }}</li>
-                                            {% endfor %}
-                                        </ul>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
-                                    </div>
-                                </div>
+                                <h3 class="text-xl font-bold mt-4 mb-2">Informations du docteur</h3>
+                                <ul class="list-disc list-inside">
+                                    {% for speciality in appointment.planing.doctor.speciality %}
+                                        <li>{{ speciality.name }}</li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                            <div class="px-4 py-2 bg-gray-100 border-t text-right">
+                                <button onclick="closeModal({{ loop.index }})" class="hover:underline">Fermer</button>
                             </div>
                         </div>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
+                    </div>
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
+</div>
+
+<script>
+function openModal(index) {
+    const modal = document.getElementById(`appointmentModal${index}`);
+    modal.classList.remove('hidden');
+}
+
+function closeModal(index) {
+    const modal = document.getElementById(`appointmentModal${index}`);
+    modal.classList.add('hidden');
+}
+</script>
 {% endblock %}

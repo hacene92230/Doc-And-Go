@@ -1,4 +1,6 @@
 <form method="post" action="{{ path('app_planing_delete', {'id': planing.id}) }}" onsubmit="return confirm('Êtes-vous sûr de bien vouloir supprimer ce planing?');">
     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ planing.id) }}">
-    <button class="btn">Supprimer</button>
+    <button class="btn  bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 my-2 mx-2 rounded mr-2 ">Supprimer</button>
 </form>
+
+

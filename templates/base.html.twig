@@ -8,7 +8,7 @@
     {% block stylesheets %}
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
- 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css"> 
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
     
@@ -65,7 +65,10 @@
     {% endfor %}
 
     <main>
-        {% block body %}{% endblock %}
+                        <!-- Barre de recherche -->
+                    {{ render(controller('App\\Controller\\SearchController::new')) }}
+        {% block body %}
+        {% endblock %}
     </main>
 
     {% block javascripts %}

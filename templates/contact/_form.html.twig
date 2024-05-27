@@ -1,24 +1,26 @@
 <div class="grid grid-cols-6 gap-6 mt-4"> <!-- Ajout du margin-top -->
     {{ form_start(form, {'attr': {'class': 'col-start-2 col-span-2'}}) }}
-    <div class="mt-4"> <!-- Ajout de la marge-top -->
-        <div class="grid grid-cols-2">
-            <div class="col-start-1">
-                <label for="name" class="block text-sm font-medium text-gray-700">Votre prénom</label>
-            </div>
-            <div class="mt-1 col-start-2">
-                <div class="form-row">
-                    {{ form_row(form.name, {'attr': {'class': 'input-field form-control w-100 shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline', 'placeholder': 'Prénom'}}) }}
-                </div>
-            </div>
-        </div>
+   
+ <div class="mt-16"> <!-- Ajout de la marge-top -->
 
         <div class="grid grid-cols-2">
-            <div class="col-start-1">
-                <label for="email" class="block text-sm font-medium text-gray-700">Votre adresse email</label>
+		<div class="col-start-1">
+                	<label for="name" class="block text-sm font-medium text-gray-700">Votre prénom</label>
+		</div>
+	<div class="mt-1 col-start-2">
+                <div class="form-row">
+                        {{ form_row(form.name, {'attr': {'class': 'input-field form-control w-100 shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline', 'placeholder': 'Prénom'}}) }}
+                </div>
+        </div>
+	</div>
+
+        <div class="grid grid-cols-2">
+		<div class="col-start-1">
+                	<label for="email" class="block text-sm font-medium text-gray-700">Votre adresse email</label>
             </div>
             <div class="mt-1 col-start-2">
                 <div class="form-row">
-                    {{ form_row(form.email, {'attr': {'class': 'input-field form-control w-100 shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline', 'placeholder': 'Adresse email'}}) }}
+                        {{ form_row(form.email, {'attr': {'class': 'input-field form-control w-100 shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline', 'placeholder': 'Adresse email'}}) }}
                 </div>
             </div>
         </div>
@@ -27,10 +29,10 @@
             <div class="col-start-1">
                 <label for="phone" class="block text-sm font-medium text-gray-700">Saisir votre numéro de téléphone</label>
             </div>
-            <div class="mt-1 col-start-2">
-                <div class="form-row">
+        <div class="mt-1 col-start-2">
+            <div class="form-row">
                     {{ form_row(form.phone, {'attr': {'class': 'input-field form-control w-100 shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline', 'placeholder': 'Votre numéro de téléphone'}}) }}
-                </div>
+            </div>
             </div>
         </div>
 
@@ -54,16 +56,21 @@
                     {{ form_row(form.content, {'attr': {'class': 'textarea-field resize form-control w-100 shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline', 'placeholder': 'Votre message...'}}) }}
                 </div>
             </div>
-        </div>
+
 
         <button type="submit" class="btn btn-primary flex items-center justify-center text-white bg-vert-fonce my-4 mx-4 px-4 py-2 rounded hover:transition delay-100 duration-200 hover:scale-110">
             <span>Transmettre ma demande</span>
             <span class="ml-2"><i class="fas fa-paper-plane"></i></span> <!-- Icone Font Awesome -->
         </button>
-    </div>
+    </div>   
 
-    <!-- Bloc d'informations email -->
-    <div class="col-start-5 col-span-2 flex justify-end mt-4"> <!-- Ajout de la marge-top -->
+    {{ form_end(form) }}
+
+</div>
+
+
+<!-- Bloc d'informations email -->
+    <div class=" col-start-4 col-span-2 mt-24"> <!-- Ajout de la marge-top -->
         <div class="border border-gray-300 p-4 rounded">
             <h2 class="text-lg font-medium mb-2">Informations de contact</h2>
             <p><strong>Email:</strong> contact@doc-and-go.fr</p>
@@ -71,6 +78,5 @@
             <p><strong>Téléphone:</strong> 0782219453</p>
         </div>
     </div>
+        </div>
 
-    {{ form_end(form) }}
-</div>

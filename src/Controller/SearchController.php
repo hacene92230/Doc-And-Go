@@ -20,8 +20,8 @@ class SearchController extends AbstractController
         $this->entityManager = $entityManager;
     }
 
-    #[Route('/', name: 'app_search_index', methods: ['GET'])]
-    public function index(Request $request): Response
+    #[Route('/', name: 'app_search_new', methods: ['POST'])]
+    public function new(Request $request): Response
     {
         $form = $this->createForm(SearchType::class);
 
@@ -30,8 +30,8 @@ class SearchController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'app_search_new', methods: ['POST'])]
-    public function new(Request $request): Response
+    #[Route('/show', name: 'app_search_show', methods: ['POST'])]
+    public function show(Request $request): Response
     {
         if (!$request->isXmlHttpRequest()) {
             return new JsonResponse(['error' => 'Requête invalide.'], Response::HTTP_BAD_REQUEST);
