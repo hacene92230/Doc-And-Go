@@ -1178,6 +1178,6 @@ class __TwigTemplate_e3cb7ce1051215cbbeee6fafdb146f8a extends Template
         </span>
     {%- endif -%}
 {%- endblock form_help %}
-", "bootstrap_3_layout.html.twig", "/var/www/html/Doc-And-Go/vendor/symfony/twig-bridge/Resources/views/Form/bootstrap_3_layout.html.twig");
+", "bootstrap_3_layout.html.twig", "/var/www/html/doc-and-go/vendor/symfony/twig-bridge/Resources/views/Form/bootstrap_3_layout.html.twig");
     }
 }

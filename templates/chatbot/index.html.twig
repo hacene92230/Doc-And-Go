@@ -1,0 +1,145 @@
+<button id="toggle-chat" class="bg-teal-300 py-2 px-2 border border-teal-400 rounded shadow m-1 fixed bottom-5 right-5"><i class="fa fa-robot"></i></button>
+
+<div id="chat-container" style="display: none;" class="bg-gray-50 fixed bottom-0 right-0 w-80 h-96 overflow-y-auto z-50">
+    <h2 class="py-4 px-6 border-b border-gray-200">Chatter avec notre Doc Bot</h2>
+    <button id="clear-chat" disabled class="bg-gray-100 py-2 px-2 border border-gray-400 rounded shadow m-1">Vider l'historique</button>    
+    
+    <div id="chat-messages" class="py-4 px-6"></div>
+    
+
+<div id="action" class="py-4 px-6">
+        <button class="py-2 px-2 rounded shadow m-1 shadow" onclick="handleAction('appointment')"><i class="fas fa-calendar-alt"></i> Je souhaite prendre rendez-vous</button>
+        <button class="py-2 px-2 rounded shadow m-1 shadow" onclick="handleAction('symptoms')"><i class="fas fa-user-md"></i> J'ai des symptômes et j'ai besoin d'aide</button>
+        <button class="py-2 px-2 rounded shadow m-1 shadow" onclick="handleAction('payment')"><i class="fas fa-file-invoice-dollar"></i> Je veux obtenir une attestation de paiement</button>
+        <button class="py-2 px-2 rounded shadow m-1 shadow" onclick="handleAction('else')"><i class="fas fa-ellipsis-h"></i> Autre</button>
+    </div>
+
+<div id="inputContent" style="display: none;" class="py-4 px-6">    
+        <input type="text" id="user-input" placeholder="Tapez votre message ici..." class="w-full bg-gray-100 py-2 px-3 border border-gray-300 rounded-md">
+        <button id="send-btn" class="mt-2 bg-teal-500 text-white py-2 px-4 rounded-md"><i class="fas fa-paper-plane"></i> Envoyer</button>
+    </div>
+</div>
+
+<script>
+    window.home = '{{ path('app_home') }}';
+    window.symptom = '{{ path('app_home') }}';
+    window.payment = '{{ path('app_home') }}';
+
+$(document).ready(function() {
+    // Afficher / masquer la div avec l'id "chat-container"
+    $('#toggle-chat').click(function() {
+        $('#chat-container').toggle();
+        const buttonText = $('#chat-container').is(':visible') ? 'Masquer le chat' : 'Afficher le chat';
+        $('#toggle-chat').text(buttonText);
+        if ($('#chat-messages').children().length === 0) {
+            const greeting = getGreetingMessage();
+            $('#chat-messages').append(`<div class="bot-greeting">${greeting}</div>`);
+        }
+        // Mettre le focus sur le bouton de fermeture du chat après avoir ouvert/fermé le chat
+        $('#toggle-chat').focus();
+    });
+
+    // Définir le texte initial du bouton
+    $('#toggle-chat').text('Afficher le chat');
+
+    // Nettoyer le contenu de la div #chat-messages
+    $('#clear-chat').click(function() {
+        $('#chat-messages').children().not('.bot-greeting').remove();
+        const messageCount = $('#chat-messages').children().length;
+        $('#clear-chat').prop('disabled', messageCount <= 1);
+    });
+
+    // Afficher la zone de saisie uniquement lorsque l'utilisateur clique sur le bouton "Autre"
+    $('#action button:last-child').click(function() {
+        $('#inputContent').show();
+    });
+
+    // Fermer le chatbot lorsque la souris quitte la zone du chatbot
+    $('#chat-container').mouseleave(function() {
+        $('#chat-container').hide();
+        $('#toggle-chat').text('Afficher le chat');
+    });
+
+    // Fermer le chatbot lorsque l'utilisateur appuie sur la touche Échap
+    $(document).keydown(function(event) {
+        if (event.key === "Escape" || event.key === "Esc") {
+            if ($('#chat-container').is(':visible')) {
+                $('#chat-container').hide();
+                $('#toggle-chat').text('Afficher le chat');
+            }
+        }
+    });
+});
+
+// Tableau associatif des actions et de leurs liens associés
+const actionLinks = {
+    appointment: "home",
+    symptoms: "symptom",
+    payment: "payment",
+    else: "other_action"
+};
+
+// Fonction pour gérer les actions et afficher les liens associés
+function handleAction(action) {
+    const link = actionLinks[action] || '#';
+    let actionText;
+    switch(action) {
+        case 'appointment':
+            actionText = 'prendre rendez-vous';
+            break;
+        case 'symptoms':
+            actionText = 'signalement de symptômes';
+            break;
+        case 'payment':
+            actionText = 'obtenir une attestation de paiement';
+            break;
+        case 'else':
+            actionText = 'autre';
+            break;
+        default:
+            actionText = 'action non reconnue';
+            break;
+    }
+
+    const now = new Date();
+    const hours = now.getHours();
+    const minutes = now.getMinutes();
+    const formattedTime = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
+
+    // Afficher l'action du patient
+    const patientMessage = `Patient: (${formattedTime}) ${actionText}`;
+    $('#chat-messages').append(`<div class="patient-message">${patientMessage}</div>`);
+
+    // Afficher la réponse du bot
+    let botMessage;
+    if (action === 'else') {
+        $('#inputContent').show();
+        botMessage = `Bot: (${formattedTime}) navré de n'avoir pu donner satisfaction immédiatement à votre demande, veuillez saisir ce que nous pouvons faire pour vous.`;
+    } else {
+        botMessage = `Bot: (${formattedTime}) Vous avez choisi : ${actionText}. <a href="${link}">Cliquez ici</a> pour continuer.`;
+    }
+    $('#chat-messages').append(`<div class="bot-message">${botMessage}</div>`);
+
+    const messageCount = $('#chat-messages').children().length;
+    $('#clear-chat').prop('disabled', messageCount <= 1);
+}
+
+// Fonction pour obtenir la formule de politesse en fonction de l'heure
+function getGreetingMessage() {
+    const now = new Date();
+    const hours = now.getHours();
+    const minutes = now.getMinutes();
+    const formattedTime = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
+    const formattedDate = now.toLocaleDateString('fr-FR');
+    let greeting;
+    if (hours < 12) {
+        greeting = 'Bonjour';
+    } else if (hours < 18) {
+        greeting = 'Bon après-midi';
+    } else {
+        greeting = 'Bonsoir';
+    }
+    return `Bot: (${formattedTime}) ${greeting}, nous sommes le ${formattedDate} et il est ${formattedTime}. En quoi puis-je vous aider ?`;
+}
+
+</script>

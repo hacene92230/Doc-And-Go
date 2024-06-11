@@ -97,6 +97,6 @@ class __TwigTemplate_8fecd91425932ec8510b5d27d5cab8fd extends Template
 
     <button class=\"btn\">{{ button_label|default('Save') }}</button>
 {{ form_end(form) }}
-", "speciality/_form.html.twig", "/var/www/html/Doc-And-Go/templates/speciality/_form.html.twig");
+", "speciality/_form.html.twig", "/var/www/html/doc-and-go/templates/speciality/_form.html.twig");
     }
 }

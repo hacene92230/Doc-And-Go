@@ -89,12 +89,12 @@ class __TwigTemplate_364005a62f48a09033659d3fea0ec4c0 extends Template
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->enter($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "body"));
 
         // line 6
-        yield "    <h1>Contact index</h1>
+        yield "    <h1 class=\"text-2xl font-bold text-center m-6\">Contact index</h1>
 
-    <table class=\"table\">
-        <thead>
-            <tr>
-                <th>Sujet</th>
+    <table class=\"table items-center text-center w-1/2\">
+        <thead class=\"bg-emerald-400\">
+            <tr class=\" border-b  \">
+                <th class=\"py-4\">Sujet</th>
                 <th>Créé le</th>
                 <th>Résolu</th>
                 <th>actions</th>
@@ -108,7 +108,7 @@ class __TwigTemplate_364005a62f48a09033659d3fea0ec4c0 extends Template
         $context['_iterated'] = false;
         foreach ($context['_seq'] as $context["_key"] => $context["contact"]) {
             // line 19
-            yield "            <tr>
+            yield "            <tr class=\" border-b \">
                 <td>";
             // line 20
             yield Twig\Extension\EscaperExtension::escape($this->env, CoreExtension::getAttribute($this->env, $this->source, $context["contact"], "subject", [], "any", false, false, false, 20), "html", null, true);
@@ -122,17 +122,21 @@ class __TwigTemplate_364005a62f48a09033659d3fea0ec4c0 extends Template
             yield ((CoreExtension::getAttribute($this->env, $this->source, $context["contact"], "resolved", [], "any", false, false, false, 22)) ? ("Yes") : ("No"));
             yield "</td>
                 <td>
+
+<button class=\"btn bg-orange-300 py-2 px-2 rounded shadow-sm m-1\">
                     <a href=\"";
-            // line 24
-            yield Twig\Extension\EscaperExtension::escape($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_contact_show", ["id" => CoreExtension::getAttribute($this->env, $this->source, $context["contact"], "id", [], "any", false, false, false, 24)]), "html", null, true);
+            // line 26
+            yield Twig\Extension\EscaperExtension::escape($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_contact_show", ["id" => CoreExtension::getAttribute($this->env, $this->source, $context["contact"], "id", [], "any", false, false, false, 26)]), "html", null, true);
             yield "\">Consulter la demande</a>
+
+</button>
                 </td>
             </tr>
         ";
             $context['_iterated'] = true;
         }
         if (!$context['_iterated']) {
-            // line 28
+            // line 32
             yield "            <tr>
                 <td colspan=\"9\">Aucun enregistrement trouvé</td>
             </tr>
@@ -141,14 +145,15 @@ class __TwigTemplate_364005a62f48a09033659d3fea0ec4c0 extends Template
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['_iterated'], $context['_key'], $context['contact'], $context['_parent'], $context['loop']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 32
+        // line 36
         yield "        </tbody>
     </table>
-
-    <a href=\"";
-        // line 35
+<button class=\"btn bg-blue-300 py-2 px-2 rounded shadow-sm ml-24 mt-6\">
+    <i class=\"fa-solid fa-plus\"></i> <a href=\"";
+        // line 39
         yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_contact_new");
         yield "\">Create new</a>
+</button>
 ";
         
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->leave($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof);
@@ -180,7 +185,7 @@ class __TwigTemplate_364005a62f48a09033659d3fea0ec4c0 extends Template
      */
     public function getDebugInfo()
     {
-        return array (  150 => 35,  145 => 32,  136 => 28,  127 => 24,  122 => 22,  118 => 21,  114 => 20,  111 => 19,  106 => 18,  92 => 6,  82 => 5,  60 => 3,  37 => 1,);
+        return array (  154 => 39,  149 => 36,  140 => 32,  129 => 26,  122 => 22,  118 => 21,  114 => 20,  111 => 19,  106 => 18,  92 => 6,  82 => 5,  60 => 3,  37 => 1,);
     }
 
     public function getSourceContext()
@@ -190,12 +195,12 @@ class __TwigTemplate_364005a62f48a09033659d3fea0ec4c0 extends Template
 {% block title %}Contact {{ parent() }} {% endblock %}
 
 {% block body %}
-    <h1>Contact index</h1>
+    <h1 class=\"text-2xl font-bold text-center m-6\">Contact index</h1>
 
-    <table class=\"table\">
-        <thead>
-            <tr>
-                <th>Sujet</th>
+    <table class=\"table items-center text-center w-1/2\">
+        <thead class=\"bg-emerald-400\">
+            <tr class=\" border-b  \">
+                <th class=\"py-4\">Sujet</th>
                 <th>Créé le</th>
                 <th>Résolu</th>
                 <th>actions</th>
@@ -203,12 +208,16 @@ class __TwigTemplate_364005a62f48a09033659d3fea0ec4c0 extends Template
         </thead>
         <tbody>
         {% for contact in contacts %}
-            <tr>
+            <tr class=\" border-b \">
                 <td>{{ contact.subject }}</td>
                 <td>{{ contact.createdAt ? contact.createdAt|date('d/m/Y') : '' }}</td>
                 <td>{{ contact.resolved ? 'Yes' : 'No' }}</td>
                 <td>
+
+<button class=\"btn bg-orange-300 py-2 px-2 rounded shadow-sm m-1\">
                     <a href=\"{{ path('app_contact_show', {'id': contact.id}) }}\">Consulter la demande</a>
+
+</button>
                 </td>
             </tr>
         {% else %}
@@ -218,9 +227,10 @@ class __TwigTemplate_364005a62f48a09033659d3fea0ec4c0 extends Template
         {% endfor %}
         </tbody>
     </table>
-
-    <a href=\"{{ path('app_contact_new') }}\">Create new</a>
+<button class=\"btn bg-blue-300 py-2 px-2 rounded shadow-sm ml-24 mt-6\">
+    <i class=\"fa-solid fa-plus\"></i> <a href=\"{{ path('app_contact_new') }}\">Create new</a>
+</button>
 {% endblock %}
-", "contact/index.html.twig", "/var/www/html/Doc-And-Go/templates/contact/index.html.twig");
+", "contact/index.html.twig", "/var/www/html/doc-and-go/templates/contact/index.html.twig");
     }
 }

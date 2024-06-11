@@ -44,49 +44,55 @@ class __TwigTemplate_cd884b25f0692bbc9b622914e2ed8d57 extends Template
         yield "
 ";
         // line 4
-        yield         $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->renderBlock((isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 4, $this->source); })()), 'form_start');
         yield "
 
-<div id=\"step1\">
+
+<div class=\"mx-auto justify-content-center items-center text-center \">
+";
+        // line 8
+        yield         $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->renderBlock((isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 8, $this->source); })()), 'form_start');
+        yield "
+
+<div id=\"step1\" class=\"w-full max-w-xs bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 w-1/2\">
     <h2>Étape 1: Sélectionnez les dates</h2>
 
     ";
-        // line 10
+        // line 14
         yield "    <div class=\"form-row\">
         ";
-        // line 11
-        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 11, $this->source); })()), "startDate", [], "any", false, false, false, 11), 'label', ["label_attr" => ["class" => "col-md-2"], "label" => "Date de début"]);
+        // line 15
+        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 15, $this->source); })()), "startDate", [], "any", false, false, false, 15), 'label', ["label_attr" => ["class" => "col-md-2 block mt-2 text-sm font-medium text-gray-900 "], "label" => "Date de début"]);
         yield "
         <div class=\"col-md-10\">
             ";
-        // line 13
-        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 13, $this->source); })()), "startDate", [], "any", false, false, false, 13), 'widget', ["attr" => ["class" => "form-control"], "id" => "planing_startDate"]);
+        // line 17
+        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 17, $this->source); })()), "startDate", [], "any", false, false, false, 17), 'widget', ["attr" => ["class" => "form-control"], "id" => "planing_startDate"]);
         yield "
             ";
-        // line 14
-        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 14, $this->source); })()), "startDate", [], "any", false, false, false, 14), 'errors');
+        // line 18
+        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 18, $this->source); })()), "startDate", [], "any", false, false, false, 18), 'errors');
         yield "
         </div>
     </div>
 
     <div class=\"form-row\">
         ";
-        // line 19
-        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 19, $this->source); })()), "endDate", [], "any", false, false, false, 19), 'label', ["label_attr" => ["class" => "col-md-2"], "label" => "Date de fin"]);
+        // line 23
+        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 23, $this->source); })()), "endDate", [], "any", false, false, false, 23), 'label', ["label_attr" => ["class" => "col-md-2  block mt-2 text-sm font-medium text-gray-900"], "label" => "Date de fin"]);
         yield "
         <div class=\"col-md-10\">
             ";
-        // line 21
-        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 21, $this->source); })()), "endDate", [], "any", false, false, false, 21), 'widget', ["attr" => ["class" => "form-control"], "id" => "planing_endDate"]);
+        // line 25
+        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 25, $this->source); })()), "endDate", [], "any", false, false, false, 25), 'widget', ["attr" => ["class" => "form-control"], "id" => "planing_endDate"]);
         yield "
             ";
-        // line 22
-        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 22, $this->source); })()), "endDate", [], "any", false, false, false, 22), 'errors');
+        // line 26
+        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 26, $this->source); })()), "endDate", [], "any", false, false, false, 26), 'errors');
         yield "
         </div>
     </div>
 
-    <button type=\"button\" id=\"nextStep1\">Suivant</button>
+    <button type=\"button\" id=\"nextStep1\" class=\"bg-emerald-400 py-2 px-4 rounded shadow m-2  hover:bg-emerald-500\">Suivant</button>
 </div>
 
 <div id=\"step2\" style=\"display: none;\">
@@ -94,15 +100,15 @@ class __TwigTemplate_cd884b25f0692bbc9b622914e2ed8d57 extends Template
     <p id=\"intervalDisplay\"></p>
 
     ";
-        // line 34
+        // line 38
         yield "    <div id=\"dayWorksContainer\">
         ";
-        // line 35
-        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 35, $this->source); })()), "dayWorks", [], "any", false, false, false, 35), 'label');
+        // line 39
+        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 39, $this->source); })()), "dayWorks", [], "any", false, false, false, 39), 'label');
         yield "
         <div id=\"dayWorksList\" data-prototype=\"";
-        // line 36
-        yield Twig\Extension\EscaperExtension::escape($this->env, $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 36, $this->source); })()), "dayWorks", [], "any", false, false, false, 36), "vars", [], "any", false, false, false, 36), "prototype", [], "any", false, false, false, 36), 'widget'), "html_attr");
+        // line 40
+        yield Twig\Extension\EscaperExtension::escape($this->env, $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 40, $this->source); })()), "dayWorks", [], "any", false, false, false, 40), "vars", [], "any", false, false, false, 40), "prototype", [], "any", false, false, false, 40), 'widget'), "html_attr");
         yield "\"></div>
         <button type=\"button\" id=\"showMore\" style=\"display: none;\">Voir plus</button>
         <button type=\"button\" id=\"showLess\" style=\"display: none;\">Voir moins</button>
@@ -119,25 +125,32 @@ class __TwigTemplate_cd884b25f0692bbc9b622914e2ed8d57 extends Template
     <p>Date de fin sélectionnée: <span id=\"endDateDisplay\"></span></p>
 
     ";
-        // line 52
+        // line 56
         yield "
     <button type=\"button\" id=\"prevStep3\">Précédent</button>
     <button type=\"submit\">Créer</button>
 </div>
 
 ";
-        // line 57
-        yield         $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->renderBlock((isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 57, $this->source); })()), 'form_end');
-        yield "
-";
-        // line 59
-        yield "
-";
         // line 61
+        yield         $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->renderBlock((isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 61, $this->source); })()), 'form_end');
+        yield "
+
+</div>
+
+
+
+
+
+";
+        // line 70
+        yield "
+";
+        // line 72
         yield "<script src=\"https://code.jquery.com/jquery-3.6.0.min.js\"></script>
 
 ";
-        // line 64
+        // line 75
         yield "<script>
     \$(document).ready(function() {
         // Obtenir la date actuelle au format ISO
@@ -287,7 +300,7 @@ class __TwigTemplate_cd884b25f0692bbc9b622914e2ed8d57 extends Template
      */
     public function getDebugInfo()
     {
-        return array (  141 => 64,  137 => 61,  134 => 59,  130 => 57,  123 => 52,  105 => 36,  101 => 35,  98 => 34,  84 => 22,  80 => 21,  75 => 19,  67 => 14,  63 => 13,  58 => 11,  55 => 10,  47 => 4,  44 => 2,);
+        return array (  154 => 75,  150 => 72,  147 => 70,  136 => 61,  129 => 56,  111 => 40,  107 => 39,  104 => 38,  90 => 26,  86 => 25,  81 => 23,  73 => 18,  69 => 17,  64 => 15,  61 => 14,  53 => 8,  47 => 4,  44 => 2,);
     }
 
     public function getSourceContext()
@@ -295,14 +308,18 @@ class __TwigTemplate_cd884b25f0692bbc9b622914e2ed8d57 extends Template
         return new Source("{# templates/form.html.twig #}
 
 {# Début du formulaire #}
+
+
+
+<div class=\"mx-auto justify-content-center items-center text-center \">
 {{ form_start(form) }}
 
-<div id=\"step1\">
+<div id=\"step1\" class=\"w-full max-w-xs bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 w-1/2\">
     <h2>Étape 1: Sélectionnez les dates</h2>
 
     {# Première étape: Champs startDate et endDate #}
     <div class=\"form-row\">
-        {{ form_label(form.startDate, 'Date de début', {'label_attr': {'class': 'col-md-2'}}) }}
+        {{ form_label(form.startDate, 'Date de début', {'label_attr': {'class': 'col-md-2 block mt-2 text-sm font-medium text-gray-900 '}}) }}
         <div class=\"col-md-10\">
             {{ form_widget(form.startDate, {'attr': {'class': 'form-control'}, 'id': 'planing_startDate'}) }}
             {{ form_errors(form.startDate) }}
@@ -310,14 +327,14 @@ class __TwigTemplate_cd884b25f0692bbc9b622914e2ed8d57 extends Template
     </div>
 
     <div class=\"form-row\">
-        {{ form_label(form.endDate, 'Date de fin', {'label_attr': {'class': 'col-md-2'}}) }}
+        {{ form_label(form.endDate, 'Date de fin', {'label_attr': {'class': 'col-md-2  block mt-2 text-sm font-medium text-gray-900'}}) }}
         <div class=\"col-md-10\">
             {{ form_widget(form.endDate, {'attr': {'class': 'form-control'}, 'id': 'planing_endDate'}) }}
             {{ form_errors(form.endDate) }}
         </div>
     </div>
 
-    <button type=\"button\" id=\"nextStep1\">Suivant</button>
+    <button type=\"button\" id=\"nextStep1\" class=\"bg-emerald-400 py-2 px-4 rounded shadow m-2  hover:bg-emerald-500\">Suivant</button>
 </div>
 
 <div id=\"step2\" style=\"display: none;\">
@@ -349,6 +366,13 @@ class __TwigTemplate_cd884b25f0692bbc9b622914e2ed8d57 extends Template
 </div>
 
 {{ form_end(form) }}
+
+</div>
+
+
+
+
+
 {# Fin du formulaire #}
 
 {# Inclure jQuery #}
@@ -473,6 +497,6 @@ class __TwigTemplate_cd884b25f0692bbc9b622914e2ed8d57 extends Template
         });
     });
 </script>
-", "planing/_form.html.twig", "/var/www/html/Doc-And-Go/templates/planing/_form.html.twig");
+", "planing/_form.html.twig", "/var/www/html/doc-and-go/templates/planing/_form.html.twig");
     }
 }

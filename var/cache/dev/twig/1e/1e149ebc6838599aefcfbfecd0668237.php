@@ -217,6 +217,6 @@ class __TwigTemplate_3f58b93298c707ffc9a7d78d89518206 extends Template
 
     {{ include('day_work/_delete_form.html.twig') }}
 {% endblock %}
-", "day_work/show.html.twig", "/var/www/html/Doc-And-Go/templates/day_work/show.html.twig");
+", "day_work/show.html.twig", "/var/www/html/doc-and-go/templates/day_work/show.html.twig");
     }
 }

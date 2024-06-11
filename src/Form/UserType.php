@@ -109,20 +109,15 @@ class UserType extends AbstractType
                     'mapped' => false,
                     'type' => PasswordType::class,
                     'first_options' => [
-                        'label' => 'Mot de passe',
+                        'label' => false,
                         'attr' => ['minlength' => 8, 'maxlength' => 20, 'placeholder' => 'Minimum 8 caractères']
                     ],
                     'second_options' => [
-                        'label' => 'Confirmez le mot de passe',
+                        'label' => false,
                         'attr' => ['minlength' => 8, 'maxlength' => 20, 'placeholder' => 'Confirmez votre mot de passe']
                     ]
                 ]
-                    )
-                    
-                    ->add('agreeTerms', CheckboxType::class, [
-                        'label' => 'Je confirme avoir lu et accepté l\'intégralité des conditions générales d\'utilisation ainsi que les conditions générales de vente.',
-                        'mapped' => false,
-                    ]);
+                    );
         }
         }
 

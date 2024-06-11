@@ -54,7 +54,7 @@ class __TwigTemplate_598c7c44d2e2d147ae7f5d5241f7833d extends Template
         }
     </style>
 
-    <nav class=\"bg-vert-fonce p-4 font-sans shadow-md\">
+    <nav class=\"bg-teal-800 p-4 font-sans shadow-md \">
         <div class=\"container mx-auto flex items-center justify-between\">
             <a class=\"text-xl font-bold flex items-center text-white\" href=\"";
         // line 16
@@ -62,7 +62,7 @@ class __TwigTemplate_598c7c44d2e2d147ae7f5d5241f7833d extends Template
         yield "\">
 <img src=\"";
         // line 17
-        yield Twig\Extension\EscaperExtension::escape($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl("images/logo-doc-and-go.png"), "html", null, true);
+        yield Twig\Extension\EscaperExtension::escape($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl("images/logo.png"), "html", null, true);
         yield "\" alt=\"DOC-AND-GO\" class=\"h-1/3 w-1/3 mr-2\">
             </a>
 
@@ -79,16 +79,19 @@ class __TwigTemplate_598c7c44d2e2d147ae7f5d5241f7833d extends Template
                     </button>
                     <div class=\"absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-10 hidden\" id=\"doctor-menu\">
                         <div class=\"py-1\">
-                            <a href=\"";
+                        ";
             // line 30
+            yield from             $this->loadTemplate("user/doctorLogin.html.twig", "shared/header.html.twig", 30)->unwrap()->yield($context);
+            // line 31
+            yield "                            <a href=\"";
             yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_formule");
             yield "\" class=\"block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100\">Nos formules</a>
                             <a href=\"";
-            // line 31
+            // line 32
             yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_avantage");
             yield "\" class=\"block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100\">Nos avantages</a>
                             <a href=\"";
-            // line 32
+            // line 33
             yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_contact_new");
             yield "\" class=\"block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100\">Nous contacter</a>
                         </div>
@@ -103,15 +106,15 @@ class __TwigTemplate_598c7c44d2e2d147ae7f5d5241f7833d extends Template
                     <div class=\"absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-10 hidden\" id=\"patient-menu\">
                         <div class=\"py-1\">
                             <a href=\"";
-            // line 44
+            // line 45
             yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_register");
             yield "\" class=\"block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100\">Nous rejoindre</a>
                             <a href=\"";
-            // line 45
+            // line 46
             yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_login");
             yield "\" class=\"block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100\">Accéder à mon compte</a>
                                             <a href=\"";
-            // line 46
+            // line 47
             yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_contact_new");
             yield "\" class=\"block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100\">Contact</a>
                         </div>
@@ -119,15 +122,15 @@ class __TwigTemplate_598c7c44d2e2d147ae7f5d5241f7833d extends Template
                 </div>
 ";
         } else {
-            // line 51
-            yield from             $this->loadTemplate("shared/menuuser.html.twig", "shared/header.html.twig", 51)->unwrap()->yield($context);
+            // line 52
+            yield from             $this->loadTemplate("shared/menuuser.html.twig", "shared/header.html.twig", 52)->unwrap()->yield($context);
         }
-        // line 53
+        // line 54
         if ($this->extensions['Symfony\Bridge\Twig\Extension\SecurityExtension']->isGranted("ROLE_ADMIN")) {
-            // line 54
-            yield from             $this->loadTemplate("shared/menuadmin.html.twig", "shared/header.html.twig", 54)->unwrap()->yield($context);
+            // line 55
+            yield from             $this->loadTemplate("shared/menuadmin.html.twig", "shared/header.html.twig", 55)->unwrap()->yield($context);
         }
-        // line 56
+        // line 57
         yield "</div>
         </div>
     </nav>
@@ -207,7 +210,7 @@ class __TwigTemplate_598c7c44d2e2d147ae7f5d5241f7833d extends Template
      */
     public function getDebugInfo()
     {
-        return array (  131 => 56,  128 => 54,  126 => 53,  123 => 51,  115 => 46,  111 => 45,  107 => 44,  92 => 32,  88 => 31,  84 => 30,  73 => 21,  71 => 20,  65 => 17,  61 => 16,  44 => 1,);
+        return array (  134 => 57,  131 => 55,  129 => 54,  126 => 52,  118 => 47,  114 => 46,  110 => 45,  95 => 33,  91 => 32,  86 => 31,  84 => 30,  73 => 21,  71 => 20,  65 => 17,  61 => 16,  44 => 1,);
     }
 
     public function getSourceContext()
@@ -225,10 +228,10 @@ class __TwigTemplate_598c7c44d2e2d147ae7f5d5241f7833d extends Template
         }
     </style>
 
-    <nav class=\"bg-vert-fonce p-4 font-sans shadow-md\">
+    <nav class=\"bg-teal-800 p-4 font-sans shadow-md \">
         <div class=\"container mx-auto flex items-center justify-between\">
             <a class=\"text-xl font-bold flex items-center text-white\" href=\"{{ path('app_home') }}\">
-<img src=\"{{ asset('images/logo-doc-and-go.png') }}\" alt=\"DOC-AND-GO\" class=\"h-1/3 w-1/3 mr-2\">
+<img src=\"{{ asset('images/logo.png') }}\" alt=\"DOC-AND-GO\" class=\"h-1/3 w-1/3 mr-2\">
             </a>
 
             {% if not app.user %}
@@ -241,6 +244,7 @@ class __TwigTemplate_598c7c44d2e2d147ae7f5d5241f7833d extends Template
                     </button>
                     <div class=\"absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-10 hidden\" id=\"doctor-menu\">
                         <div class=\"py-1\">
+                        {% include(\"user/doctorLogin.html.twig\") %}
                             <a href=\"{{ path('app_formule') }}\" class=\"block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100\">Nos formules</a>
                             <a href=\"{{ path('app_avantage') }}\" class=\"block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100\">Nos avantages</a>
                             <a href=\"{{ path('app_contact_new') }}\" class=\"block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100\">Nous contacter</a>

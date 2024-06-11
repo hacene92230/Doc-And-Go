@@ -41,13 +41,36 @@ class __TwigTemplate_47907e0e02da5f6a01922574b0f2f94e extends Template
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->enter($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "template", "contact/_form.html.twig"));
 
         // line 1
-        yield "<div class=\"grid grid-cols-6 gap-6 mt-4\"> <!-- Ajout du margin-top -->
+        yield "
+
+
+<div class=\"grid grid-cols-7 gap-6 mt-4 bg-gray-50 shadow-md rounded mx-44 rounded-lg shadow-lg\"> <!-- Ajout du margin-top -->
+
+
+
+
+
+
+
+<!-- Bloc d'informations email -->
+    <div class=\" col-start-1 col-span-3 mt-6 h-100 ml-8\"> <!-- Ajout de la marge-top -->
+        <div class=\" p-4 rounded-lg bg-opacity-50  bg-vert  shadow-md\">
+            <h2 class=\" mb-2 pb-6 text-2xl font-bold pt-2\">Informations de contact</h2>
+            <p class=\"py-5\"><i class=\"fa-solid fa-envelope\" title=\"adresse email\"></i>  contact@doc-and-go.fr</p>
+            <p class=\"py-5\"><i class=\"fa-solid fa-location-dot\"  title=\"Adresse postale\"></i>  24 avenue Liégegard, 93270 Sevran</p>
+            <p class=\"py-5\"><i class=\"fa-solid fa-phone\"  title=\"num�ro de t�l�phone\"></i> 0782219453</p>
+        </div>
+    </div>
+
+
+
+
     ";
-        // line 2
-        yield         $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->renderBlock((isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 2, $this->source); })()), 'form_start', ["attr" => ["class" => "col-start-2 col-span-2"]]);
+        // line 25
+        yield         $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->renderBlock((isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 25, $this->source); })()), 'form_start', ["attr" => ["class" => "col-start-4 col-span-4"]]);
         yield "
    
- <div class=\"mt-16\"> <!-- Ajout de la marge-top -->
+ <div class=\"mt-16 \"> <!-- Ajout de la marge-top -->
 
         <div class=\"grid grid-cols-2\">
 \t\t<div class=\"col-start-1\">
@@ -56,8 +79,8 @@ class __TwigTemplate_47907e0e02da5f6a01922574b0f2f94e extends Template
 \t<div class=\"mt-1 col-start-2\">
                 <div class=\"form-row\">
                         ";
-        // line 12
-        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 12, $this->source); })()), "name", [], "any", false, false, false, 12), 'row', ["attr" => ["class" => "input-field form-control w-100 shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline", "placeholder" => "Prénom"]]);
+        // line 35
+        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 35, $this->source); })()), "name", [], "any", false, false, false, 35), 'row', ["attr" => ["class" => "input-field form-control w-100 shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline", "placeholder" => "Prénom"]]);
         yield "
                 </div>
         </div>
@@ -70,8 +93,8 @@ class __TwigTemplate_47907e0e02da5f6a01922574b0f2f94e extends Template
             <div class=\"mt-1 col-start-2\">
                 <div class=\"form-row\">
                         ";
-        // line 23
-        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 23, $this->source); })()), "email", [], "any", false, false, false, 23), 'row', ["attr" => ["class" => "input-field form-control w-100 shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline", "placeholder" => "Adresse email"]]);
+        // line 46
+        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 46, $this->source); })()), "email", [], "any", false, false, false, 46), 'row', ["attr" => ["class" => "input-field form-control w-100 shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline", "placeholder" => "Adresse email"]]);
         yield "
                 </div>
             </div>
@@ -84,8 +107,8 @@ class __TwigTemplate_47907e0e02da5f6a01922574b0f2f94e extends Template
         <div class=\"mt-1 col-start-2\">
             <div class=\"form-row\">
                     ";
-        // line 34
-        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 34, $this->source); })()), "phone", [], "any", false, false, false, 34), 'row', ["attr" => ["class" => "input-field form-control w-100 shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline", "placeholder" => "Votre numéro de téléphone"]]);
+        // line 57
+        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 57, $this->source); })()), "phone", [], "any", false, false, false, 57), 'row', ["attr" => ["class" => "input-field form-control w-100 shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline", "placeholder" => "Votre numéro de téléphone"]]);
         yield "
             </div>
             </div>
@@ -98,8 +121,8 @@ class __TwigTemplate_47907e0e02da5f6a01922574b0f2f94e extends Template
             <div class=\"mt-1 col-start-2\">
                 <div class=\"form-row\">
                     ";
-        // line 45
-        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 45, $this->source); })()), "subject", [], "any", false, false, false, 45), 'row', ["attr" => ["class" => "input-field form-control w-100 shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline", "placeholder" => "Votre demande"]]);
+        // line 68
+        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 68, $this->source); })()), "subject", [], "any", false, false, false, 68), 'row', ["attr" => ["class" => "input-field form-control w-100 shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline", "placeholder" => "Votre demande"]]);
         yield "
                 </div>
             </div>
@@ -112,37 +135,28 @@ class __TwigTemplate_47907e0e02da5f6a01922574b0f2f94e extends Template
             <div class=\"mt-1 col-start-2\">
                 <div class=\"form-row\">
                     ";
-        // line 56
-        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 56, $this->source); })()), "content", [], "any", false, false, false, 56), 'row', ["attr" => ["class" => "textarea-field resize form-control w-100 shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline", "placeholder" => "Votre message..."]]);
+        // line 79
+        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 79, $this->source); })()), "content", [], "any", false, false, false, 79), 'row', ["attr" => ["class" => "textarea-field resize form-control w-100 shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline", "placeholder" => "Votre message...", "cols" => "23"]]);
         yield "
                 </div>
             </div>
 
 
-        <button type=\"submit\" class=\"btn btn-primary flex items-center justify-center text-white bg-vert-fonce my-4 mx-4 px-4 py-2 rounded hover:transition delay-100 duration-200 hover:scale-110\">
+        <button type=\"submit\" class=\"btn btn-primary flex items-center justify-center text-white  bg-opacity-60  bg-vert my-6 mx-4 px-4 py-2 rounded hover:transition delay-100 duration-200 hover:scale-110\">
             <span>Transmettre ma demande</span>
             <span class=\"ml-2\"><i class=\"fas fa-paper-plane\"></i></span> <!-- Icone Font Awesome -->
         </button>
     </div>   
 
     ";
-        // line 67
-        yield         $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->renderBlock((isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 67, $this->source); })()), 'form_end');
+        // line 90
+        yield         $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->renderBlock((isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 90, $this->source); })()), 'form_end');
         yield "
 
 </div>
+        </div>
 
 
-<!-- Bloc d'informations email -->
-    <div class=\" col-start-4 col-span-2 mt-24\"> <!-- Ajout de la marge-top -->
-        <div class=\"border border-gray-300 p-4 rounded\">
-            <h2 class=\"text-lg font-medium mb-2\">Informations de contact</h2>
-            <p><strong>Email:</strong> contact@doc-and-go.fr</p>
-            <p><strong>Adresse:</strong> 24 avenue Liégegard, 93270 Sevran</p>
-            <p><strong>Téléphone:</strong> 0782219453</p>
-        </div>
-    </div>
-        </div>
 
 ";
         
@@ -175,15 +189,38 @@ class __TwigTemplate_47907e0e02da5f6a01922574b0f2f94e extends Template
      */
     public function getDebugInfo()
     {
-        return array (  130 => 67,  116 => 56,  102 => 45,  88 => 34,  74 => 23,  60 => 12,  47 => 2,  44 => 1,);
+        return array (  153 => 90,  139 => 79,  125 => 68,  111 => 57,  97 => 46,  83 => 35,  70 => 25,  44 => 1,);
     }
 
     public function getSourceContext()
     {
-        return new Source("<div class=\"grid grid-cols-6 gap-6 mt-4\"> <!-- Ajout du margin-top -->
-    {{ form_start(form, {'attr': {'class': 'col-start-2 col-span-2'}}) }}
+        return new Source("
+
+
+<div class=\"grid grid-cols-7 gap-6 mt-4 bg-gray-50 shadow-md rounded mx-44 rounded-lg shadow-lg\"> <!-- Ajout du margin-top -->
+
+
+
+
+
+
+
+<!-- Bloc d'informations email -->
+    <div class=\" col-start-1 col-span-3 mt-6 h-100 ml-8\"> <!-- Ajout de la marge-top -->
+        <div class=\" p-4 rounded-lg bg-opacity-50  bg-vert  shadow-md\">
+            <h2 class=\" mb-2 pb-6 text-2xl font-bold pt-2\">Informations de contact</h2>
+            <p class=\"py-5\"><i class=\"fa-solid fa-envelope\" title=\"adresse email\"></i>  contact@doc-and-go.fr</p>
+            <p class=\"py-5\"><i class=\"fa-solid fa-location-dot\"  title=\"Adresse postale\"></i>  24 avenue Liégegard, 93270 Sevran</p>
+            <p class=\"py-5\"><i class=\"fa-solid fa-phone\"  title=\"num�ro de t�l�phone\"></i> 0782219453</p>
+        </div>
+    </div>
+
+
+
+
+    {{ form_start(form, {'attr': {'class': 'col-start-4 col-span-4'}}) }}
    
- <div class=\"mt-16\"> <!-- Ajout de la marge-top -->
+ <div class=\"mt-16 \"> <!-- Ajout de la marge-top -->
 
         <div class=\"grid grid-cols-2\">
 \t\t<div class=\"col-start-1\">
@@ -235,12 +272,12 @@ class __TwigTemplate_47907e0e02da5f6a01922574b0f2f94e extends Template
             </div>
             <div class=\"mt-1 col-start-2\">
                 <div class=\"form-row\">
-                    {{ form_row(form.content, {'attr': {'class': 'textarea-field resize form-control w-100 shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline', 'placeholder': 'Votre message...'}}) }}
+                    {{ form_row(form.content, {'attr': {'class': 'textarea-field resize form-control w-100 shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline', 'placeholder': 'Votre message...', 'cols': '23'}}) }}
                 </div>
             </div>
 
 
-        <button type=\"submit\" class=\"btn btn-primary flex items-center justify-center text-white bg-vert-fonce my-4 mx-4 px-4 py-2 rounded hover:transition delay-100 duration-200 hover:scale-110\">
+        <button type=\"submit\" class=\"btn btn-primary flex items-center justify-center text-white  bg-opacity-60  bg-vert my-6 mx-4 px-4 py-2 rounded hover:transition delay-100 duration-200 hover:scale-110\">
             <span>Transmettre ma demande</span>
             <span class=\"ml-2\"><i class=\"fas fa-paper-plane\"></i></span> <!-- Icone Font Awesome -->
         </button>
@@ -249,18 +286,9 @@ class __TwigTemplate_47907e0e02da5f6a01922574b0f2f94e extends Template
     {{ form_end(form) }}
 
 </div>
+        </div>
 
 
-<!-- Bloc d'informations email -->
-    <div class=\" col-start-4 col-span-2 mt-24\"> <!-- Ajout de la marge-top -->
-        <div class=\"border border-gray-300 p-4 rounded\">
-            <h2 class=\"text-lg font-medium mb-2\">Informations de contact</h2>
-            <p><strong>Email:</strong> contact@doc-and-go.fr</p>
-            <p><strong>Adresse:</strong> 24 avenue Liégegard, 93270 Sevran</p>
-            <p><strong>Téléphone:</strong> 0782219453</p>
-        </div>
-    </div>
-        </div>
 
 ", "contact/_form.html.twig", "/var/www/html/doc-and-go/templates/contact/_form.html.twig");
     }

@@ -145,6 +145,6 @@ class __TwigTemplate_b04cf529cc701bb865c1a9f1cb5bdb92 extends Template
 
     <a href=\"{{ path('app_speciality_index') }}\">back to list</a>
 {% endblock %}
-", "speciality/new.html.twig", "/var/www/html/Doc-And-Go/templates/speciality/new.html.twig");
+", "speciality/new.html.twig", "/var/www/html/doc-and-go/templates/speciality/new.html.twig");
     }
 }

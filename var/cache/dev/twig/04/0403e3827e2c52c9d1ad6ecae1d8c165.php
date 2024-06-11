@@ -182,6 +182,6 @@ class __TwigTemplate_7c32c75806525200a4c8d73e541df689 extends Template
         {%- endfor -%}
     </pre>
 {% endif %}
-", "@Doctrine/Collector/explain.html.twig", "/var/www/html/Doc-And-Go/vendor/doctrine/doctrine-bundle/templates/Collector/explain.html.twig");
+", "@Doctrine/Collector/explain.html.twig", "/var/www/html/doc-and-go/vendor/doctrine/doctrine-bundle/templates/Collector/explain.html.twig");
     }
 }

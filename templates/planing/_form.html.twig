@@ -1,14 +1,18 @@
 {# templates/form.html.twig #}
 
 {# Début du formulaire #}
+
+
+
+<div class="mx-auto justify-content-center items-center text-center ">
 {{ form_start(form) }}
 
-<div id="step1">
+<div id="step1" class="w-full max-w-xs bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 w-1/2">
     <h2>Étape 1: Sélectionnez les dates</h2>
 
     {# Première étape: Champs startDate et endDate #}
     <div class="form-row">
-        {{ form_label(form.startDate, 'Date de début', {'label_attr': {'class': 'col-md-2'}}) }}
+        {{ form_label(form.startDate, 'Date de début', {'label_attr': {'class': 'col-md-2 block mt-2 text-sm font-medium text-gray-900 '}}) }}
         <div class="col-md-10">
             {{ form_widget(form.startDate, {'attr': {'class': 'form-control'}, 'id': 'planing_startDate'}) }}
             {{ form_errors(form.startDate) }}
@@ -16,14 +20,14 @@
     </div>
 
     <div class="form-row">
-        {{ form_label(form.endDate, 'Date de fin', {'label_attr': {'class': 'col-md-2'}}) }}
+        {{ form_label(form.endDate, 'Date de fin', {'label_attr': {'class': 'col-md-2  block mt-2 text-sm font-medium text-gray-900'}}) }}
         <div class="col-md-10">
             {{ form_widget(form.endDate, {'attr': {'class': 'form-control'}, 'id': 'planing_endDate'}) }}
             {{ form_errors(form.endDate) }}
         </div>
     </div>
 
-    <button type="button" id="nextStep1">Suivant</button>
+    <button type="button" id="nextStep1" class="bg-emerald-400 py-2 px-4 rounded shadow m-2  hover:bg-emerald-500">Suivant</button>
 </div>
 
 <div id="step2" style="display: none;">
@@ -55,6 +59,13 @@
 </div>
 
 {{ form_end(form) }}
+
+</div>
+
+
+
+
+
 {# Fin du formulaire #}
 
 {# Inclure jQuery #}

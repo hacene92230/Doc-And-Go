@@ -203,6 +203,6 @@ class __TwigTemplate_195c1bde783034b71b87f7bd2c13daf3 extends Template
         </div>
     </div>
 {% endblock %}
-", "user/show.html.twig", "/var/www/html/Doc-And-Go/templates/user/show.html.twig");
+", "user/show.html.twig", "/var/www/html/doc-and-go/templates/user/show.html.twig");
     }
 }

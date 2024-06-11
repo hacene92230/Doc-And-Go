@@ -89,21 +89,40 @@ class __TwigTemplate_51981800c3d1e89c05269ea3dd1a8e02 extends Template
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->enter($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "body"));
 
         // line 6
-        yield "<div class=\"min-h-screen flex flex-col bg-gray-100 font-serif bg-contain\" style=\"background-image: url('";
-        yield Twig\Extension\EscaperExtension::escape($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl("images/fond2.jpg"), "html", null, true);
-        yield "'); background-attachment: fixed;\">
-    <div class=\"flex-grow flex justify-center items-center\">
-        <div class=\"max-w-3xl mx-auto px-6 py-12 bg-white shadow-md rounded-lg items-left text-left\">
-            <h2 class=\"text-5xl font-bold mb-6 text-left\" style=\"color: #226D68; font-family: 'Britannic Bold Regular', Helvetica, Arial, sans-serif;\">Bienvenue</h2>
-            <p class=\"text-lg mb-6 font-sans\">
-                Notre plateforme de santé en ligne démocratise l'accès aux <span class=\"text-blue-500\"><i class=\"fas fa-stethoscope\"></i></span> soins médicaux</span>. Notre vision est simple : offrir une solution novatrice, sans barrières ni frontières, pour rendre la <span class=\"text-blue-500\"><i class=\"fas fa-heartbeat\"></i></span> santé</span> accessible à tous. Nous allons au-delà de la simple prise de <span class=\"text-blue-500\"><i class=\"far fa-calendar-alt\"></i></span> rendez-vous</span> médicaux en ligne. Doc-And-Go repense fondamentalement la manière dont les <span class=\"text-blue-500\"><i class=\"fas fa-stethoscope\"></i></span> soins de santé</span> sont dispensés, mettant l'accent sur l'<span class=\"text-blue-500\"><i class=\"fas fa-wheelchair\"></i></span> accessibilité</span>, la <span class=\"text-blue-500\"><i class=\"fas fa-hand-holding-medical\"></i></span> commodité</span> et la <span class=\"text-blue-500\"><i class=\"fas fa-award\"></i></span> qualité</span> des services.
-            </p>
-            <p class=\"text-lg mb-6 font-sans\">
-                Chez Doc-And-Go, nous croyons fermement que chacun a le droit à des <span class=\"text-blue-500\"><i class=\"fas fa-stethoscope\"></i></span> soins de santé</span> de qualité, peu importe son lieu de résidence ou son statut social. Nous nous engageons à rendre les <span class=\"text-blue-500\"><i class=\"fas fa-stethoscope\"></i></span> soins médicaux</span> aussi accessibles que possible : <span class=\"text-blue-500\"><i class=\"fas fa-wheelchair\"></i></span> accessibilité</span>.
-            </p>
-        </div>
-    </div>
+        yield "
+
+<div class=\"bg-teal-50 bg-cover >
+  <img src=\"";
+        // line 9
+        yield Twig\Extension\EscaperExtension::escape($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl("images/doctor.png"), "html", null, true);
+        yield "\" class=\"w-full top-0 object-cover\" alt=\"\" style=\"max-height:40rem;\">
 </div>
+
+
+
+<div class=\"text-left bg-teal-50 pb-20 px-36 pt-20 bg-white shadow rounded\">
+<h1 class=\"text-2xl pt-2\" >DOC AND GO</h1>
+<p class=\"text-black text-xl pt-2 ml-11 font-sans\">
+                Notre plateforme de santé en ligne démocratise l'accès aux soins médicaux. Notre vision est simple : offrir une solution novatrice, sans barrières ni frontières, pour rendre la santé accessible à tous. Nous allons au-delà de la simple prise de rendez-vous médicaux en ligne. Doc-And-Go repense fondamentalement la manière dont les soins de santé sont dispensés, mettant l'accent sur l' accessibilité, la commodité et la qualité des services.
+            </p>
+            <p class=\"text-black text-lg pt-2 ml-11 font-sans\">
+                Chez Doc-And-Go, nous croyons fermement que chacun a le droit à des soins de santé de qualité, peu importe son lieu de résidence ou son statut social. Nous nous engageons à rendre les soins médicaux aussi accessibles que possible.
+            </p>
+
+</div>
+
+
+</div>
+\t\t";
+        // line 27
+        yield $this->env->getRuntime('Symfony\Bridge\Twig\Extension\HttpKernelRuntime')->renderFragment(Symfony\Bridge\Twig\Extension\HttpKernelExtension::controller("App\\Controller\\SpecialityController::index"));
+        yield "
+
+
+                    ";
+        // line 30
+        yield $this->env->getRuntime('Symfony\Bridge\Twig\Extension\HttpKernelRuntime')->renderFragment(Symfony\Bridge\Twig\Extension\HttpKernelExtension::controller("App\\Controller\\ChatBotController::index"));
+        yield "
 ";
         
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->leave($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof);
@@ -135,7 +154,7 @@ class __TwigTemplate_51981800c3d1e89c05269ea3dd1a8e02 extends Template
      */
     public function getDebugInfo()
     {
-        return array (  92 => 6,  82 => 5,  60 => 3,  37 => 1,);
+        return array (  124 => 30,  118 => 27,  97 => 9,  92 => 6,  82 => 5,  60 => 3,  37 => 1,);
     }
 
     public function getSourceContext()
@@ -145,19 +164,31 @@ class __TwigTemplate_51981800c3d1e89c05269ea3dd1a8e02 extends Template
 {% block title %} Bienvenue chez {{ parent() }} {% endblock %}
 
 {% block body %}
-<div class=\"min-h-screen flex flex-col bg-gray-100 font-serif bg-contain\" style=\"background-image: url('{{ asset('images/fond2.jpg') }}'); background-attachment: fixed;\">
-    <div class=\"flex-grow flex justify-center items-center\">
-        <div class=\"max-w-3xl mx-auto px-6 py-12 bg-white shadow-md rounded-lg items-left text-left\">
-            <h2 class=\"text-5xl font-bold mb-6 text-left\" style=\"color: #226D68; font-family: 'Britannic Bold Regular', Helvetica, Arial, sans-serif;\">Bienvenue</h2>
-            <p class=\"text-lg mb-6 font-sans\">
-                Notre plateforme de santé en ligne démocratise l'accès aux <span class=\"text-blue-500\"><i class=\"fas fa-stethoscope\"></i></span> soins médicaux</span>. Notre vision est simple : offrir une solution novatrice, sans barrières ni frontières, pour rendre la <span class=\"text-blue-500\"><i class=\"fas fa-heartbeat\"></i></span> santé</span> accessible à tous. Nous allons au-delà de la simple prise de <span class=\"text-blue-500\"><i class=\"far fa-calendar-alt\"></i></span> rendez-vous</span> médicaux en ligne. Doc-And-Go repense fondamentalement la manière dont les <span class=\"text-blue-500\"><i class=\"fas fa-stethoscope\"></i></span> soins de santé</span> sont dispensés, mettant l'accent sur l'<span class=\"text-blue-500\"><i class=\"fas fa-wheelchair\"></i></span> accessibilité</span>, la <span class=\"text-blue-500\"><i class=\"fas fa-hand-holding-medical\"></i></span> commodité</span> et la <span class=\"text-blue-500\"><i class=\"fas fa-award\"></i></span> qualité</span> des services.
-            </p>
-            <p class=\"text-lg mb-6 font-sans\">
-                Chez Doc-And-Go, nous croyons fermement que chacun a le droit à des <span class=\"text-blue-500\"><i class=\"fas fa-stethoscope\"></i></span> soins de santé</span> de qualité, peu importe son lieu de résidence ou son statut social. Nous nous engageons à rendre les <span class=\"text-blue-500\"><i class=\"fas fa-stethoscope\"></i></span> soins médicaux</span> aussi accessibles que possible : <span class=\"text-blue-500\"><i class=\"fas fa-wheelchair\"></i></span> accessibilité</span>.
-            </p>
-        </div>
-    </div>
+
+
+<div class=\"bg-teal-50 bg-cover >
+  <img src=\"{{ asset('images/doctor.png') }}\" class=\"w-full top-0 object-cover\" alt=\"\" style=\"max-height:40rem;\">
 </div>
+
+
+
+<div class=\"text-left bg-teal-50 pb-20 px-36 pt-20 bg-white shadow rounded\">
+<h1 class=\"text-2xl pt-2\" >DOC AND GO</h1>
+<p class=\"text-black text-xl pt-2 ml-11 font-sans\">
+                Notre plateforme de santé en ligne démocratise l'accès aux soins médicaux. Notre vision est simple : offrir une solution novatrice, sans barrières ni frontières, pour rendre la santé accessible à tous. Nous allons au-delà de la simple prise de rendez-vous médicaux en ligne. Doc-And-Go repense fondamentalement la manière dont les soins de santé sont dispensés, mettant l'accent sur l' accessibilité, la commodité et la qualité des services.
+            </p>
+            <p class=\"text-black text-lg pt-2 ml-11 font-sans\">
+                Chez Doc-And-Go, nous croyons fermement que chacun a le droit à des soins de santé de qualité, peu importe son lieu de résidence ou son statut social. Nous nous engageons à rendre les soins médicaux aussi accessibles que possible.
+            </p>
+
+</div>
+
+
+</div>
+\t\t{{ render(controller('App\\\\Controller\\\\SpecialityController::index')) }}
+
+
+                    {{ render(controller('App\\\\Controller\\\\ChatBotController::index')) }}
 {% endblock %}
 ", "home/index.html.twig", "/var/www/html/doc-and-go/templates/home/index.html.twig");
     }

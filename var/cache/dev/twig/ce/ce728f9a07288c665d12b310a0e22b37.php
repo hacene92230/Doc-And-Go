@@ -90,6 +90,6 @@ class __TwigTemplate_ec096c44517557bd7dee3ef39033ef49 extends Template
     <input type=\"hidden\" name=\"_token\" value=\"{{ csrf_token('delete' ~ app.user.id) }}\">
     <button class=\"btn\">Supprimer mon compte</button>
 </form>
-", "user/_delete_form.html.twig", "/var/www/html/Doc-And-Go/templates/user/_delete_form.html.twig");
+", "user/_delete_form.html.twig", "/var/www/html/doc-and-go/templates/user/_delete_form.html.twig");
     }
 }

@@ -89,7 +89,7 @@ class __TwigTemplate_f644ea6dfb2a5fae3397526ab3b2d260 extends Template
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->enter($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "body"));
 
         // line 6
-        yield "    <h1>Créer un nouveau planing</h1>
+        yield "    <h1 class=\"text-center text-xl font-bold m-5\">Créer un nouveau planing</h1>
 
     ";
         // line 8
@@ -137,11 +137,11 @@ class __TwigTemplate_f644ea6dfb2a5fae3397526ab3b2d260 extends Template
 {% block title %}Nouveau planing {{ parent() }} {% endblock %}
 
 {% block body %}
-    <h1>Créer un nouveau planing</h1>
+    <h1 class=\"text-center text-xl font-bold m-5\">Créer un nouveau planing</h1>
 
     {{ include('planing/_form.html.twig') }}
 
 {% endblock %}
-", "planing/new.html.twig", "/var/www/html/Doc-And-Go/templates/planing/new.html.twig");
+", "planing/new.html.twig", "/var/www/html/doc-and-go/templates/planing/new.html.twig");
     }
 }

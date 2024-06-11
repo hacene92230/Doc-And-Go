@@ -1,29 +1,31 @@
 <!-- Bouton pour ouvrir le dropdown administration -->
 <div class="relative">
-    <button class="text-black hover:text-gray-700 focus:outline-none" id="administration-menu-toggle">
+    <button class="rectangle-button bg-white text-gray-800 text-sm font-semibold shadow-md hover:shadow-lg focus:outline-none" id="administration-menu-toggle">
         Administration <i class="fas fa-caret-down"></i>
     </button>
 
     <!-- Dropdown menu administration -->
-    <div class="absolute right-0 mt-2 w-64 bg-white rounded-md shadow-lg z-10 hidden" id="administration-menu">
+    <div class="absolute right-0 mt-2 w-full bg-white rounded-md shadow-lg z-10 hidden" id="administration-menu">
         <div class="py-1" role="none">
             <!-- Section Utilisateurs -->
-            <div class="relative">
-                <button class="block w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 focus:outline-none" id="users-menu-toggle">
+            <div class="relative ">
+                <button class="block w-full pl-2 text-left text-sm text-gray-700 hover:bg-gray-100 focus:outline-none" id="users-menu-toggle">
                     Utilisateurs <i class="fas fa-caret-down absolute right-4"></i>
                 </button>
-                <div class="absolute left-full top-0 mt-0 w-64 bg-white rounded-md shadow-lg z-10 hidden" id="users-menu">
+                <div class="absolute right-0   w-48  bg-white rounded-md shadow-lg z-10 hidden" id="users-menu">
                     <a href="#users-management" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Gestion des utilisateurs</a>
                     <a href="#roles-management" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Gestion des rôles</a>
+			<a href="#contact-index" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Demandes de contact</a>
+
                 </div>
             </div>
 
             <!-- Section Paramètres -->
             <div class="relative">
-                <button class="block w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 focus:outline-none" id="settings-menu-toggle">
+                <button class="block w-full pl-2 text-left text-sm text-gray-700 hover:bg-gray-100 focus:outline-none" id="settings-menu-toggle">
                     Paramètres <i class="fas fa-caret-down absolute right-4"></i>
                 </button>
-                <div class="absolute left-full top-0 mt-0 w-64 bg-white rounded-md shadow-lg z-10 hidden" id="settings-menu">
+                <div class="absolute right-0  w-48 bg-white rounded-md shadow-lg z-10 hidden" id="settings-menu">
                     <a href="#site-settings" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Paramètres du site</a>
                     <a href="#email-settings" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Paramètres d'email</a>
                 </div>
@@ -31,10 +33,10 @@
 
             <!-- Section Journaux -->
             <div class="relative">
-                <button class="block w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 focus:outline-none" id="logs-menu-toggle">
+                <button class="block w-full pl-2 text-left text-sm text-gray-700 hover:bg-gray-100 focus:outline-none" id="logs-menu-toggle">
                     Journaux <i class="fas fa-caret-down absolute right-4"></i>
                 </button>
-                <div class="absolute left-full top-0 mt-0 w-64 bg-white rounded-md shadow-lg z-10 hidden" id="logs-menu">
+                <div class="absolute right-0 mt-2 w-full bg-white rounded-md shadow-lg z-10 hidden" id="logs-menu">
                     <a href="#audit-logs" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Journaux d'audit</a>
                     <a href="#error-logs" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Journaux d'erreur</a>
                 </div>

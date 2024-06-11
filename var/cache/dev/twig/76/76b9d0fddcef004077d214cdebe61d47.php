@@ -101,6 +101,6 @@ class __TwigTemplate_96470bf51f99699b1ab0d30dc9403f66 extends Template
 
 <p>Ce lien expirera dans {{ resetToken.expirationMessageKey|trans(resetToken.expirationMessageData, 'ResetPasswordBundle') }}.</p>
 
-", "reset_password/email.html.twig", "/var/www/html/Doc-And-Go/templates/reset_password/email.html.twig");
+", "reset_password/email.html.twig", "/var/www/html/doc-and-go/templates/reset_password/email.html.twig");
     }
 }

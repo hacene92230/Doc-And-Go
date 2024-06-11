@@ -182,6 +182,6 @@ class __TwigTemplate_7bcf753c8ee9ae30edea37b8d0c728ef extends Template
 
         <button class=\"btn btn-primary\">Envoyer un e-mail de réinitialisation du mot de passe</button>
     {{ form_end(requestForm) }}
-{% endblock %}", "reset_password/request.html.twig", "/var/www/html/Doc-And-Go/templates/reset_password/request.html.twig");
+{% endblock %}", "reset_password/request.html.twig", "/var/www/html/doc-and-go/templates/reset_password/request.html.twig");
     }
 }

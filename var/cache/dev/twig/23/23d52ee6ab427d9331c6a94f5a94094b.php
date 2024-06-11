@@ -95,6 +95,6 @@ class __TwigTemplate_6e5792e21b561d5564a6e04aaddd6e8b extends Template
     {{ form_widget(form) }}
     <button class=\"btn\">{{ button_label|default('Save') }}</button>
 {{ form_end(form) }}
-", "day_work/_form.html.twig", "/var/www/html/Doc-And-Go/templates/day_work/_form.html.twig");
+", "day_work/_form.html.twig", "/var/www/html/doc-and-go/templates/day_work/_form.html.twig");
     }
 }

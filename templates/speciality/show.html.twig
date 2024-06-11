@@ -3,66 +3,124 @@
 {% block title %} {{ speciality.name }} {{ parent() }} {% endblock %}
 
 {% block body %}
-<h2>{{ speciality.name }}</h2>
+<h2 class="text-3xl text-center font-bold my-10">{{ speciality.name }}</h2>
+
+
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-10 p-4">
 {% for doctor in speciality.doctors %}
-<div class="card bordered">
-    <div class="col-md-12 text-center mt-3">
-        <!-- Bouton qui déclenchera la modale -->
-        <button type="button" id="btnModale{{ loop.index }}" class="btn btn-primary" data-toggle="modal" data-target="#maModale{{ loop.index }}" aria-label="{{ doctor.firstName }} {{ doctor.lastName }}">
+<div class=" p-4 border rounded-lg shadow bg-white px-2">
+    <div class="text-left mt-3">
+	<h5 class="text-xl font-bold m-2" id="maModaleLabel{{ loop.index }}">Docteur {{ doctor.firstName }} {{ doctor.lastName }}</h5>
+	<p class="m-1"><i class="fa-solid fa-location-dot"></i> {{ doctor.zipCode }}, {{ doctor.city }}</p>
+	<p class="m-1"><i class="fa fa-phone"></i> {{ doctor.phoneNumber }}</p>
+	<p class="m-1"><i class="fa fa-envelope"></i> {{ doctor.email }}</p>
+
+        <!-- Button to trigger the modal -->
+        <button type="button" id="btnModale{{ loop.index }}" class="btn btn-primary bg-blue-500 text-white font-bold py-2 px-4 rounded m-2" aria-label="Voir détails du Docteur {{ doctor.firstName }} {{ doctor.lastName }}">
+            Voir Détails du Docteur
         </button>
     </div>
-    <!-- Modale -->
-    <div class="modal fade" id="maModale{{ loop.index }}" tabindex="-1" role="dialog" aria-labelledby="maModaleLabel{{ loop.index }}" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Fermer">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    <h5 class="modal-title" id="maModaleLabel{{ loop.index }}">Docteur {{ doctor.firstName }} {{ doctor.lastName }}</h5>
-                </div>
-                <div class="modal-body">
-                    <!-- Afficher les détails du docteur -->
-                    <div class="border p-3">
-                        <h2 class="font-weight-bold">Le trouver</h2>
-                        <p>{{ doctor.street }}</p>
+    <!-- Modal -->
+    <div class="modal-overlay fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50 hidden" id="maModaleOverlay{{ loop.index }}">
+        <div class="modal-content bg-white p-6 rounded shadow-md w-full max-w-lg mx-4" role="dialog" aria-modal="true" aria-labelledby="maModaleLabel{{ loop.index }}" tabindex="-1">
+            <div class="flex justify-between items-center">
+                <h5 class="modal-title text-xl font-bold" id="maModaleLabel{{ loop.index }}">Docteur {{ doctor.firstName }} {{ doctor.lastName }}</h5>
+                <button class="close-btn text-xl" id="closeModale{{ loop.index }}" aria-label="Fermer la modale">&times;</button>
+            </div>
+            <div class="modal-body mt-4 mb-6">
+                <!-- Display doctor details -->
+                <div class="border p-3 mb-3">
+                    <h2 class="font-bold text-lg">Le trouver</h2>
+                    <p>{{ doctor.street }}</p>
                     <p>{{ doctor.zipCode }}</p>
                     <p>{{ doctor.city }}</p>
                 </div>
-                <div class="border p-3">
-                    <h2 class="font-weight-bold">Contactez-leu</h2>
+                <div class="border p-3 mb-3">
+                    <h2 class="font-bold text-lg">Contactez-le</h2>
                     <p>{{ doctor.phoneNumber }}</p>
                     <p>{{ doctor.email }}</p>
                 </div>
-                <div class="border p-3">
-                        <h2 class="font-weight-bold">Spécialité</h2>
-                        <p>{{ doctor.speciality.name }}</p>
-                    </div>
-                    <div class="border p-3">
-                        <h2 class="font-weight-bold">Inscription</h2>
-                        <p>{{ doctor.createdAt|date("d/m/Y") }}</p>
-                    </div>
-                    <div class="border p-3">
-                        <h2 class="font-weight-bold">Prise de rendez-vous</h2>
-                        {% if doctor.planings is not empty %}
-                        {% for reason in doctor.speciality.reasons %}
-<form action="{{ path('app_appointment_new', {'doctor': doctor.id}) }}" method="post">
-    <button type="submit" class="btn btn-primary">{{ reason.name }}</button>
-</form>
-{% endfor %}
-{% else %}
-<p>Aucun créneau n'est pour le moment 
- disponible</p>
- {% endif %}
-</div>
+                <div class="border p-3 mb-3">
+                    <h2 class="font-bold text-lg">Spécialité</h2>
+                    <p>{{ doctor.speciality.name }}</p>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                <div class="border p-3 mb-3">
+                    <h2 class="font-bold text-lg">Inscription</h2>
+                    <p>{{ doctor.createdAt|date("d/m/Y") }}</p>
+                </div>
+                <div class="border p-3 mb-3">
+                    <h2 class="font-bold text-lg">Prise de rendez-vous</h2>
+                    {% if doctor.planings is not empty %}
+                        {% for reason in doctor.speciality.reasons %}
+                            <form action="{{ path('app_appointment_new', {'doctor': doctor.id}) }}" method="post">
+                                <button type="submit" class="bg-blue-500 text-white font-bold py-2 px-4 rounded mt-2">{{ reason.name }}</button>
+                            </form>
+                        {% endfor %}
+                    {% else %}
+                        <p>Aucun créneau n'est pour le moment disponible</p>
+                    {% endif %}
                 </div>
             </div>
         </div>
     </div>
 </div>
 {% endfor %}
+</div>
+
+<style>
+    .modal-overlay.active {
+        display: flex;
+    }
+</style>
+
+<script>
+    $(document).ready(function() {
+        let lastFocusedElement;
+
+        {% for doctor in speciality.doctors %}
+            $("#btnModale{{ loop.index }}").on("click", function() {
+                lastFocusedElement = document.activeElement;
+                $("#maModaleOverlay{{ loop.index }}").addClass("active");
+                $("#maModaleOverlay{{ loop.index }}").find(".modal-content").attr("tabindex", "-1").focus();
+                $("body").css("overflow", "hidden"); // Empêcher le défilement de la page principale
+            });
+
+            $("#closeModale{{ loop.index }}").on("click", function() {
+                closeModale{{ loop.index }}();
+            });
+
+            // Fonction pour fermer la modal
+            function closeModale{{ loop.index }}() {
+                $("#maModaleOverlay{{ loop.index }}").removeClass("active");
+                lastFocusedElement.focus();
+                $("body").css("overflow", "auto"); // Réactiver le défilement de la page principale
+            }
+
+            // Fermer la modal en appuyant sur la touche "Échap"
+            $(document).on("keydown", function(e) {
+                if (e.key === "Escape") {
+                    closeModale{{ loop.index }}();
+                }
+            });
+
+            // Empêcher la navigation par tabulation en dehors de la modal
+            $("#maModaleOverlay{{ loop.index }}").on("keydown", function(e) {
+                if (e.key === "Tab") {
+                    const focusableModalElements = $('#maModaleOverlay{{ loop.index }}').find('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])').filter(':visible');
+                    const firstElement = focusableModalElements[0];
+                    const lastElement = focusableModalElements[focusableModalElements.length - 1];
+
+                    if (!e.shiftKey && document.activeElement === lastElement) {
+                        e.preventDefault();
+                        firstElement.focus();
+                    } else if (e.shiftKey && document.activeElement === firstElement) {
+                        e.preventDefault();
+                        lastElement.focus();
+                    }
+                }
+            });
+        {% endfor %}
+    });
+</script>
 
 {% endblock %}

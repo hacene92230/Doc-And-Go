@@ -1,0 +1,104 @@
+    <div class=" px-2">
+        <!-- Button to trigger the modal -->
+        <button type="button" id="btnModale" class="btn text-black font-bold py-1 px-2 " aria-label="Compte pro">
+	Connexion
+        </button>
+    </div>
+
+
+<!-- Modal -->
+<div class="modal-overlay fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50 hidden" id="maModaleOverlay">
+    <div class="modal-content bg-white p-6 rounded shadow-md w-full max-w-lg mx-4" role="dialog" aria-modal="true" aria-labelledby="maModaleLabel" tabindex="-1">
+        <div class="flex justify-end">
+             <button class="close-btn text-2xl" id="closeModale" aria-label="Fermer la connexion">&times;</button>
+        </div>
+        <div class="modal-body mt-4 mb-6">
+            <div class="flex justify-center items-center mt-16">
+                <form action="{{ path("app_login") }}" method="post" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 w-full max-w-sm">
+
+                    <h1 class="text-center text-3xl font-bold mb-6">Connexion</h1>
+
+                    <div class="mb-4">
+                        <label for="inputEmail" class="block text-gray-700 text-sm font-bold mb-2">Votre adresse email</label>
+                        <input type="email" name="email" id="inputEmail" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" autocomplete="email" required autofocus>
+                    </div>
+
+                    <div class="mb-6">
+                        <label for="inputPassword" class="block text-gray-700 text-sm font-bold mb-2">Mot de passe</label>
+                        <input type="password" name="password" id="inputPassword" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" autocomplete="current-password" required>
+                    </div>
+
+                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}" >
+
+                    <div class="mb-6">
+                        <label for="_remember_me" class="inline-flex items-center">
+                            <input type="checkbox" name="_remember_me" class="form-checkbox text-blue-500">
+                            <span class="ml-2 text-sm text-gray-700">Se souvenir de moi</span>
+                        </label>
+                    </div>
+
+                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full" type="submit">
+                        Se connecter
+                    </button>
+                </form>
+            </div>
+            <div class="text-center">
+                <a href="{{ path("app_forgot_password_request") }}" class="text-blue-500">J'ai oublié mon mot de passe.</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .modal-overlay.active {
+        display: flex;
+    }
+</style>
+
+<script>
+    $(document).ready(function() {
+        let lastFocusedElement;
+
+        $("#btnModale").on("click", function() {
+            lastFocusedElement = document.activeElement;
+            $("#maModaleOverlay").addClass("active");
+            $("#maModaleOverlay").find(".modal-content").attr("tabindex", "-1").focus();
+            $("body").css("overflow", "hidden"); // Empêcher le défilement de la page principale
+        });
+
+        $("#closeModale").on("click", function() {
+            closeModale();
+        });
+
+        // Fonction pour fermer la modal
+        function closeModale() {
+            $("#maModaleOverlay").removeClass("active");
+            lastFocusedElement.focus();
+            $("body").css("overflow", "auto"); // Réactiver le défilement de la page principale
+        }
+
+        // Fermer la modal en appuyant sur la touche "Échap"
+        $(document).on("keydown", function(e) {
+            if (e.key === "Escape") {
+                closeModale();
+            }
+        });
+
+        // Empêcher la navigation par tabulation en dehors de la modal
+        $("#maModaleOverlay").on("keydown", function(e) {
+            if (e.key === "Tab") {
+                const focusableModalElements = $('#maModaleOverlay').find('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])').filter(':visible');
+                const firstElement = focusableModalElements[0];
+                const lastElement = focusableModalElements[focusableModalElements.length - 1];
+
+                if (!e.shiftKey && document.activeElement === lastElement) {
+                    e.preventDefault();
+                    firstElement.focus();
+                } else if (e.shiftKey && document.activeElement === firstElement) {
+                    e.preventDefault();
+                    lastElement.focus();
+                }
+            }
+        });
+    });
+</script>

@@ -1,194 +1,83 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Rendez-vous patients{% endblock %}
+{% block title %}
+    Rendez-vous patients
+{% endblock %}
 
 {% block body %}
-
     <div class="container text-center">
         <h1 class="page-title">Les rendez-vous de mes patients</h1>
 
         {% set now = "now"|date("U") %}
 
-        <!-- Dropdown pour les rendez-vous à venir -->
-        <div class="dropdown mb-3 ">
-            <button class="dropdown-toggle text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button" id="upcomingAppointmentsDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Rendez-vous à venir
-            </button>
-            <div class="dropdown-menu" aria-labelledby="upcomingAppointmentsDropdown">
-                <div class="p-3">
-                    {% set has_upcoming_appointments = false %}
-                    {% set current_date = null %}
-                    {% for appointment in appointments %}
-                        {% if appointment.dateTime|date("U") >= now %}
-                            {% set has_upcoming_appointments = true %}
-                            {% set appointment_date = appointment.dateTime|date('d/m/Y') %}
-                            {% if appointment_date != current_date %}
-                                {% if current_date is not null %}
-                                    </div>
-                                {% endif %}
-                                {% set current_date = appointment_date %}
-                                <div class="date-group">
-                                    <h3 class="date-title">{{ current_date }}</h3>
-                                    <div class="appointments">
-                            {% endif %}
-                            <!-- Affichage de chaque rendez-vous à venir ... -->
-                            <div class="appointment-card">
-                                <div class="appointment-details">
-                                    <div class="appointment-time">
-                                        <span class="label">Heure :</span> {{ appointment.dateTime|date('H:i') }}
-                                    </div>
-                                </div>
-                                <div class="appointment-comment">
-                                    <span class="label">Commentaire :</span> {{ appointment.comment }}
-                                </div>
-                                <div class="appointment-user">
-                                    <span class="label">Réservé par :</span> 
-                                    <a href="{{ path('app_user_show', {'id': appointment.user.id}) }}" class="user-link">{{ appointment.user.firstName }}</a>
-                                </div>
-                                <div class="row">
-                                    <h3>Statu ({{ appointment.statu.name }})</h3>
-                                    {% for statu in statusList %}
-                                        {% if appointment.statu.name != statu.name %}
-                                            <div class="col-3">
-                                                <form action="{{ path('app_status_edit', {'appointment': appointment.id}) }}" method="POST">
-                                                    <input type="hidden" name="_method" value="PUT">
-                                                    <input type="hidden" name="status" value="{{ statu.name }}">
-                                                    <button type="submit" class="btn btn-primary">{{ statu.name }}</button>
-                                                </form>
-                                            </div>
-                                        {% endif %}
-                                    {% endfor %}
-                                </div>
+        <!-- Affichage des rendez-vous à venir -->
+        <div class=" grid grid-cols-1 sm:grid-cols-2 md-grid-cols-2 lg:grid-cols-2">
+	<div class="col">
+            <h2 class="font-bold bg-blue-400 py-2 px-2 rounded shadow">Rendez-vous à venir</h2>
+            {% set has_upcoming_appointments = false %}
+            {% set current_date = null %}
+            {% for appointment in appointments %}
+                {% if appointment.dateTime|date("U") >= now %}
+                    {% set has_upcoming_appointments = true %}
+                    {% set appointment_date = appointment.dateTime|date('d/m/Y') %}
+                    {% if appointment_date != current_date %}
+                        {% if current_date is not null %}
                             </div>
                         {% endif %}
-                    {% endfor %}
-                    {% if current_date is not null %}
+                        {% set current_date = appointment_date %}
+                        <h2 class="text-xl font-bold">{{ current_date }}</h2>
+                        <div class="appointments">
+                    {% endif %}
+                    <!-- Affichage de chaque rendez-vous à venir -->
+                    <div class="appointment-card">
+                        <div class="appointment-details">
+                            <h5 class="text-lg font-bold">Heure : {{ appointment.dateTime|date('H:i') }}</h5>
+                            <p class="mb-2"><strong>Commentaire :</strong> {{ appointment.comment }}</p>
+                            <p><strong>Réservé par :</strong> <a href="{{ path('app_user_show', {'id': appointment.user.id}) }}" class="user-link">{{ appointment.user.firstName }}</a></p>
+                            <p><strong>Statu :</strong> {{ appointment.statu.name }}</p>
                         </div>
-                    {% endif %}
-                    {% if not has_upcoming_appointments %}
-                        <p class="no-appointments text-2xl bold">Aucun rendez-vous à venir à afficher.</p>
-                    {% endif %}
-                </div>
-            </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+            {% if not has_upcoming_appointments %}
+                <p class="no-appointments text-2xl font-bold">Aucun rendez-vous à venir à afficher.</p>
+            {% endif %}
         </div>
+	</div>
 
-        <!-- Dropdown pour les rendez-vous passés -->
-        <div class="dropdown mb-3 ">
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="pastAppointmentsDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Rendez-vous passés
-            </button>
-            <div class="dropdown-menu" aria-labelledby="pastAppointmentsDropdown">
-                <div class="p-3 ">
-                    {% set has_past_appointments = false %}
-                    {% set current_date = null %}
-                    {% for appointment in appointments %}
-                        {% if appointment.dateTime|date("U") < now %}
-                            {% set has_past_appointments = true %}
-                            {% set appointment_date = appointment.dateTime|date('d/m/Y') %}
-                            {% if appointment_date != current_date %}
-                                {% if current_date is not null %}
-                                    </div>
-                                {% endif %}
-                                {% set current_date = appointment_date %}
-                                <div class="date-group">
-                                    <h3 class="date-title font-bold">{{ current_date }}</h3>
-                                    <div class="appointments bg-white my-16 border-2 border-black">
-                            {% endif %}
-                            <!-- Affichage de chaque rendez-vous passé ... -->
-                            <div class="appointment-card">
-                                <div class="appointment-details">
-                                    <div class="appointment-time">
-                                        <span class="label">Heure :</span> {{ appointment.dateTime|date('H:i') }}
-                                    </div>
-                                </div>
-                                <div class="appointment-comment">
-                                    <span class="label">Commentaire :</span> {{ appointment.comment }}
-                                </div>
-                                <div class="appointment-user">
-                                    <span class="label">Réservé par :</span> 
-                                    <a href="{{ path('app_user_show', {'id': appointment.user.id}) }}" class="user-link">{{ appointment.user.firstName }}</a>
-                                </div>
-                                <div class="row">
-                                    <h3>Statu ({{ appointment.statu.name }})</h3>
-                                    {% for statu in statusList %}
-                                        {% if appointment.statu.name != statu.name %}
-                                            <div class="col-3">
-                                                <form action="{{ path('app_status_edit', {'appointment': appointment.id}) }}" method="POST">
-                                                    <input type="hidden" name="_method" value="PUT">
-                                                    <input type="hidden" name="status" value="{{ statu.name }}">
-                                                    <button type="submit" class="btn btn-primary">{{ statu.name }}</button>
-                                                </form>
-                                            </div>
-                                        {% endif %}
-                                    {% endfor %}
-                                </div>
+        <!-- Affichage des rendez-vous passés -->
+        <div class="col">
+            <h2 class="text-2xl font-bold mb-3">Rendez-vous passés</h2>
+            {% set has_past_appointments = false %}
+            {% set current_date = null %}
+            {% for appointment in appointments %}
+                {% if appointment.dateTime|date("U") < now %}
+                    {% set has_past_appointments = true %}
+                    {% set appointment_date = appointment.dateTime|date('d/m/Y') %}
+                    {% if appointment_date != current_date %}
+                        {% if current_date is not null %}
                             </div>
                         {% endif %}
-                    {% endfor %}
-                    {% if current_date is not null %}
+                        {% set current_date = appointment_date %}
+                        <h2 class="text-xl font-bold">{{ current_date }}</h2>
+                        <div class="appointments bg-white my-16 border-2 border-black">
+                    {% endif %}
+                    <!-- Affichage de chaque rendez-vous passé -->
+                    <div class="appointment-card">
+                        <div class="appointment-details">
+                            <h5 class="text-lg font-bold">Heure : {{ appointment.dateTime|date('H:i') }}</h5>
+                            <p class="mb-2"><strong>Commentaire :</strong> {{ appointment.comment }}</p>
+                            <p><strong>Réservé par :</strong> <a href="{{ path('app_user_show', {'id': appointment.user.id}) }}" class="user-link">{{ appointment.user.firstName }}</a></p>
+                            <p><strong>Statu :</strong> {{ appointment.statu.name }}</p>
                         </div>
-                    {% endif %}
-                    {% if not has_past_appointments %}
-                        <p class="no-appointments">Aucun rendez-vous passé à afficher.</p>
-                    {% endif %}
-                </div>
-            </div>
+                    </div>
+			</div>
+                {% endif %}
+            {% endfor %}
+            {% if not has_past_appointments %}
+                <p class="no-appointments">Aucun rendez-vous passé à afficher.</p>
+            {% endif %}
         </div>
     </div>
-
-<script>
-    $(document).ready(function() {
-        // Fonction pour changer l'état du bouton
-        function toggleButtonState($button, isOpen) {
-            if (isOpen) {
-                $button.attr('aria-expanded', 'true');
-            } else {
-                $button.attr('aria-expanded', 'false');
-            }
-        }
-
-        // Fermer tous les dropdowns au chargement de la page
-        $('.dropdown-menu').slideUp(0);
-
-        // Initialiser l'état du bouton au chargement de la page
-        $('.dropdown-toggle').each(function() {
-            var $dropdownToggle = $(this);
-            toggleButtonState($dropdownToggle, false);
-        });
-
-        // Ouvrir ou fermer le dropdown au clic sur le bouton
-        $('.dropdown-toggle').click(function() {
-            var $dropdownToggle = $(this);
-            var $dropdownMenu = $dropdownToggle.next('.dropdown-menu');
-            var isOpen = $dropdownMenu.is(':visible');
-            $dropdownMenu.slideToggle(200, function() {
-                isOpen = !isOpen; // Inverser l'état après l'animation
-                toggleButtonState($dropdownToggle, isOpen);
-            });
-        });
-
-        // Fermer le dropdown si l'utilisateur clique en dehors
-        $(document).on('click', function(e) {
-            if (!$(e.target).closest('.dropdown').length) {
-                $('.dropdown-menu').slideUp(200);
-                $('.dropdown-toggle').each(function() {
-                    toggleButtonState($(this), false);
-                });
-            }
-        });
-
-        // Empêcher la fermeture du dropdown si l'utilisateur clique à l'intérieur
-        $('.dropdown-menu').on('click', function(e) {
-            e.stopPropagation();
-        });
-
-        // Capturer la sélection d'un élément dans le dropdown
-        $('.dropdown-menu').on('click', 'button', function() {
-            var selectedValue = $(this).text();
-            // Faire quelque chose avec la valeur sélectionnée, comme l'envoyer au serveur par AJAX
-            console.log(selectedValue);
-        });
-    });
-</script>
-
+</div>
 {% endblock %}

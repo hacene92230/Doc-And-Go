@@ -152,6 +152,6 @@ class __TwigTemplate_0316a9b8c7f8feaa1efcf5f28ced170c extends Template
         <button class=\"btn btn-primary\">Réinitialiser le mot de passe</button>
     {{ form_end(resetForm) }}
 {% endblock %}
-", "reset_password/reset.html.twig", "/var/www/html/Doc-And-Go/templates/reset_password/reset.html.twig");
+", "reset_password/reset.html.twig", "/var/www/html/doc-and-go/templates/reset_password/reset.html.twig");
     }
 }

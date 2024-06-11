@@ -140,6 +140,6 @@ class __TwigTemplate_ae301f34d336cfd048a9ca7b1e87c732 extends Template
 <h1>Prise de rendez-vous</h1>
     {{ include('appointment/_form.html.twig') }}
 {% endblock %}
-", "appointment/new.html.twig", "/var/www/html/Doc-And-Go/templates/appointment/new.html.twig");
+", "appointment/new.html.twig", "/var/www/html/doc-and-go/templates/appointment/new.html.twig");
     }
 }

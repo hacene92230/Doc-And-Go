@@ -77,7 +77,7 @@ class __TwigTemplate_7b6fa66ca36978179c43e33b0d2be764 extends Template
 
 <!-- Bouton pour ouvrir le dropdown gestion -->
 <div class=\"relative ml-4\">
-    <button class=\"text-black hover:text-gray-700 focus:outline-none\" id=\"gestion-menu-toggle\">
+    <button class=\"rectangle-button bg-white text-gray-800 text-sm font-semibold shadow-md hover:shadow-lg focus:outline-none\" id=\"gestion-menu-toggle\">
         Gestion <i class=\"fas fa-caret-down\"></i>
     </button>
 
@@ -205,7 +205,7 @@ class __TwigTemplate_7b6fa66ca36978179c43e33b0d2be764 extends Template
 
 <!-- Bouton pour ouvrir le dropdown gestion -->
 <div class=\"relative ml-4\">
-    <button class=\"text-black hover:text-gray-700 focus:outline-none\" id=\"gestion-menu-toggle\">
+    <button class=\"rectangle-button bg-white text-gray-800 text-sm font-semibold shadow-md hover:shadow-lg focus:outline-none\" id=\"gestion-menu-toggle\">
         Gestion <i class=\"fas fa-caret-down\"></i>
     </button>
 

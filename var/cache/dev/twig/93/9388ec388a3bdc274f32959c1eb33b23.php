@@ -140,6 +140,6 @@ class __TwigTemplate_75fdbd29ab316f943f5486fc87373969 extends Template
 
     {{ include('user/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
 {% endblock %}
-", "user/edit.html.twig", "/var/www/html/Doc-And-Go/templates/user/edit.html.twig");
+", "user/edit.html.twig", "/var/www/html/doc-and-go/templates/user/edit.html.twig");
     }
 }

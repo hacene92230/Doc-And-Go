@@ -93,11 +93,11 @@ class __TwigTemplate_c5c50d631a88b6eb1158a0f23fd0b4ec extends Template
         <thead>
             <tr>
                 <th>Id</th>
-                <th>StartHour</th>
-                <th>EndHour</th>
-                <th>SlotDuration</th>
+                <th>Starting Hour</th>
+                <th>Ending Hour</th>
+                <th>Duration</th>
                 <th>Date</th>
-                <th>actions</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -208,11 +208,11 @@ class __TwigTemplate_c5c50d631a88b6eb1158a0f23fd0b4ec extends Template
         <thead>
             <tr>
                 <th>Id</th>
-                <th>StartHour</th>
-                <th>EndHour</th>
-                <th>SlotDuration</th>
+                <th>Starting Hour</th>
+                <th>Ending Hour</th>
+                <th>Duration</th>
                 <th>Date</th>
-                <th>actions</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -238,6 +238,6 @@ class __TwigTemplate_c5c50d631a88b6eb1158a0f23fd0b4ec extends Template
 
     <a href=\"{{ path('app_day_work_new') }}\">Create new</a>
 {% endblock %}
-", "day_work/index.html.twig", "/var/www/html/Doc-And-Go/templates/day_work/index.html.twig");
+", "day_work/index.html.twig", "/var/www/html/doc-and-go/templates/day_work/index.html.twig");
     }
 }

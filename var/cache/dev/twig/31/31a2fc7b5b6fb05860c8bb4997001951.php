@@ -41,10 +41,10 @@ class __TwigTemplate_2bd3aa9211477390c10c2b652294313a extends Template
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->enter($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "template", "shared/footer.html.twig"));
 
         // line 1
-        yield "<footer class=\"bg-white border-solid border-black mt-5 py-8\">
+        yield "<footer class=\"bg-white flex justify-center border-solid border-black mt-5 py-8\">
 
     <div class=\"container px-6 text-center\">  
-<hr class=\"my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8\" />  
+<hr class=\"my-6  border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8\" />  
         <div class=\"flex justify-around\">      
             
             <div class=\"w-full lg:w-1/3 mb-6\">
@@ -126,10 +126,10 @@ class __TwigTemplate_2bd3aa9211477390c10c2b652294313a extends Template
 
     public function getSourceContext()
     {
-        return new Source("<footer class=\"bg-white border-solid border-black mt-5 py-8\">
+        return new Source("<footer class=\"bg-white flex justify-center border-solid border-black mt-5 py-8\">
 
     <div class=\"container px-6 text-center\">  
-<hr class=\"my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8\" />  
+<hr class=\"my-6  border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8\" />  
         <div class=\"flex justify-around\">      
             
             <div class=\"w-full lg:w-1/3 mb-6\">

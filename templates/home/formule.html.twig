@@ -4,58 +4,117 @@
 
 {% block body %}
 <div class="container mx-auto px-4 py-8">
-    <h1 class="text-3xl font-bold mb-4">Nos Formules d'Abonnement</h1>
+    <h1 class=" text-5xl font-bold mb-4 ml-5" id="abonnement_titre">Nos Formules d'Abonnement</h1>
     
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+    <div class="ml-5">
         <!-- Abonnement Annuel -->
-        <div class="bg-gray-100 p-6 rounded-lg">
-            <h2 class="text-xl font-bold mb-4 flex items-center"><span class="iconify text-green-500 mr-2" data-icon="bx:bxs-badge-check"></span> Abonnement Annuel</h2>
-            <p class="text-gray-700 mb-4">Pour seulement <span class="text-green-500 font-bold">550 euros par an</span>, bénéficiez de :</p>
-            <ul class="list-disc pl-6 mb-4">
-                <li><span class="iconify text-green-500 mr-2" data-icon="bi:receipt-cutoff"></span> Gestion des facturations</li>
-                <li><span class="iconify text-green-500 mr-2" data-icon="bx:bxs-calendar-event"></span> Système de prise de rendez-vous fiable et performant</li>
-                <li><span class="iconify text-green-500 mr-2" data-icon="icon-park-outline:video-medical"></span> Possibilité de téléconsultation</li>
-                <li><span class="iconify text-green-500 mr-2" data-icon="ri:database-2-fill"></span> Stockage sécurisé des données médicales</li>
-                <li><span class="iconify text-green-500 mr-2" data-icon="bx:bxs-calendar"></span> Calendrier de disponibilité en ligne</li>
-                <li><span class="iconify text-green-500 mr-2" data-icon="fa-solid:headset"></span> Support client prioritaire</li>
-                <li><span class="iconify text-green-500 mr-2" data-icon="ri:file-list-fill"></span> Intégration avec les systèmes de gestion existants</li>
-                <li><span class="iconify text-green-500 mr-2" data-icon="twemoji:scroll"></span> Accès à une base de données de médicaments et de traitements</li>
-                <li><span class="iconify text-green-500 mr-2" data-icon="iconoir:alarm-1"></span> Système de rappels automatiques pour les patients</li>
-                <li><span class="iconify text-green-500 mr-2" data-icon="bi:box"></span> Fonctionnalité de gestion des stocks pour les fournitures médicales</li>
-            </ul>
-            <p class="text-gray-700 mb-4">Moyens de paiement acceptés :</p>
-            <ul class="flex">
-                <li class="mr-4"><span class="iconify text-green-500 text-2xl" data-icon="simple-icons:visa"></span></li>
-                <li class="mr-4"><span class="iconify text-green-500 text-2xl" data-icon="simple-icons:mastercard"></span></li>
-                <li class="mr-4"><span class="iconify text-green-500 text-2xl" data-icon="simple-icons:paypal"></span></li>
-            </ul>
-            <p class="mt-6 text-gray-600">* Fonctionnalités additionnelles disponibles</p>
-        </div>
 
-        <!-- Abonnement Mensuel -->
-        <div class="bg-gray-100 p-6 rounded-lg">
-            <h2 class="text-xl font-bold mb-4 flex items-center"><span class="iconify text-green-500 mr-2" data-icon="bx:bxs-time-five"></span> Abonnement Mensuel (Sans Engagement)</h2>
-            <p class="text-gray-700 mb-4">Pour seulement <span class="text-green-500 font-bold">60 euros par mois</span>, bénéficiez de :</p>
-            <ul class="list-disc pl-6 mb-4">
-                <li><span class="iconify text-green-500 mr-2" data-icon="icon-park-outline:prescription"></span> Gestion des facturations</li>
-                <li><span class="iconify text-green-500 mr-2" data-icon="ic:sharp-event"></span> Système de prise de rendez-vous fiable et performant</li>
-                <li><span class="iconify text-green-500 mr-2" data-icon="mdi:video-plus"></span> Possibilité de téléconsultation</li>
-                <li><span class="iconify text-green-500 mr-2" data-icon="grommet-icons:document-lock"></span> Stockage sécurisé des données médicales</li>
-                <li><span class="iconify text-green-500 mr-2" data-icon="bx:bxs-calendar-check"></span> Calendrier de disponibilité en ligne</li>
-                <li><span class="iconify text-green-500 mr-2" data-icon="emojione-monotone:headphone-loud"></span> Support client standard</li>
-                <li><span class="iconify text-green-500 mr-2" data-icon="ci:api"></span> Notifications automatiques</li>
-                <li><span class="iconify text-green-500 mr-2" data-icon="bx:bxs-folder-open"></span> Module de gestion des dossiers médicaux électroniques (DME)</li>
-                <li><span class="iconify text-green-500 mr-2" data-icon="twemoji:lab-coat"></span> Intégration avec des services de laboratoire pour l'envoi et la réception des résultats d'analyses</li>
-                <li><span class="iconify text-green-500 mr-2" data-icon="ph:prescription-bottle"></span> Fonctionnalité de prescription électronique</li>
-            </ul>
-            <p class="text-gray-700 mb-4">Moyens de paiement acceptés :</p>
-            <ul class="flex">
-                <li class="mr-4"><span class="iconify text-green-500 text-2xl" data-icon="simple-icons:visa"></span></li>
-                <li class="mr-4"><span class="iconify text-green-500 text-2xl" data-icon="simple-icons:mastercard"></span></li>
-                <li class="mr-4"><span class="iconify text-green-500 text-2xl" data-icon="simple-icons:paypal"></span></li>
-            </ul>
-            <p class="mt-6 text-gray-600">* Sans engagement, vous pouvez annuler à tout moment.</p>
+        <style>
+	#abonnement_titre{
+	color: #115e59;
+	}
+        .button-container {
+            position: relative;
+            display: inline-flex;
+            overflow: hidden;
+	    border-radius: 20px;
+	    width: -webkit-fill-available;
+        }
+        .slider {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            width: 50%;
+            background-color: #ffffff36;
+            transition: transform 0.3s ease-in-out;
+		z-index:2;
+        }
+        .button {
+            position: relative;
+            z-index: 1;
+            flex: 1;
+      	    color:white;
+	    padding: 0.5rem 1rem;
+    	    background-color: #115e59;
+            border: none;
+    	    cursor: pointer;
+}
+        }
+    </style>
+    <div class="mx-auto">
+        <div class="button-container">
+            <div id="slider" class="slider"></div>
+            <button id="button1" class="button" onclick="showDiv('div1', 'button1')">Annuel</button>
+            <button id="button2" class="button" onclick="showDiv('div2', 'button2')">Mensuel</button>
+        </div>
+        <div id="div1" class="content mt-4">
+
+            <div class="border border-black bg-white rounded-lg" box-shadow: -16px -14px 0px #B0CCCB; border-radius: 16px;">
+		<div style="background-color:#115e59;text-align: center; padding-bottom: 2px; padding-top: 16px; border-radius: 7px">
+	        	<h3 class=" text-3xl font-bold mb-4" style="color:white;">Abonnement annuel</h3>
+			<br>
+			<h3 class=" text-3xl font-bold mb-4" style="color:white;">550 euros/an</h3>
+		</div>
+
+		<div style="display: flex; justify-content: space-evenly;">
+		<div>
+                <h4 class=" text-2xl font-bold mb-4 ml-4 mt-4" id="abonnement_titre">Logiciel de facturation et communication avec les patients</h4>
+		<ul class="list-disc pl-6 mb-4 list-none">
+                <li><i class="fa-solid fa-splotch mr-4" style="color: #115e59;"></i>Gestion des facturations</li>
+                <li><i class="fa-solid fa-splotch mr-4" style="color: #115e59;"></i>Système de prise de rendez-vous fiable et performant</li>
+                <li><i class="fa-solid fa-splotch mr-4" style="color: #115e59;"></i>Possibilité de téléconsultation</li>
+                <li><i class="fa-solid fa-splotch mr-4" style="color: #115e59;"></i>Accès à une base de données de médicaments et de traitements</li>
+                <li><i class="fa-solid fa-splotch mr-4" style="color: #115e59;"></i>Système de rappels automatiques pour les patients</li>
+        	</ul>
+		</div>
+	<div>
+	       	<h4 class=" text-2xl font-bold mb-4 ml-4 mt-4" id="abonnement_titre">Avantages</h4>
+		<ul class="list-disc pl-6 mb-4 list-none">
+		<li><i class="fa-solid fa-check mr-4" style="color: #115e59;"></i>Prise de RDV facile et rapide</li>
+		<li><i class="fa-solid fa-check mr-4" style="color: #115e59;"></i>Acc&egraves et gestion des informations m&eacutedicales</li>
+		<li><i class="fa-solid fa-check mr-4" style="color: #115e59;"></i>Communication et suivi personnalis&eacutes</li>
+		<li><i class="fa-solid fa-check mr-4" style="color: #115e59;"></i>Notifications et rappels automatis&eacutes</li>
+		<li><i class="fa-solid fa-check mr-4" style="color: #115e59;"></i>Exp&eacuterience utilisateur optimis&eacutee</li>
+		</ul>
+	       	<h4 class=" text-2xl font-bold mb-4 ml-4 mt-4" id="abonnement_titre">Moyens de paiement acceptés</h4>
+		<ul class="list-disc pl-6 mb-4 list-none flex">
+		<li><i class="fa-solid fa-credit-card mr-4" style="font-size: 2em;"></i></li>
+		<li><i class="fa-solid fa-money-bill mr-4" style="font-size: 2em;"></i></li>
+		<li><i class="fa-sharp fa-solid fa-money-check mr-4" style="font-size: 2em;"></i></li>
+		</ul>
+	</div>
+	</div>
+        </div>
+	</div>
+        </div>
+        <div id="div2" class="content hidden mt-4">
+            <h2 class="text-2xl">Contenu de la Div 2</h2>
+            <p class="mt-2">Ceci est la deuxi�me div.</p>
         </div>
     </div>
+    <script>
+        function showDiv(divId, buttonId) {
+            // Hide all content divs
+            document.querySelectorAll('.content').forEach(div => {
+                div.classList.add('hidden');
+            });
+
+            // Show the selected content div
+            document.getElementById(divId).classList.remove('hidden');
+
+            // Get the slider element
+            const slider = document.getElementById('slider');
+
+            // Move the slider
+            if (buttonId === 'button1') {
+                slider.style.transform = 'translateX(0%)';
+            } else {
+                slider.style.transform = 'translateX(100%)';
+            }
+        }
+    </script>
+    </div>
+
 </div>
 {% endblock %}

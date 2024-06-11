@@ -89,8 +89,8 @@ class __TwigTemplate_859bc06b10b8eaddb6beca0aa6949a22 extends Template
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->enter($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "body"));
 
         // line 6
-        yield "    <div class=\"mt-8\"> <!-- Ajout de la marge en haut -->
-        <h1 class=\"text-center\">Démarez l'aventure</h1>
+        yield "    <div class=\"mt-8 text-center\"> <!-- Ajout de la marge en haut -->
+        <h1 class=\" mb-3 text-3xl font-bold\">Démarez l'aventure</h1>
     </div>
 
     ";
@@ -138,12 +138,12 @@ class __TwigTemplate_859bc06b10b8eaddb6beca0aa6949a22 extends Template
 {% block title %} Nous rejoindre {{ parent() }} {% endblock %}
 
 {% block body %}
-    <div class=\"mt-8\"> <!-- Ajout de la marge en haut -->
-        <h1 class=\"text-center\">Démarez l'aventure</h1>
+    <div class=\"mt-8 text-center\"> <!-- Ajout de la marge en haut -->
+        <h1 class=\" mb-3 text-3xl font-bold\">Démarez l'aventure</h1>
     </div>
 
     {{ include('user/_form.html.twig') }}
 {% endblock %}
-", "user/new.html.twig", "/var/www/html/Doc-And-Go/templates/user/new.html.twig");
+", "user/new.html.twig", "/var/www/html/doc-and-go/templates/user/new.html.twig");
     }
 }

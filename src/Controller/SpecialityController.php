@@ -17,8 +17,18 @@ class SpecialityController extends AbstractController
     #[Route('/', name: 'app_speciality_index', methods: ['GET'])]
     public function index(SpecialityRepository $specialityRepository): Response
     {
+        // Récupérer toutes les spécialités et les trier par ordre alphabétique
+        $specialities = $specialityRepository->findBy([], ['name' => 'ASC']);
+
+        // Créer un tableau associatif pour regrouper les spécialités par lettre de l'alphabet
+        $specialitiesByLetter = [];
+        foreach ($specialities as $speciality) {
+            $firstLetter = strtoupper(substr($speciality->getName(), 0, 1));
+            $specialitiesByLetter[$firstLetter][] = $speciality;
+        }
+
         return $this->render('speciality/index.html.twig', [
-            'specialities' => $specialityRepository->findAll(),
+            'specialitiesByLetter' => $specialitiesByLetter,
         ]);
     }
 

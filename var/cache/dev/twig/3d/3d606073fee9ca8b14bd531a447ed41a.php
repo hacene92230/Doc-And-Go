@@ -41,77 +41,144 @@ class __TwigTemplate_78625c16d92c2b18ffb13d6de1c703d7 extends Template
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->enter($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "template", "appointment/_form.html.twig"));
 
         // line 1
-        if ( !Twig\Extension\CoreExtension::testEmpty((isset($context["planings"]) || array_key_exists("planings", $context) ? $context["planings"] : (function () { throw new RuntimeError('Variable "planings" does not exist.', 1, $this->source); })()))) {
-            // line 2
-            yield             $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->renderBlock((isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 2, $this->source); })()), 'form_start', ["attr" => ["id" => "appointment-form"]]);
+        yield "
+    <h1>Calendrier accessible</h1>
+
+    <!-- Calendrier -->
+    <div id=\"calendar\"></div>
+
+    <!-- Modal pour afficher les créneaux disponibles -->
+    <div class=\"modal fade\" id=\"slotModal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"slotModalLabel\" aria-hidden=\"true\">
+        <div class=\"modal-dialog\" role=\"document\">
+            <div class=\"modal-content\">
+                <div class=\"modal-header\">
+                    <h5 class=\"modal-title\" id=\"slotModalLabel\">Choisir un créneau horaire pour le <span id=\"modalDate\"></span></h5>
+                    <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Fermer\">
+                        <span aria-hidden=\"true\">&times;</span>
+                    </button>
+                </div>
+                <div class=\"modal-body\">
+                    <!-- Liste de créneaux fictifs sous forme de cases à cocher -->
+                    <div id=\"slotContainer\"></div>
+                </div>
+                <div class=\"modal-footer\">
+                    <button type=\"button\" class=\"btn btn-secondary\" data-dismiss=\"modal\">Fermer</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Inclure FullCalendar et les dépendances -->
+    <script src=\"https://cdn.jsdelivr.net/npm/@fullcalendar/common/main.js\"></script>
+    <script src=\"https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid/main.js\"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const calendarEl = document.getElementById('calendar');
+            const calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth',
+                locale: 'fr',
+                selectable: true, // Permettre la sélection de jours
+                dateClick: function(info) {
+                    // Récupérer la date cliquée
+                    const clickedDate = info.dateStr;
+                    // Mettre à jour le titre de la modal avec la date choisie
+                    document.getElementById('modalDate').innerText = clickedDate;
+                    // Ouvrir la modal Bootstrap lorsque l'utilisateur clique sur un jour
+                    \$('#slotModal').modal('show');
+                },
+                dayCellDidMount: function(arg) {
+                    // Ajouter une classe CSS à chaque cellule du jour pour le style
+                    const cell = arg.el;
+                    cell.classList.add('day-cell');
+                }
+            });
+            calendar.render();
+        });
+    </script>
+
+    <style>
+        /* Styles pour les cellules des jours du calendrier */
+        .day-cell {
+            border: 1px solid #ccc;
+            padding: 5px;
+            cursor: pointer; /* Ajout de curseur pointer pour indiquer que les cellules sont cliquables */
+        }
+    </style>
+
+";
+        // line 66
+        if ( !Twig\Extension\CoreExtension::testEmpty((isset($context["planings"]) || array_key_exists("planings", $context) ? $context["planings"] : (function () { throw new RuntimeError('Variable "planings" does not exist.', 66, $this->source); })()))) {
+            // line 67
+            yield             $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->renderBlock((isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 67, $this->source); })()), 'form_start', ["attr" => ["id" => "appointment-form"]]);
             yield "
 
 <div class=\"container mt-4\">
     <h2>Choisissez un créneau horaire :</h2>
     ";
-            // line 6
+            // line 71
             $context["groupSize"] = 5;
-            // line 7
+            // line 72
             yield "    ";
             $context["currentGroup"] = 0;
-            // line 8
+            // line 73
             yield "    ";
             $context["slotCount"] = 0;
-            // line 9
+            // line 74
             yield "
     ";
-            // line 10
+            // line 75
             $context['_parent'] = $context;
-            $context['_seq'] = CoreExtension::ensureTraversable((isset($context["planings"]) || array_key_exists("planings", $context) ? $context["planings"] : (function () { throw new RuntimeError('Variable "planings" does not exist.', 10, $this->source); })()));
+            $context['_seq'] = CoreExtension::ensureTraversable((isset($context["planings"]) || array_key_exists("planings", $context) ? $context["planings"] : (function () { throw new RuntimeError('Variable "planings" does not exist.', 75, $this->source); })()));
             foreach ($context['_seq'] as $context["_key"] => $context["planing"]) {
-                // line 11
+                // line 76
                 yield "        ";
                 $context['_parent'] = $context;
-                $context['_seq'] = CoreExtension::ensureTraversable(CoreExtension::getAttribute($this->env, $this->source, $context["planing"], "dayWorks", [], "any", false, false, false, 11));
+                $context['_seq'] = CoreExtension::ensureTraversable(CoreExtension::getAttribute($this->env, $this->source, $context["planing"], "dayWorks", [], "any", false, false, false, 76));
                 foreach ($context['_seq'] as $context["_key"] => $context["slot"]) {
-                    // line 12
+                    // line 77
                     yield "            ";
-                    if ((((isset($context["slotCount"]) || array_key_exists("slotCount", $context) ? $context["slotCount"] : (function () { throw new RuntimeError('Variable "slotCount" does not exist.', 12, $this->source); })()) % (isset($context["groupSize"]) || array_key_exists("groupSize", $context) ? $context["groupSize"] : (function () { throw new RuntimeError('Variable "groupSize" does not exist.', 12, $this->source); })())) == 0)) {
-                        // line 13
+                    if ((((isset($context["slotCount"]) || array_key_exists("slotCount", $context) ? $context["slotCount"] : (function () { throw new RuntimeError('Variable "slotCount" does not exist.', 77, $this->source); })()) % (isset($context["groupSize"]) || array_key_exists("groupSize", $context) ? $context["groupSize"] : (function () { throw new RuntimeError('Variable "groupSize" does not exist.', 77, $this->source); })())) == 0)) {
+                        // line 78
                         yield "                ";
-                        if (((isset($context["slotCount"]) || array_key_exists("slotCount", $context) ? $context["slotCount"] : (function () { throw new RuntimeError('Variable "slotCount" does not exist.', 13, $this->source); })()) > 0)) {
-                            // line 14
+                        if (((isset($context["slotCount"]) || array_key_exists("slotCount", $context) ? $context["slotCount"] : (function () { throw new RuntimeError('Variable "slotCount" does not exist.', 78, $this->source); })()) > 0)) {
+                            // line 79
                             yield "                    </div>                 ";
                         }
-                        // line 16
+                        // line 81
                         yield "                ";
-                        $context["currentGroup"] = ((isset($context["currentGroup"]) || array_key_exists("currentGroup", $context) ? $context["currentGroup"] : (function () { throw new RuntimeError('Variable "currentGroup" does not exist.', 16, $this->source); })()) + 1);
-                        // line 17
+                        $context["currentGroup"] = ((isset($context["currentGroup"]) || array_key_exists("currentGroup", $context) ? $context["currentGroup"] : (function () { throw new RuntimeError('Variable "currentGroup" does not exist.', 81, $this->source); })()) + 1);
+                        // line 82
                         yield "                <div id=\"group-";
-                        yield Twig\Extension\EscaperExtension::escape($this->env, (isset($context["currentGroup"]) || array_key_exists("currentGroup", $context) ? $context["currentGroup"] : (function () { throw new RuntimeError('Variable "currentGroup" does not exist.', 17, $this->source); })()), "html", null, true);
+                        yield Twig\Extension\EscaperExtension::escape($this->env, (isset($context["currentGroup"]) || array_key_exists("currentGroup", $context) ? $context["currentGroup"] : (function () { throw new RuntimeError('Variable "currentGroup" does not exist.', 82, $this->source); })()), "html", null, true);
                         yield "\" class=\"slot-group\" style=\"";
-                        if (((isset($context["currentGroup"]) || array_key_exists("currentGroup", $context) ? $context["currentGroup"] : (function () { throw new RuntimeError('Variable "currentGroup" does not exist.', 17, $this->source); })()) != 1)) {
+                        if (((isset($context["currentGroup"]) || array_key_exists("currentGroup", $context) ? $context["currentGroup"] : (function () { throw new RuntimeError('Variable "currentGroup" does not exist.', 82, $this->source); })()) != 1)) {
                             yield "display: none;";
                         }
                         yield "\">
             ";
                     }
-                    // line 19
+                    // line 84
                     yield "
             <h3>";
-                    // line 20
-                    yield Twig\Extension\EscaperExtension::escape($this->env, Twig\Extension\CoreExtension::dateFormatFilter($this->env, CoreExtension::getAttribute($this->env, $this->source, $context["slot"], "date", [], "any", false, false, false, 20), "d/m/Y"), "html", null, true);
+                    // line 85
+                    yield Twig\Extension\EscaperExtension::escape($this->env, Twig\Extension\CoreExtension::dateFormatFilter($this->env, CoreExtension::getAttribute($this->env, $this->source, $context["slot"], "date", [], "any", false, false, false, 85), "d/m/Y"), "html", null, true);
                     yield "</h3>
             ";
-                    // line 21
-                    $context["startTime"] = CoreExtension::getAttribute($this->env, $this->source, $context["slot"], "startHour", [], "any", false, false, false, 21);
-                    // line 22
+                    // line 86
+                    $context["startTime"] = CoreExtension::getAttribute($this->env, $this->source, $context["slot"], "startHour", [], "any", false, false, false, 86);
+                    // line 87
                     yield "            ";
-                    $context["endTime"] = CoreExtension::getAttribute($this->env, $this->source, $context["slot"], "endHour", [], "any", false, false, false, 22);
-                    // line 23
+                    $context["endTime"] = CoreExtension::getAttribute($this->env, $this->source, $context["slot"], "endHour", [], "any", false, false, false, 87);
+                    // line 88
                     yield "            ";
-                    $context["duration"] = CoreExtension::getAttribute($this->env, $this->source, $context["slot"], "slotDuration", [], "any", false, false, false, 23);
-                    // line 24
+                    $context["duration"] = CoreExtension::getAttribute($this->env, $this->source, $context["slot"], "slotDuration", [], "any", false, false, false, 88);
+                    // line 89
                     yield "
             ";
-                    // line 25
+                    // line 90
                     $context['_parent'] = $context;
-                    $context['_seq'] = CoreExtension::ensureTraversable(range(0, ((((Twig\Extension\CoreExtension::dateFormatFilter($this->env, (isset($context["endTime"]) || array_key_exists("endTime", $context) ? $context["endTime"] : (function () { throw new RuntimeError('Variable "endTime" does not exist.', 25, $this->source); })()), "U") - Twig\Extension\CoreExtension::dateFormatFilter($this->env, (isset($context["startTime"]) || array_key_exists("startTime", $context) ? $context["startTime"] : (function () { throw new RuntimeError('Variable "startTime" does not exist.', 25, $this->source); })()), "U")) / 60) / (isset($context["duration"]) || array_key_exists("duration", $context) ? $context["duration"] : (function () { throw new RuntimeError('Variable "duration" does not exist.', 25, $this->source); })())) - 1)));
+                    $context['_seq'] = CoreExtension::ensureTraversable(range(0, ((((Twig\Extension\CoreExtension::dateFormatFilter($this->env, (isset($context["endTime"]) || array_key_exists("endTime", $context) ? $context["endTime"] : (function () { throw new RuntimeError('Variable "endTime" does not exist.', 90, $this->source); })()), "U") - Twig\Extension\CoreExtension::dateFormatFilter($this->env, (isset($context["startTime"]) || array_key_exists("startTime", $context) ? $context["startTime"] : (function () { throw new RuntimeError('Variable "startTime" does not exist.', 90, $this->source); })()), "U")) / 60) / (isset($context["duration"]) || array_key_exists("duration", $context) ? $context["duration"] : (function () { throw new RuntimeError('Variable "duration" does not exist.', 90, $this->source); })())) - 1)));
                     $context['loop'] = [
                       'parent' => $context['_parent'],
                       'index0' => 0,
@@ -126,43 +193,43 @@ class __TwigTemplate_78625c16d92c2b18ffb13d6de1c703d7 extends Template
                         $context['loop']['last'] = 1 === $length;
                     }
                     foreach ($context['_seq'] as $context["_key"] => $context["i"]) {
-                        // line 26
+                        // line 91
                         yield "                ";
-                        $context["currentSlot"] = Twig\Extension\CoreExtension::dateFormatFilter($this->env, (isset($context["startTime"]) || array_key_exists("startTime", $context) ? $context["startTime"] : (function () { throw new RuntimeError('Variable "startTime" does not exist.', 26, $this->source); })()), "H:i");
-                        // line 27
+                        $context["currentSlot"] = Twig\Extension\CoreExtension::dateFormatFilter($this->env, (isset($context["startTime"]) || array_key_exists("startTime", $context) ? $context["startTime"] : (function () { throw new RuntimeError('Variable "startTime" does not exist.', 91, $this->source); })()), "H:i");
+                        // line 92
                         yield "                ";
-                        $context["formattedSlot"] = ((Twig\Extension\CoreExtension::dateFormatFilter($this->env, CoreExtension::getAttribute($this->env, $this->source, $context["slot"], "date", [], "any", false, false, false, 27), "Y-m-d") . " ") . (isset($context["currentSlot"]) || array_key_exists("currentSlot", $context) ? $context["currentSlot"] : (function () { throw new RuntimeError('Variable "currentSlot" does not exist.', 27, $this->source); })()));
-                        // line 28
+                        $context["formattedSlot"] = ((Twig\Extension\CoreExtension::dateFormatFilter($this->env, CoreExtension::getAttribute($this->env, $this->source, $context["slot"], "date", [], "any", false, false, false, 92), "Y-m-d") . " ") . (isset($context["currentSlot"]) || array_key_exists("currentSlot", $context) ? $context["currentSlot"] : (function () { throw new RuntimeError('Variable "currentSlot" does not exist.', 92, $this->source); })()));
+                        // line 93
                         yield "
                 ";
-                        // line 30
+                        // line 95
                         yield "                ";
-                        if (!CoreExtension::inFilter((isset($context["formattedSlot"]) || array_key_exists("formattedSlot", $context) ? $context["formattedSlot"] : (function () { throw new RuntimeError('Variable "formattedSlot" does not exist.', 30, $this->source); })()), (isset($context["reservedSlots"]) || array_key_exists("reservedSlots", $context) ? $context["reservedSlots"] : (function () { throw new RuntimeError('Variable "reservedSlots" does not exist.', 30, $this->source); })()))) {
-                            // line 31
+                        if (!CoreExtension::inFilter((isset($context["formattedSlot"]) || array_key_exists("formattedSlot", $context) ? $context["formattedSlot"] : (function () { throw new RuntimeError('Variable "formattedSlot" does not exist.', 95, $this->source); })()), (isset($context["reservedSlots"]) || array_key_exists("reservedSlots", $context) ? $context["reservedSlots"] : (function () { throw new RuntimeError('Variable "reservedSlots" does not exist.', 95, $this->source); })()))) {
+                            // line 96
                             yield "                    <div class=\"form-check\">
                         <input class=\"form-check-input\" type=\"radio\" name=\"appointment[dateTime]\" value=\"";
-                            // line 32
-                            yield Twig\Extension\EscaperExtension::escape($this->env, (isset($context["formattedSlot"]) || array_key_exists("formattedSlot", $context) ? $context["formattedSlot"] : (function () { throw new RuntimeError('Variable "formattedSlot" does not exist.', 32, $this->source); })()), "html", null, true);
+                            // line 97
+                            yield Twig\Extension\EscaperExtension::escape($this->env, (isset($context["formattedSlot"]) || array_key_exists("formattedSlot", $context) ? $context["formattedSlot"] : (function () { throw new RuntimeError('Variable "formattedSlot" does not exist.', 97, $this->source); })()), "html", null, true);
                             yield "\" id=\"slot-";
-                            yield Twig\Extension\EscaperExtension::escape($this->env, CoreExtension::getAttribute($this->env, $this->source, $context["loop"], "index", [], "any", false, false, false, 32), "html", null, true);
+                            yield Twig\Extension\EscaperExtension::escape($this->env, CoreExtension::getAttribute($this->env, $this->source, $context["loop"], "index", [], "any", false, false, false, 97), "html", null, true);
                             yield "\">
                         <label class=\"form-check-label\" for=\"slot-";
-                            // line 33
-                            yield Twig\Extension\EscaperExtension::escape($this->env, CoreExtension::getAttribute($this->env, $this->source, $context["loop"], "index", [], "any", false, false, false, 33), "html", null, true);
+                            // line 98
+                            yield Twig\Extension\EscaperExtension::escape($this->env, CoreExtension::getAttribute($this->env, $this->source, $context["loop"], "index", [], "any", false, false, false, 98), "html", null, true);
                             yield "\">
                             <span>";
-                            // line 34
-                            yield Twig\Extension\EscaperExtension::escape($this->env, (isset($context["currentSlot"]) || array_key_exists("currentSlot", $context) ? $context["currentSlot"] : (function () { throw new RuntimeError('Variable "currentSlot" does not exist.', 34, $this->source); })()), "html", null, true);
+                            // line 99
+                            yield Twig\Extension\EscaperExtension::escape($this->env, (isset($context["currentSlot"]) || array_key_exists("currentSlot", $context) ? $context["currentSlot"] : (function () { throw new RuntimeError('Variable "currentSlot" does not exist.', 99, $this->source); })()), "html", null, true);
                             yield "</span> ";
-                            // line 35
+                            // line 100
                             yield "                        </label>
                     </div>
                 ";
                         }
-                        // line 38
+                        // line 103
                         yield "                ";
-                        $context["startTime"] = Twig\Extension\CoreExtension::dateModifyFilter($this->env, (isset($context["startTime"]) || array_key_exists("startTime", $context) ? $context["startTime"] : (function () { throw new RuntimeError('Variable "startTime" does not exist.', 38, $this->source); })()), (("+" . (isset($context["duration"]) || array_key_exists("duration", $context) ? $context["duration"] : (function () { throw new RuntimeError('Variable "duration" does not exist.', 38, $this->source); })())) . "minutes"));
-                        // line 39
+                        $context["startTime"] = Twig\Extension\CoreExtension::dateModifyFilter($this->env, (isset($context["startTime"]) || array_key_exists("startTime", $context) ? $context["startTime"] : (function () { throw new RuntimeError('Variable "startTime" does not exist.', 103, $this->source); })()), (("+" . (isset($context["duration"]) || array_key_exists("duration", $context) ? $context["duration"] : (function () { throw new RuntimeError('Variable "duration" does not exist.', 103, $this->source); })())) . "minutes"));
+                        // line 104
                         yield "            ";
                         ++$context['loop']['index0'];
                         ++$context['loop']['index'];
@@ -176,26 +243,26 @@ class __TwigTemplate_78625c16d92c2b18ffb13d6de1c703d7 extends Template
                     $_parent = $context['_parent'];
                     unset($context['_seq'], $context['_iterated'], $context['_key'], $context['i'], $context['_parent'], $context['loop']);
                     $context = array_intersect_key($context, $_parent) + $_parent;
-                    // line 40
+                    // line 105
                     yield "
             ";
-                    // line 41
-                    $context["slotCount"] = ((isset($context["slotCount"]) || array_key_exists("slotCount", $context) ? $context["slotCount"] : (function () { throw new RuntimeError('Variable "slotCount" does not exist.', 41, $this->source); })()) + 1);
-                    // line 42
+                    // line 106
+                    $context["slotCount"] = ((isset($context["slotCount"]) || array_key_exists("slotCount", $context) ? $context["slotCount"] : (function () { throw new RuntimeError('Variable "slotCount" does not exist.', 106, $this->source); })()) + 1);
+                    // line 107
                     yield "        ";
                 }
                 $_parent = $context['_parent'];
                 unset($context['_seq'], $context['_iterated'], $context['_key'], $context['slot'], $context['_parent'], $context['loop']);
                 $context = array_intersect_key($context, $_parent) + $_parent;
-                // line 43
+                // line 108
                 yield "    ";
             }
             $_parent = $context['_parent'];
             unset($context['_seq'], $context['_iterated'], $context['_key'], $context['planing'], $context['_parent'], $context['loop']);
             $context = array_intersect_key($context, $_parent) + $_parent;
-            // line 44
+            // line 109
             yield "    </div> ";
-            // line 45
+            // line 110
             yield "</div>
 
 <div class=\"btn-group mt-4\">
@@ -206,23 +273,23 @@ class __TwigTemplate_78625c16d92c2b18ffb13d6de1c703d7 extends Template
 <div class=\"mt-4\">
     <h2>Commentaire :</h2>
     ";
-            // line 54
-            yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 54, $this->source); })()), "comment", [], "any", false, false, false, 54), 'row', ["attr" => ["class" => "form-control"]]);
+            // line 119
+            yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 119, $this->source); })()), "comment", [], "any", false, false, false, 119), 'row', ["attr" => ["class" => "form-control"]]);
             yield "
 </div>
 
 <div style=\"display: none;\">
     ";
-            // line 59
+            // line 124
             yield "    ";
-            yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 59, $this->source); })()), "dateTime", [], "any", false, false, false, 59), 'row', ["attr" => ["id" => "appointment_dateTime"]]);
+            yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 124, $this->source); })()), "dateTime", [], "any", false, false, false, 124), 'row', ["attr" => ["id" => "appointment_dateTime"]]);
             yield "
 </div>
 <button type=\"button\" class=\"btn btn-primary mt-4\" id=\"reservationButton\">Réserver</button>
 
 ";
-            // line 63
-            yield             $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->renderBlock((isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 63, $this->source); })()), 'form_end');
+            // line 128
+            yield             $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->renderBlock((isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 128, $this->source); })()), 'form_end');
             yield "
 
 <!-- Confirmation Dialog -->
@@ -326,7 +393,7 @@ class __TwigTemplate_78625c16d92c2b18ffb13d6de1c703d7 extends Template
 </script>
 ";
         } else {
-            // line 165
+            // line 230
             yield "<p>Pas de disponibilité pour ce docteur.</p>
 ";
         }
@@ -360,12 +427,77 @@ class __TwigTemplate_78625c16d92c2b18ffb13d6de1c703d7 extends Template
      */
     public function getDebugInfo()
     {
-        return array (  330 => 165,  225 => 63,  217 => 59,  210 => 54,  199 => 45,  197 => 44,  191 => 43,  185 => 42,  183 => 41,  180 => 40,  166 => 39,  163 => 38,  158 => 35,  155 => 34,  151 => 33,  145 => 32,  142 => 31,  139 => 30,  136 => 28,  133 => 27,  130 => 26,  113 => 25,  110 => 24,  107 => 23,  104 => 22,  102 => 21,  98 => 20,  95 => 19,  85 => 17,  82 => 16,  79 => 14,  76 => 13,  73 => 12,  68 => 11,  64 => 10,  61 => 9,  58 => 8,  55 => 7,  53 => 6,  46 => 2,  44 => 1,);
+        return array (  397 => 230,  292 => 128,  284 => 124,  277 => 119,  266 => 110,  264 => 109,  258 => 108,  252 => 107,  250 => 106,  247 => 105,  233 => 104,  230 => 103,  225 => 100,  222 => 99,  218 => 98,  212 => 97,  209 => 96,  206 => 95,  203 => 93,  200 => 92,  197 => 91,  180 => 90,  177 => 89,  174 => 88,  171 => 87,  169 => 86,  165 => 85,  162 => 84,  152 => 82,  149 => 81,  146 => 79,  143 => 78,  140 => 77,  135 => 76,  131 => 75,  128 => 74,  125 => 73,  122 => 72,  120 => 71,  113 => 67,  111 => 66,  44 => 1,);
     }
 
     public function getSourceContext()
     {
-        return new Source("{% if planings is not empty %}
+        return new Source("
+    <h1>Calendrier accessible</h1>
+
+    <!-- Calendrier -->
+    <div id=\"calendar\"></div>
+
+    <!-- Modal pour afficher les créneaux disponibles -->
+    <div class=\"modal fade\" id=\"slotModal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"slotModalLabel\" aria-hidden=\"true\">
+        <div class=\"modal-dialog\" role=\"document\">
+            <div class=\"modal-content\">
+                <div class=\"modal-header\">
+                    <h5 class=\"modal-title\" id=\"slotModalLabel\">Choisir un créneau horaire pour le <span id=\"modalDate\"></span></h5>
+                    <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Fermer\">
+                        <span aria-hidden=\"true\">&times;</span>
+                    </button>
+                </div>
+                <div class=\"modal-body\">
+                    <!-- Liste de créneaux fictifs sous forme de cases à cocher -->
+                    <div id=\"slotContainer\"></div>
+                </div>
+                <div class=\"modal-footer\">
+                    <button type=\"button\" class=\"btn btn-secondary\" data-dismiss=\"modal\">Fermer</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Inclure FullCalendar et les dépendances -->
+    <script src=\"https://cdn.jsdelivr.net/npm/@fullcalendar/common/main.js\"></script>
+    <script src=\"https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid/main.js\"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const calendarEl = document.getElementById('calendar');
+            const calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth',
+                locale: 'fr',
+                selectable: true, // Permettre la sélection de jours
+                dateClick: function(info) {
+                    // Récupérer la date cliquée
+                    const clickedDate = info.dateStr;
+                    // Mettre à jour le titre de la modal avec la date choisie
+                    document.getElementById('modalDate').innerText = clickedDate;
+                    // Ouvrir la modal Bootstrap lorsque l'utilisateur clique sur un jour
+                    \$('#slotModal').modal('show');
+                },
+                dayCellDidMount: function(arg) {
+                    // Ajouter une classe CSS à chaque cellule du jour pour le style
+                    const cell = arg.el;
+                    cell.classList.add('day-cell');
+                }
+            });
+            calendar.render();
+        });
+    </script>
+
+    <style>
+        /* Styles pour les cellules des jours du calendrier */
+        .day-cell {
+            border: 1px solid #ccc;
+            padding: 5px;
+            cursor: pointer; /* Ajout de curseur pointer pour indiquer que les cellules sont cliquables */
+        }
+    </style>
+
+{% if planings is not empty %}
 {{ form_start(form, { 'attr': {'id': 'appointment-form'} }) }}
 
 <div class=\"container mt-4\">
@@ -530,6 +662,6 @@ class __TwigTemplate_78625c16d92c2b18ffb13d6de1c703d7 extends Template
 </script>
 {% else %}
 <p>Pas de disponibilité pour ce docteur.</p>
-{% endif %}", "appointment/_form.html.twig", "/var/www/html/Doc-And-Go/templates/appointment/_form.html.twig");
+{% endif %}", "appointment/_form.html.twig", "/var/www/html/doc-and-go/templates/appointment/_form.html.twig");
     }
 }

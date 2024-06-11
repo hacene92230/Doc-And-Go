@@ -147,6 +147,6 @@ class __TwigTemplate_79cba724048bc6943eb09ea328b40de6 extends Template
     </p>
     <p>Si vous ne recevez pas d'e-mail, veuillez vérifier votre dossier spam ou  <a href=\"{{ path('app_forgot_password_request') }}\">réessayer à nouveau</a>.</p>
 {% endblock %}
-", "reset_password/check_email.html.twig", "/var/www/html/Doc-And-Go/templates/reset_password/check_email.html.twig");
+", "reset_password/check_email.html.twig", "/var/www/html/doc-and-go/templates/reset_password/check_email.html.twig");
     }
 }

@@ -152,6 +152,6 @@ class __TwigTemplate_6acbf284f8e7449fa023b0b026dd601e extends Template
 
     {{ include('contact/_delete_form.html.twig') }}
 {% endblock %}
-", "contact/edit.html.twig", "/var/www/html/Doc-And-Go/templates/contact/edit.html.twig");
+", "contact/edit.html.twig", "/var/www/html/doc-and-go/templates/contact/edit.html.twig");
     }
 }

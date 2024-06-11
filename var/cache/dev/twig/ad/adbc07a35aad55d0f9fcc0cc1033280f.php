@@ -145,6 +145,6 @@ class __TwigTemplate_0393fc3fee56834a794c6f57653e181e extends Template
 
     <a href=\"{{ path('app_day_work_index') }}\">back to list</a>
 {% endblock %}
-", "day_work/new.html.twig", "/var/www/html/Doc-And-Go/templates/day_work/new.html.twig");
+", "day_work/new.html.twig", "/var/www/html/doc-and-go/templates/day_work/new.html.twig");
     }
 }

@@ -58,25 +58,25 @@ class __TwigTemplate_8dbe456d53472e426ac112e83090ec3a extends Template
     ";
         // line 8
         yield from $this->unwrap()->yieldBlock('stylesheets', $context, $blocks);
-        // line 52
+        // line 53
         yield "</head>
 <body>
     ";
-        // line 54
-        yield from         $this->loadTemplate("shared/header.html.twig", "base.html.twig", 54)->unwrap()->yield($context);
         // line 55
+        yield from         $this->loadTemplate("shared/header.html.twig", "base.html.twig", 55)->unwrap()->yield($context);
+        // line 56
         yield "
     ";
-        // line 56
+        // line 57
         $context['_parent'] = $context;
-        $context['_seq'] = CoreExtension::ensureTraversable(CoreExtension::getAttribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new RuntimeError('Variable "app" does not exist.', 56, $this->source); })()), "flashes", [], "any", false, false, false, 56));
+        $context['_seq'] = CoreExtension::ensureTraversable(CoreExtension::getAttribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new RuntimeError('Variable "app" does not exist.', 57, $this->source); })()), "flashes", [], "any", false, false, false, 57));
         foreach ($context['_seq'] as $context["type"] => $context["messages"]) {
-            // line 57
+            // line 58
             yield "        ";
             $context['_parent'] = $context;
             $context['_seq'] = CoreExtension::ensureTraversable($context["messages"]);
             foreach ($context['_seq'] as $context["_key"] => $context["message"]) {
-                // line 58
+                // line 59
                 yield "            <div class=\"bg-";
                 yield Twig\Extension\EscaperExtension::escape($this->env, $context["type"], "html", null, true);
                 yield "-100 border border-";
@@ -85,12 +85,12 @@ class __TwigTemplate_8dbe456d53472e426ac112e83090ec3a extends Template
                 yield Twig\Extension\EscaperExtension::escape($this->env, $context["type"], "html", null, true);
                 yield "-700 px-4 py-3 rounded relative\" role=\"alert\">
                 ";
-                // line 59
+                // line 60
                 yield Twig\Extension\EscaperExtension::escape($this->env, $context["message"], "html", null, true);
                 yield "
                 <span class=\"absolute top-0 bottom-0 right-0 px-4 py-3\" role=\"button\" aria-label=\"Close\" onclick=\"this.parentElement.style.display='none';\">
                     <svg class=\"fill-current h-6 w-6 text-";
-                // line 61
+                // line 62
                 yield Twig\Extension\EscaperExtension::escape($this->env, $context["type"], "html", null, true);
                 yield "-500\" role=\"button\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 20 20\"><path d=\"M14.348 5.652a1 1 0 010 1.414L11.414 10l2.934 2.934a1 1 0 01-1.414 1.414L10 11.414l-2.934 2.934a1 1 0 01-1.414-1.414L8.586 10 5.652 7.066a1 1 0 011.414-1.414L10 8.586l2.934-2.934a1 1 0 011.414 0z\"/></svg>
                 </span>
@@ -100,35 +100,32 @@ class __TwigTemplate_8dbe456d53472e426ac112e83090ec3a extends Template
             $_parent = $context['_parent'];
             unset($context['_seq'], $context['_iterated'], $context['_key'], $context['message'], $context['_parent'], $context['loop']);
             $context = array_intersect_key($context, $_parent) + $_parent;
-            // line 65
+            // line 66
             yield "    ";
         }
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['_iterated'], $context['type'], $context['messages'], $context['_parent'], $context['loop']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 66
+        // line 67
         yield "
     <main>
                         <!-- Barre de recherche -->
-                    ";
-        // line 69
-        yield $this->env->getRuntime('Symfony\Bridge\Twig\Extension\HttpKernelRuntime')->renderFragment(Symfony\Bridge\Twig\Extension\HttpKernelExtension::controller("App\\Controller\\SearchController::new"));
-        yield "
+                    
         ";
-        // line 70
+        // line 71
         yield from $this->unwrap()->yieldBlock('body', $context, $blocks);
-        // line 72
+        // line 73
         yield "    </main>
 
     ";
-        // line 74
+        // line 75
         yield from $this->unwrap()->yieldBlock('javascripts', $context, $blocks);
-        // line 76
+        // line 77
         yield "    
     ";
-        // line 77
-        yield from         $this->loadTemplate("shared/footer.html.twig", "base.html.twig", 77)->unwrap()->yield($context);
         // line 78
+        yield from         $this->loadTemplate("shared/footer.html.twig", "base.html.twig", 78)->unwrap()->yield($context);
+        // line 79
         yield "</body>
 </html>
 ";
@@ -175,12 +172,13 @@ class __TwigTemplate_8dbe456d53472e426ac112e83090ec3a extends Template
         yield "    <link rel=\"stylesheet\" href=\"http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css\">
     <link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css\">
     <link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css\"> 
+    <link rel=\"stylesheet\" href=\"https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0\" />
     <script src=\"https://code.jquery.com/jquery-3.5.1.min.js\"></script>
     <script src=\"https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js\" integrity=\"sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN\" crossorigin=\"anonymous\"></script>
+    <script src=\"https://kit.fontawesome.com/88e99c3c1e.js\" crossorigin=\"anonymous\"></script>
+    <script src=\"https://cdn.tailwindcss.com\"></script>    
+    <script src=\"https://cdn.jsdelivr.net/npm/fullcalendar@6.1.14/index.global.min.js\"></script>
     
-    <script src='https://cdn.jsdelivr.net/npm/fullcalendar/index.global.min.js'></script>
-    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js'></script>
-    <script src=\"https://cdn.tailwindcss.com\"></script>
     <script>
         tailwind.config = {
           theme: {
@@ -224,7 +222,7 @@ class __TwigTemplate_8dbe456d53472e426ac112e83090ec3a extends Template
         return; yield '';
     }
 
-    // line 70
+    // line 71
     public function block_body($context, array $blocks = [])
     {
         $macros = $this->macros;
@@ -234,7 +232,7 @@ class __TwigTemplate_8dbe456d53472e426ac112e83090ec3a extends Template
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f = $this->extensions["Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension"];
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->enter($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "body"));
 
-        // line 71
+        // line 72
         yield "        ";
         
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->leave($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof);
@@ -245,7 +243,7 @@ class __TwigTemplate_8dbe456d53472e426ac112e83090ec3a extends Template
         return; yield '';
     }
 
-    // line 74
+    // line 75
     public function block_javascripts($context, array $blocks = [])
     {
         $macros = $this->macros;
@@ -255,7 +253,7 @@ class __TwigTemplate_8dbe456d53472e426ac112e83090ec3a extends Template
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f = $this->extensions["Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension"];
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->enter($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "javascripts"));
 
-        // line 75
+        // line 76
         yield "    ";
         
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->leave($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof);
@@ -287,7 +285,7 @@ class __TwigTemplate_8dbe456d53472e426ac112e83090ec3a extends Template
      */
     public function getDebugInfo()
     {
-        return array (  259 => 75,  249 => 74,  238 => 71,  228 => 70,  175 => 9,  165 => 8,  145 => 6,  132 => 78,  130 => 77,  127 => 76,  125 => 74,  121 => 72,  119 => 70,  115 => 69,  110 => 66,  104 => 65,  94 => 61,  89 => 59,  80 => 58,  75 => 57,  71 => 56,  68 => 55,  66 => 54,  62 => 52,  60 => 8,  57 => 7,  55 => 6,  48 => 1,);
+        return array (  257 => 76,  247 => 75,  236 => 72,  226 => 71,  172 => 9,  162 => 8,  142 => 6,  129 => 79,  127 => 78,  124 => 77,  122 => 75,  118 => 73,  116 => 71,  110 => 67,  104 => 66,  94 => 62,  89 => 60,  80 => 59,  75 => 58,  71 => 57,  68 => 56,  66 => 55,  62 => 53,  60 => 8,  57 => 7,  55 => 6,  48 => 1,);
     }
 
     public function getSourceContext()
@@ -303,12 +301,13 @@ class __TwigTemplate_8dbe456d53472e426ac112e83090ec3a extends Template
     <link rel=\"stylesheet\" href=\"http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css\">
     <link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css\">
     <link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css\"> 
+    <link rel=\"stylesheet\" href=\"https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0\" />
     <script src=\"https://code.jquery.com/jquery-3.5.1.min.js\"></script>
     <script src=\"https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js\" integrity=\"sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN\" crossorigin=\"anonymous\"></script>
+    <script src=\"https://kit.fontawesome.com/88e99c3c1e.js\" crossorigin=\"anonymous\"></script>
+    <script src=\"https://cdn.tailwindcss.com\"></script>    
+    <script src=\"https://cdn.jsdelivr.net/npm/fullcalendar@6.1.14/index.global.min.js\"></script>
     
-    <script src='https://cdn.jsdelivr.net/npm/fullcalendar/index.global.min.js'></script>
-    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js'></script>
-    <script src=\"https://cdn.tailwindcss.com\"></script>
     <script>
         tailwind.config = {
           theme: {
@@ -360,7 +359,7 @@ class __TwigTemplate_8dbe456d53472e426ac112e83090ec3a extends Template
 
     <main>
                         <!-- Barre de recherche -->
-                    {{ render(controller('App\\\\Controller\\\\SearchController::new')) }}
+                    
         {% block body %}
         {% endblock %}
     </main>

@@ -90,6 +90,6 @@ class __TwigTemplate_de53b674e2bd7d8fe752ad66b37904db extends Template
     <input type=\"hidden\" name=\"_token\" value=\"{{ csrf_token('delete' ~ day_work.id) }}\">
     <button class=\"btn\">Supprimer</button>
 </form>
-", "day_work/_delete_form.html.twig", "/var/www/html/Doc-And-Go/templates/day_work/_delete_form.html.twig");
+", "day_work/_delete_form.html.twig", "/var/www/html/doc-and-go/templates/day_work/_delete_form.html.twig");
     }
 }

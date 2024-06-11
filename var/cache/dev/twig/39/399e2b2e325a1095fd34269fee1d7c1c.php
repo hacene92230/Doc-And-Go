@@ -87,7 +87,7 @@ class __TwigTemplate_53fb6b8df8fb82e2bfeb583b7707eb5e extends Template
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->enter($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "body"));
 
         // line 6
-        yield "<div class=\"container mx-auto text-center\">
+        yield "<div class=\"container text-center\">
     <h1 class=\"text-2xl font-bold mb-12\">
         Rendez-vous de ";
         // line 8
@@ -330,7 +330,7 @@ function closeModal(index) {
 {% block title %}Mes rendez-vous{% endblock %}
 
 {% block body %}
-<div class=\"container mx-auto text-center\">
+<div class=\"container text-center\">
     <h1 class=\"text-2xl font-bold mb-12\">
         Rendez-vous de {{ app.user.gender }}
         <span class=\"last-name\">{{ app.user.lastName }}</span>

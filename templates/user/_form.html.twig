@@ -1,139 +1,122 @@
-<div class="flex justify-center items-center h-screen">
-    <div class="w-full max-w-md">
+<div class="container mx-auto ">
+    
         {{ form_start(form) }}
-        <div class="grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-8">
-        <!-- Sexe -->
-        <div class="sm:col-span-2">
-            <div class="flex items-center space-x-4">
-                <span class="text-gray-600">Sexe :</span>
-                <i class="fas fa-venus text-gray-600"></i>
-                {{ form_row(form.gender, {
-                    'attr': {'class': 'mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md'}
-                }) }}
+<div class=" bg-vert pt-4 pb-4  mx-12 rounded mt-3 ">
+        <!-- Colonne 1 (à gauche) -->
+<div class="shrink-0 sm:grid grid-cols-2 gap-3 ">
+        <div class=" mx-6 sm:col md:col lg:col sm:ml-24 text-black ">
+            <!-- Sexe -->
+            <div class="mb-3">
+                <label class="text-black">Sexe</label>
+                <div class="relative">
+                    <i class="fas fa-venus text-gray-600 p-2 absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none"></i>
+                    {{ form_row(form.gender, {'attr': {'class': 'form-control w-full p-2 flex items-center border rounded-lg ps-10 '}}) }}
+                </div>
+            </div>
+
+            <!-- Prénom -->
+            <div class="mb-3">
+                <label class="text-black">Prénom</label>
+                <div class="relative">
+                    <i class="fas fa-user text-gray-600 p-2 absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none"></i>
+                    {{ form_row(form.firstname, {'attr': {'class': 'form-control w-full p-2 flex items-center border rounded-lg ps-10'}}) }}
+                </div>
+            </div>
+
+            <!-- Nom -->
+            <div class="mb-3">
+                <label class="text-black">Nom</label>
+                <div class="relative">
+                    <i class="fas fa-user text-gray-600 p-2  absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none"></i>
+                    {{ form_row(form.lastname, {'attr': {'class': 'form-control w-full p-2 flex items-center border rounded-lg ps-10'}}) }}
+                </div>
+            </div>
+
+            <!-- Téléphone -->
+            <div class="mb-3">
+                <label class="text-black">Téléphone</label>
+                <div class="relative">
+                    <i class="fas fa-phone text-gray-600 p-2 absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none"></i>
+                    {{ form_row(form.phoneNumber, {'attr': {'class': 'form-control w-full p-2 flex items-center border rounded-lg ps-10'}}) }}
+                </div>
+            </div>
+
+            <!-- Adresse -->
+            <div class="mb-3">
+                <label class="text-black">Adresse</label>
+                <div class="relative">
+                    <i class="fas fa-map-marker-alt text-gray-600 p-2 absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none"></i>
+                    {{ form_row(form.street, {'attr': {'class': 'form-control w-full p-2 flex items-center border rounded-lg ps-10' }}) }}
+                </div>
             </div>
         </div>
 
-        <!-- Prénom -->
-        <div class="sm:col-span-2">
-            <div class="flex items-center space-x-4">
-                <span class="text-gray-600">Prénom :</span>
-                <i class="fas fa-user text-gray-600"></i>
-                {{ form_row(form.firstname, {
-                    'attr': {'class': 'mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md'}
-                }) }}
-            </div>
-        </div>
-
-        <!-- Nom -->
-        <div class="sm:col-span-2">
-            <div class="flex items-center space-x-4">
-                <span class="text-gray-600">Nom :</span>
-                <i class="fas fa-user text-gray-600"></i>
-                {{ form_row(form.lastname, {
-                    'attr': {'class': 'mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md'}
-                }) }}
-            </div>
-        </div>
-
-        <!-- Téléphone -->
-        <div class="sm:col-span-2">
-            <div class="flex items-center space-x-4">
-                <span class="text-gray-600">Téléphone :</span>
-                <i class="fas fa-phone text-gray-600"></i>
-                {{ form_row(form.phoneNumber, {
-                    'attr': {'class': 'mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md'}
-                }) }}
-            </div>
-        </div>
-
-        <!-- Adresse -->
-        <div class="sm:col-span-2">
-            <div class="flex items-center space-x-4">
-                <span class="text-gray-600">Adresse :</span>
-                <i class="fas fa-map-marker-alt text-gray-600"></i>
-                {{ form_row(form.street, {
-                    'attr': {'class': 'mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md'}
-                }) }}
-            </div>
-        </div>
-
-        <!-- Ville -->
-        <div class="sm:col-span-2">
-            <div class="flex items-center space-x-4">
-                <span class="text-gray-600">Ville :</span>
-                <i class="fas fa-city text-gray-600"></i>
-                {{ form_row(form.city, {
-                    'attr': {'class': 'mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md'}
-                }) }}
-            </div>
-        </div>
-
-        <!-- Code postal -->
-        <div class="sm:col-span-2">
-            <div class="flex items-center space-x-4">
-                <span class="text-gray-600">Code postal :</span>
-                <i class="fas fa-mail-bulk text-gray-600"></i>
-                {{ form_row(form.zipCode, {
-                    'attr': {'class': 'mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md'}
-                }) }}
-            </div>
-        </div>
-
-        <!-- Email -->
-        <div class="sm:col-span-2">
-            <div class="flex items-center space-x-4">
-                <span class="text-gray-600">Email :</span>
-                <i class="fas fa-envelope text-gray-600"></i>
-                {{ form_row(form.email, {
-                    'attr': {'class': 'mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md'}
-                }) }}
-            </div>
-        </div>
-{% if not edit_mode %}
-
-        <!-- Mot de passe -->
-        <div class="sm:col-span-2">
-            <div class="flex items-center space-x-4">
-                <span class="text-gray-600">Mot de passe :</span>
-                <i class="fas fa-lock text-gray-600"></i>
-
-    {{ form_row(form.plainPassword.first, {
-        'label': 'Mot de passe',
-        'attr': {
-            'class': 'mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md',
-            'minlength': 8,
-            'maxlength': 20,
-            'placeholder': 'Minimum 8 caractères'
-        }
-    }) }}
-
-    {{ form_row(form.plainPassword.second, {
-        'label': 'Confirmez le mot de passe',
-        'attr': {
-            'class': 'mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md',
-            'minlength': 8,
-            'maxlength': 20,
-            'placeholder': 'Confirmez votre mot de passe'
-        }
-    }) }}            </div>
-        </div>
-
-        <!-- Accepter les termes -->
-        <div class="sm:col-span-2">
-            <div class="flex items-center space-x-4">
-                {{ form_row(form.agreeTerms, {
-                    'label_attr': {'class': 'text-sm text-gray-700'},
-                    'attr': {'class': 'mt-2 ml-4'}
-                }) }}
+        <!-- Colonne 2 (à droite) -->
+        <div class="mx-6 col-start-2 sm:mr-24">
+            <!-- Ville -->
+            <div class="mb-3">
+                <label class="text-black">Ville</label>
+                <div class="relative">
+                    <i class="fas fa-city text-gray-600 p-2 absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none"></i>
+                    {{ form_row(form.city, {'attr': {'class': 'form-control w-full p-2 flex items-center border rounded-lg ps-10'}}) }}
+                </div>
             </div>
 
+            <!-- Code postal -->
+            <div class="mb-3">
+                <label class="text-black">Code postal</label>
+                <div class="relative">
+                    <i class="fas fa-mail-bulk text-gray-600 p-2 absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none"></i>
+                    {{ form_row(form.zipCode, {'attr': {'class': 'form-control w-full p-2 flex items-center border rounded-lg ps-10'}}) }}
+                </div>
+            </div>
+
+            <!-- Email -->
+            <div class="mb-3">
+                <label class="text-black">Email</label>
+                <div class="relative">
+                    <i class="fas fa-envelope text-gray-600 p-2 absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none"></i>
+                    {{ form_row(form.email, {'attr': {'class': 'form-control w-full p-2 flex items-center border rounded-lg ps-10'}}) }}
+                </div>
+            </div>
+
+            <!-- Mot de passe -->
+            <div class="mb-3">
+                <label class="text-black">Mot de passe</label>
+                <div class="relative">
+                    <i class="fas fa-lock text-gray-600 p-2  absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none"></i>
+                    {{ form_row(form.plainPassword.first, {'attr': {'class': 'form-control w-full p-2 flex items-center border rounded-lg ps-10', 'placeholder': 'Minimum 8 caractères'}}) }}
+                </div>
+            </div>
+
+            <!-- Confirmez le mot de passe -->
+            <div class="mb-3">
+                <label class="text-black">Confirmez le mot de passe</label>
+                <div class="relative">
+                    <i class="fas fa-lock text-gray-600 p-2 absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none"></i>
+                    {{ form_row(form.plainPassword.second, {'attr': {'class': 'form-control w-full p-2 flex items-center border rounded-lg ps-10', 'placeholder': 'Confirmez votre mot de passe'}}) }}
+                </div>
+            </div>
+
+            
         </div>
 
-{% endif %}
+</div>
 
-        <div class="mt-6">
-            <button type="submit" class="inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Inscription</button>
-        </div>
+<!-- Accepter les termes -->
+            <div class="ml-6 items-center justify-items-center mt-4 sm:ml-24">
+                <div class="flex items-center">
+<input type="checkbox" class="form-checkbox w-4 h-4" id="terms" name="terms" required>
+<label class="form-check-label ml-2" for="terms">
+    J'accepte les <a href="" target="_blank">conditions générales d'utilisation</a>
+</label>
+                </div>
+            </div>
+        <!-- Bouton Inscription -->
+<div class="mt-4 text-center">
+    <button type="submit" class="items-center py-5 px-10 border border-transparent text-sm font-medium rounded-md text-white bg-teal-900 hover:cursor-pointer hover:transition hover:delay-100 hover:duration-100 hover:scale-105">Inscription</button>
+</div>
+</div>
         {{ form_end(form) }}
-    </div>
+    
 </div>

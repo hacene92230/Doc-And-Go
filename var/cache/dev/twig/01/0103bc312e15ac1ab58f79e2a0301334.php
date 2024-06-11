@@ -144,6 +144,6 @@ class __TwigTemplate_2294d073eaf02c7d76610acc4e3ab203 extends Template
 
     {{ include('day_work/_form.html.twig', {'button_label': 'Mise à jour'}) }}
 {% endblock %}
-", "day_work/edit.html.twig", "/var/www/html/Doc-And-Go/templates/day_work/edit.html.twig");
+", "day_work/edit.html.twig", "/var/www/html/doc-and-go/templates/day_work/edit.html.twig");
     }
 }
