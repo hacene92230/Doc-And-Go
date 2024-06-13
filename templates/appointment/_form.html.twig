@@ -1,7 +1,4 @@
-
 {% if planings is not empty %}
-
-
 {{ form_start(form, { 'attr': {'id': 'appointment-form'} }) }}
 <h2>Motif de réservation</h2>
 <div class="form-row">
@@ -31,10 +28,10 @@
                     </div> {# Fermeture du groupe précédent #}
                 {% endif %}
                 {% set currentGroup = currentGroup + 1 %}
-                <div id="group-{{ currentGroup }}" class="slot-group bg-gray-300" style="{% if currentGroup != 1 %}display: none;{% endif %}">
+                <div id="group-{{ currentGroup }}" class="slot-group" style="{% if currentGroup != 1 %}display: none;{% endif %}">
             {% endif %}
 
-            <h3 class="bg-gray-500">{{ slot.date|date("d/m/Y") }}</h3>
+            <h3>{{ slot.date|date("d/m/Y") }}</h3>
             {% set startTime = slot.startHour %}
             {% set endTime = slot.endHour %}
             {% set duration = slot.slotDuration %}
@@ -100,16 +97,12 @@
         </div>
     </div>
 </div>
-<style>
-#calendar {
-  max-width: 900px;
-  margin: 0 auto;
-}
 
-</style>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 
 <script>
-
     $(document).ready(function() {
         // Event listener for reservation button
         $('#reservationButton').click(function() {

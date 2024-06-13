@@ -8,8 +8,8 @@
 <div class=" mt-10 p-4">
     {% for appointment in appointments %}
 
-        <div class="border rounded-lg shadow bg-white mb-12">
-  <div class="rounded-t-lg bg-blue-500 py-3 flex flex-row justify-between items-center">
+        <div class="border rounded-t-2xl  bg-white mb-12">
+  <div class="rounded-t-2xl bg-blue-500 shadow py-3 flex flex-row justify-between items-center">
     <div class="flex flex-row">
       <p class="m-1 pl-3 text-xl"><i class="fa-regular fa-calendar mr-1"></i>{{ appointment.dateTime|date("d/m/Y") }}</p>
       <p class="m-1 pl-3 text-xl"><i class="fa-regular fa-clock mr-1"></i>{{ appointment.dateTime|date("H:i") }}</p>
