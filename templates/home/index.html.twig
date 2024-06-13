@@ -3,27 +3,21 @@
 {% block title %} Bienvenue chez {{ parent() }} {% endblock %}
 
 {% block body %}
+    <div class="flex min-h-screen ">
+        <div class="w-full lg:w-1/2 text-left bg-teal-50 text-black pb-20 px-8 lg:px-36   flex items-center">
+            <div>
+                <h1 class="text-5xl font-bold pt-2">DOC AND GO</h1>
+		<h2 class="text-2xl">La plateforme qu'il vous faut ! </h2>
+                <p class="text-dark text-2xl pt-4 font-sans">
+                    On démocratise l'accès aux soins médicaux en ligne. Nous offrons une solution innovante pour rendre la santé accessible à tous, sans barrières ni frontières.
+                </p>
+            </div>
+        </div>
+        <div class="w-full lg:w-1/2 bg-teal-50 bg-cover flex items-center">
+            <img src="{{ asset('images/doctor.png') }}" alt="Photo d'un docteur en blouse blanche" class="w-full h-full object-cover">
+        </div>
+    </div>
 
-
-<div class="bg-teal-50 bg-cover >
-  <img src="{{ asset('images/doctor.png') }}" class="w-full top-0 object-cover" alt="" style="max-height:40rem;">
-</div>
-
-
-
-<div class="text-left bg-teal-50 pb-20 px-36 pt-20 bg-white shadow rounded">
-<h1 class="text-2xl pt-2" >DOC AND GO</h1>
-<p class="text-black text-xl pt-2 ml-11 font-sans">
-                Notre plateforme de santé en ligne démocratise l'accès aux soins médicaux. Notre vision est simple : offrir une solution novatrice, sans barrières ni frontières, pour rendre la santé accessible à tous. Nous allons au-delà de la simple prise de rendez-vous médicaux en ligne. Doc-And-Go repense fondamentalement la manière dont les soins de santé sont dispensés, mettant l'accent sur l' accessibilité, la commodité et la qualité des services.
-            </p>
-            <p class="text-black text-lg pt-2 ml-11 font-sans">
-                Chez Doc-And-Go, nous croyons fermement que chacun a le droit à des soins de santé de qualité, peu importe son lieu de résidence ou son statut social. Nous nous engageons à rendre les soins médicaux aussi accessibles que possible.
-            </p>
-
-</div>
-
-
-</div>
 		{{ render(controller('App\\Controller\\SpecialityController::index')) }}
 
 

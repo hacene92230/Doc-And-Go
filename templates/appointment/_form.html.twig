@@ -1,70 +1,22 @@
 
-    <h1>Calendrier accessible</h1>
-
-    <!-- Calendrier -->
-    <div id="calendar"></div>
-
-    <!-- Modal pour afficher les créneaux disponibles -->
-    <div class="modal fade" id="slotModal" tabindex="-1" role="dialog" aria-labelledby="slotModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="slotModalLabel">Choisir un créneau horaire pour le <span id="modalDate"></span></h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Fermer">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <!-- Liste de créneaux fictifs sous forme de cases à cocher -->
-                    <div id="slotContainer"></div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Inclure FullCalendar et les dépendances -->
-    <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/common/main.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid/main.js"></script>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const calendarEl = document.getElementById('calendar');
-            const calendar = new FullCalendar.Calendar(calendarEl, {
-                initialView: 'dayGridMonth',
-                locale: 'fr',
-                selectable: true, // Permettre la sélection de jours
-                dateClick: function(info) {
-                    // Récupérer la date cliquée
-                    const clickedDate = info.dateStr;
-                    // Mettre à jour le titre de la modal avec la date choisie
-                    document.getElementById('modalDate').innerText = clickedDate;
-                    // Ouvrir la modal Bootstrap lorsque l'utilisateur clique sur un jour
-                    $('#slotModal').modal('show');
-                },
-                dayCellDidMount: function(arg) {
-                    // Ajouter une classe CSS à chaque cellule du jour pour le style
-                    const cell = arg.el;
-                    cell.classList.add('day-cell');
-                }
-            });
-            calendar.render();
-        });
-    </script>
-
-    <style>
-        /* Styles pour les cellules des jours du calendrier */
-        .day-cell {
-            border: 1px solid #ccc;
-            padding: 5px;
-            cursor: pointer; /* Ajout de curseur pointer pour indiquer que les cellules sont cliquables */
-        }
-    </style>
-
 {% if planings is not empty %}
+
+
 {{ form_start(form, { 'attr': {'id': 'appointment-form'} }) }}
+<h2>Motif de réservation</h2>
+<div class="form-row">
+    {{ form_label(form.reason, 'Motif de réservation', {'label_attr': {'class': 'block text-sm font-medium text-gray-700'}}) }}
+    <div class="mt-1">
+        {% for choice in form.reason %}
+            <div class="flex items-center mb-4">
+                {{ form_widget(choice, {'attr': {'class': 'focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300'}}) }}
+                <label for="{{ choice.vars.id }}" class="ml-3 block text-sm font-medium text-gray-700">
+                    {{ choice.vars.label }}
+                </label>
+            </div>
+        {% endfor %}
+    </div>
+</div>
 
 <div class="container mt-4">
     <h2>Choisissez un créneau horaire :</h2>
@@ -79,10 +31,10 @@
                     </div> {# Fermeture du groupe précédent #}
                 {% endif %}
                 {% set currentGroup = currentGroup + 1 %}
-                <div id="group-{{ currentGroup }}" class="slot-group" style="{% if currentGroup != 1 %}display: none;{% endif %}">
+                <div id="group-{{ currentGroup }}" class="slot-group bg-gray-300" style="{% if currentGroup != 1 %}display: none;{% endif %}">
             {% endif %}
 
-            <h3>{{ slot.date|date("d/m/Y") }}</h3>
+            <h3 class="bg-gray-500">{{ slot.date|date("d/m/Y") }}</h3>
             {% set startTime = slot.startHour %}
             {% set endTime = slot.endHour %}
             {% set duration = slot.slotDuration %}
@@ -148,12 +100,16 @@
         </div>
     </div>
 </div>
+<style>
+#calendar {
+  max-width: 900px;
+  margin: 0 auto;
+}
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+</style>
 
 <script>
+
     $(document).ready(function() {
         // Event listener for reservation button
         $('#reservationButton').click(function() {

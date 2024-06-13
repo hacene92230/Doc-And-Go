@@ -1,107 +1,66 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Mes rendez-vous{% endblock %}
+{% block title %}  Mes rendez-vous {% endblock %}
 
 {% block body %}
-<div class="container text-center">
-    <h1 class="text-2xl font-bold mb-12">
-        Rendez-vous de {{ app.user.gender }}
-        <span class="last-name">{{ app.user.lastName }}</span>
-        <span class="first-name">{{ app.user.firstName }}</span>
-    </h1>
+<h2 class="text-3xl text-center font-bold my-10">Les rendez-vous de {{ app.user.firstName }}</h2>
 
-    <div id="appointments" class="overflow-x-auto">
-        <table class="min-w-full bg-white border border-gray-200 shadow-md">
-            <thead class="bg-gray-100">
-                <tr>
-                    <th class="py-2 px-4 border-b">Date</th>
-                    <th class="py-2 px-4 border-b">Heure</th>
-                    <th class="py-2 px-4 border-b">Status</th>
-                    <th class="py-2 px-4 border-b">Actions</th>
-                </tr>
-            </thead>
-            <tbody id="appointment-list">
-                {% for appointment in appointments %}
-                    <tr class="bg-white hover:bg-gray-50">
-                        <td class="py-2 px-4 border-b">
-                                {{ appointment.dateTime|date("d/m/Y") }}
-                            
-                        </td>
-                        <td class="py-2 px-4 border-b">{{ appointment.dateTime|date("H:i") }}</td>
-                        <td class="py-2 px-4 border-b">{{ appointment.statu.name }}</td>
-                        <td class=" flex py-2 px-4 border-b">                         
-						
+<div class=" mt-10 p-4">
+    {% for appointment in appointments %}
 
-				<div class="flex-1 w-16">
+        <div class=" border rounded-lg shadow bg-white  mb-12">
+            <div class="text-left ">
+               <div class="rounded-t-lg bg-blue-500 py-3 flex ">
+		 
+		<p class="m-1 pl-3 text-xl"><i class="fa-regular fa-calendar mr-1"></i>{{ appointment.dateTime|date("d/m/Y") }}</p>
+		 
+		<p class="m-1 pl-3 text-xl"><i class="fa-regular fa-clock mr-1"></i>{{ appointment.dateTime|date("H:i") }}</p>
+		<p class="flex-row-reverse" >{{ appointment.statu.name }}</p>
+		</div>
 
-					<button type="button" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 my-2 mx-2 rounded" onclick="openModal({{ loop.index }})">Voir plus d'info</button>
-
-				</div>
-				<div class="flex-1 w-16">	
-
-                               		 {% if appointment.statu.name == "confirmé" %}
-                                   		 {{ include('appointment/_delete_form.html.twig', {'appointment': appointment}) }}
-                               		 {% endif %}
-
-                            	</div>
- 				
-                        </td>
-                    </tr>
+		<h5 class="text-lg px-2 font-bold " id="maModaleLabel{{ loop.index }}">Rendez-vous avec {{ appointment.planing.doctor.firstName }} {{ appointment.planing.doctor.lastName }}</h5>
+                <p class="m-1"><i class="fa-solid fa-location-dot"></i> {{ appointment.planing.doctor.zipCode }}, {{ appointment.planing.doctor.city }}</p>
+                <p class="m-1"><i class="fa fa-phone"></i> {{ appointment.planing.doctor.phoneNumber }}</p>
+                <p class="m-1"><i class="fa fa-envelope"></i> {{ appointment.planing.doctor.email }}</p>
+		
+		
 
 
 
-
-                    <!-- Modal -->
-                    <div id="appointmentModal{{ loop.index }}" class="hidden fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center">
-                        <div class="bg-white rounded-lg overflow-hidden shadow-xl transform transition-all max-w-lg w-full">
-                            <div class="px-4 py-2 bg-gray-100 border-b">
-                                <h5 class="text-lg font-bold">Détails du rendez-vous</h5>
-                                <button onclick="closeModal({{ loop.index }})" class="text-red-700 hover:text-red-800 ml-96">
-                                    <i class="fas fa-times"></i>
-                                </button>
-                            </div>
-                            <div class="p-4">
-                                <h3 class="text-xl font-bold mb-2">Info du rendez-vous</h3>
-                                <p><strong>Date:</strong> {{ appointment.dateTime|date("d/m/Y") }}</p>
-                                <p><strong>Heure:</strong> {{ appointment.dateTime|date("H:i") }}</p>
-
-                                <h3 class="text-xl font-bold mt-4 mb-2">S'y rendre</h3>
-                                <p><strong>Adresse:</strong></p>
-                                <p><strong>{{ appointment.planing.doctor.street }}</strong></p>
-                                <p>{{ appointment.planing.doctor.zipcode }}</p>
-                                <p>{{ appointment.planing.doctor.city }}</p>
-
-                                <h3 class="text-xl font-bold mt-4 mb-2">Contactez-le</h3>
-                                <p><strong>Téléphone:</strong> {{ appointment.planing.doctor.phoneNumber }}</p>
-                                <p><strong>Email:</strong> {{ appointment.planing.doctor.email }}</p>
-
-                                <h3 class="text-xl font-bold mt-4 mb-2">Informations du docteur</h3>
-                                <ul class="list-disc list-inside">
-                                    {% for speciality in appointment.planing.doctor.speciality %}
-                                        <li>{{ speciality.name }}</li>
-                                    {% endfor %}
-                                </ul>
-                            </div>
-                            <div class="px-4 py-2 bg-gray-100 border-t text-right">
-                                <button onclick="closeModal({{ loop.index }})" class="hover:underline">Fermer</button>
-                            </div>
+                <!-- Button to trigger the modal -->
+                <button type="button" class=" py-2 px-4 rounded bg-red-500 m-2" aria-label="Annuler le rendez vous">
+                   <i class="fa-solid fa-xmark"></i> Annuler
+                </button>
+            </div>
+            <!-- Modal -->
+            <div class="modal-overlay fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50 hidden" id="maModaleOverlay{{ loop.index }}">
+                <div class="modal-content bg-white p-6 rounded shadow-md w-full max-w-lg mx-4" role="dialog" aria-modal="true" aria-labelledby="maModaleLabel{{ loop.index }}" tabindex="-1">
+                    <div class="flex justify-between items-center">
+                        <h5 class="modal-title text-xl font-bold" id="maModaleLabel{{ loop.index }}">Rendez-vous avec {{ appointment.planing.doctor.firstName }} {{ appointment.planing.doctor.lastName }}</h5>
+                        <button class="close-btn text-xl" id="closeModale{{ loop.index }}" aria-label="Fermer la modale">&times;</button>
+                    </div>
+                    <div class="modal-body mt-4 mb-6">
+                        <!-- Display appointment details -->
+                        <div class="border p-3 mb-3">
+                            <h2 class="font-bold text-lg">Date et heure du rendez-vous</h2>
+                            <p>{{ appointment.dateTime|date("d/m/Y H:i") }}</p>
+                        </div>
+                        <div class="border p-3 mb-3">
+                            <h2 class="font-bold text-lg">Statut</h2>
+                            <p>{{ appointment.statu.name }}</p>
                         </div>
                     </div>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
 </div>
 
-<script>
-function openModal(index) {
-    const modal = document.getElementById(`appointmentModal${index}`);
-    modal.classList.remove('hidden');
-}
+<style>
+    .modal-overlay.active {
+        display: flex;
+    }
+</style>
 
-function closeModal(index) {
-    const modal = document.getElementById(`appointmentModal${index}`);
-    modal.classList.add('hidden');
-}
-</script>
+                                  
 {% endblock %}

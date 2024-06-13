@@ -1,4 +1,34 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+
+<div class="conatiner px-20">
+<div class="grid grid-cols-1 sm:grid-cols-2 bg-white shadow-lg border rounded">
+
+{{ form_row(form.startHour, {
+    'label_attr': {'class': 'col block text-gray-700 text-lg font-bold m-2 '},
+    'attr': {'class': 'col appearance-none w-1/5 py-2 px-3 text-gray-700 rounded m-2 focus:outline-none focus:shadow-outline'}
+}) }}
+
+
+
+{{ form_row(form.endHour, {
+    'label_attr': {'class': ' col block text-gray-700 text-lg font-bold m-2 '},
+    'attr': {'class': 'col appearance-none w-1/5 py-2 px-3 text-gray-700 rounded m-2  focus:outline-none focus:shadow-outline'}
+}) }}
+
+
+
+{{ form_row(form.slotDuration, {
+    'label_attr': {'class': 'col block text-gray-700 text-lg font-bold m-2 '},
+    'attr': {'class': 'col appearance-none w-1/5 py-2 px-3 text-gray-700 rounded m-2  focus:outline-none focus:shadow-outline'}
+}) }}
+
+
+{{ form_row(form.date, {
+    'label_attr': {'class': 'col block text-gray-700 text-lg font-bold m-2 '},
+    'attr': {'class': 'col appearance-none w-1/5 py-2 px-3 text-gray-700 rounded m-2  focus:outline-none focus:shadow-outline'}
+}) }}
+
+
+</div>
+</div>
 {{ form_end(form) }}

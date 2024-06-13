@@ -24,9 +24,16 @@ class Reason
     #[ORM\ManyToMany(targetEntity: Speciality::class, mappedBy: 'Reasons')]
     private Collection $specialities;
 
+    /**
+     * @var Collection<int, Appointment>
+     */
+    #[ORM\OneToMany(targetEntity: Appointment::class, mappedBy: 'reason', orphanRemoval: true)]
+    private Collection $appointments;
+
     public function __construct()
     {
         $this->specialities = new ArrayCollection();
+        $this->appointments = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -68,6 +75,36 @@ class Reason
     {
         if ($this->specialities->removeElement($speciality)) {
             $speciality->removeReason($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Appointment>
+     */
+    public function getAppointments(): Collection
+    {
+        return $this->appointments;
+    }
+
+    public function addAppointment(Appointment $appointment): static
+    {
+        if (!$this->appointments->contains($appointment)) {
+            $this->appointments->add($appointment);
+            $appointment->setReason($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAppointment(Appointment $appointment): static
+    {
+        if ($this->appointments->removeElement($appointment)) {
+            // set the owning side to null (unless already changed)
+            if ($appointment->getReason() === $this) {
+                $appointment->setReason(null);
+            }
         }
 
         return $this;

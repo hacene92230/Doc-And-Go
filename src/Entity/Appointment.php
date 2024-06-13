@@ -32,6 +32,10 @@ class Appointment
     #[ORM\JoinColumn(nullable: false)]
     private ?Statu $statu = null;
 
+    #[ORM\ManyToOne(inversedBy: 'appointments')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Reason $reason = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -93,6 +97,18 @@ class Appointment
     public function setStatu(?Statu $statu): static
     {
         $this->statu = $statu;
+
+        return $this;
+    }
+
+    public function getReason(): ?Reason
+    {
+        return $this->reason;
+    }
+
+    public function setReason(?Reason $reason): static
+    {
+        $this->reason = $reason;
 
         return $this;
     }

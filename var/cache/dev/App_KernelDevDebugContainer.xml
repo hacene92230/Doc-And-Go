@@ -27,6 +27,7 @@
       <parameter key="MakerBundle">Symfony\Bundle\MakerBundle\MakerBundle</parameter>
       <parameter key="DoctrineFixturesBundle">Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle</parameter>
       <parameter key="SymfonyCastsResetPasswordBundle">SymfonyCasts\Bundle\ResetPassword\SymfonyCastsResetPasswordBundle</parameter>
+      <parameter key="CalendarBundle">CalendarBundle\CalendarBundle</parameter>
     </parameter>
     <parameter key="kernel.bundles_metadata" type="collection">
       <parameter key="FrameworkBundle" type="collection">
@@ -84,6 +85,10 @@
       <parameter key="SymfonyCastsResetPasswordBundle" type="collection">
         <parameter key="path">/var/www/html/doc-and-go/vendor/symfonycasts/reset-password-bundle/src</parameter>
         <parameter key="namespace">SymfonyCasts\Bundle\ResetPassword</parameter>
+      </parameter>
+      <parameter key="CalendarBundle" type="collection">
+        <parameter key="path">/var/www/html/doc-and-go/vendor/tattali/calendar-bundle/src</parameter>
+        <parameter key="namespace">CalendarBundle</parameter>
       </parameter>
     </parameter>
     <parameter key="kernel.charset">UTF-8</parameter>
@@ -2538,6 +2543,7 @@
           <argument>/var/www/html/doc-and-go/vendor/symfony/monolog-bundle/translations</argument>
           <argument>/var/www/html/doc-and-go/vendor/symfony/maker-bundle/src/translations</argument>
           <argument>/var/www/html/doc-and-go/vendor/doctrine/doctrine-fixtures-bundle/translations</argument>
+          <argument>/var/www/html/doc-and-go/vendor/tattali/calendar-bundle/src/translations</argument>
         </argument>
         <argument key="cache_vary" type="collection">
           <argument key="scanned_directories" type="collection">
@@ -2559,6 +2565,7 @@
             <argument>vendor/symfony/monolog-bundle/translations</argument>
             <argument>vendor/symfony/maker-bundle/src/translations</argument>
             <argument>vendor/doctrine/doctrine-fixtures-bundle/translations</argument>
+            <argument>vendor/tattali/calendar-bundle/src/translations</argument>
           </argument>
         </argument>
       </argument>
@@ -3203,6 +3210,14 @@
         <argument>-100</argument>
       </call>
       <call method="addListener">
+        <argument>Symfony\Component\Messenger\Event\WorkerRunningEvent</argument>
+        <argument type="collection">
+          <argument type="service_closure" id="messenger.listener.dispatch_pcntl_signal_listener"/>
+          <argument>onWorkerRunning</argument>
+        </argument>
+        <argument>100</argument>
+      </call>
+      <call method="addListener">
         <argument>Symfony\Component\Messenger\Event\WorkerStartedEvent</argument>
         <argument type="collection">
           <argument type="service_closure" id="messenger.listener.stop_worker_on_restart_signal_listener"/>
@@ -3727,6 +3742,8 @@
       <argument type="service" id="property_info" on-invalid="ignore"/>
       <argument type="service" id="serializer.mapping.class_discriminator_resolver" on-invalid="ignore"/>
       <argument>null</argument>
+      <argument type="collection"/>
+      <argument type="service" id="property_info" on-invalid="ignore"/>
     </service>
     <service id="serializer.normalizer.property" class="Symfony\Component\Serializer\Normalizer\PropertyNormalizer">
       <argument type="service" id="serializer.mapping.class_metadata_factory"/>
@@ -3735,7 +3752,6 @@
       <argument type="service" id="serializer.mapping.class_discriminator_resolver" on-invalid="ignore"/>
       <argument>null</argument>
       <argument type="collection"/>
-      <argument type="service" id="property_info" on-invalid="ignore"/>
     </service>
     <service id="serializer.denormalizer.array" class="Symfony\Component\Serializer\Normalizer\ArrayDenormalizer">
       <tag name="serializer.normalizer" priority="-990"/>
@@ -5375,6 +5391,7 @@
       <call method="setEntityNamespaces">
         <argument type="collection">
           <argument key="App">App\Entity</argument>
+          <argument key="CalendarBundle">CalendarBundle\Entity</argument>
         </argument>
       </call>
       <call method="setMetadataCache">
@@ -5426,6 +5443,7 @@
     <service id="doctrine.orm.default_attribute_metadata_driver" class="Doctrine\ORM\Mapping\Driver\AttributeDriver">
       <argument type="collection">
         <argument>/var/www/html/doc-and-go/src/Entity</argument>
+        <argument>/var/www/html/doc-and-go/vendor/tattali/calendar-bundle/src/Entity</argument>
       </argument>
       <argument>true</argument>
     </service>
@@ -5974,6 +5992,14 @@
       <call method="addPath">
         <argument>/var/www/html/doc-and-go/vendor/symfony/security-bundle/Resources/views</argument>
         <argument>!Security</argument>
+      </call>
+      <call method="addPath">
+        <argument>/var/www/html/doc-and-go/vendor/tattali/calendar-bundle/src/Resources/views</argument>
+        <argument>Calendar</argument>
+      </call>
+      <call method="addPath">
+        <argument>/var/www/html/doc-and-go/vendor/tattali/calendar-bundle/src/Resources/views</argument>
+        <argument>!Calendar</argument>
       </call>
       <call method="addPath">
         <argument>/var/www/html/doc-and-go/templates</argument>
@@ -7182,6 +7208,10 @@
             <argument>App\Entity</argument>
             <argument type="service" id="doctrine.orm.default_attribute_metadata_driver"/>
           </argument>
+          <argument type="collection">
+            <argument>CalendarBundle\Entity</argument>
+            <argument type="service" id="doctrine.orm.default_attribute_metadata_driver"/>
+          </argument>
         </argument>
       </argument>
     </service>
@@ -7407,6 +7437,11 @@
       <argument type="service" id="App\Repository\ResetPasswordRequestRepository"/>
       <argument>3600</argument>
       <argument>3600</argument>
+    </service>
+    <service id="CalendarBundle\Serializer\Serializer" class="CalendarBundle\Serializer\Serializer"/>
+    <service id="CalendarBundle\Controller\CalendarController" class="CalendarBundle\Controller\CalendarController" public="true" autowire="true">
+      <argument type="service" id="debug.event_dispatcher"/>
+      <argument type="service" id="CalendarBundle\Serializer\Serializer"/>
     </service>
     <service id=".instanceof.Symfony\Component\Console\Command\Command.0.App\Command\LoadStatusesCommand" class="App\Command\LoadStatusesCommand" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Command\LoadStatusesCommand" class="App\Command\LoadStatusesCommand" autowire="true" autoconfigure="true" abstract="true"/>
@@ -9291,6 +9326,10 @@
       <call method="addDriver">
         <argument type="service" id="doctrine.orm.default_attribute_metadata_driver"/>
         <argument>App\Entity</argument>
+      </call>
+      <call method="addDriver">
+        <argument type="service" id="doctrine.orm.default_attribute_metadata_driver"/>
+        <argument>CalendarBundle\Entity</argument>
       </call>
     </service>
     <service id="debug.security.event_dispatcher.main.inner" class="Symfony\Component\EventDispatcher\EventDispatcher"/>

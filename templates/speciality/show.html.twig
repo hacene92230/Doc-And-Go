@@ -25,7 +25,7 @@
         <div class="modal-content bg-white p-6 rounded shadow-md w-full max-w-lg mx-4" role="dialog" aria-modal="true" aria-labelledby="maModaleLabel{{ loop.index }}" tabindex="-1">
             <div class="flex justify-between items-center">
                 <h5 class="modal-title text-xl font-bold" id="maModaleLabel{{ loop.index }}">Docteur {{ doctor.firstName }} {{ doctor.lastName }}</h5>
-                <button class="close-btn text-xl" id="closeModale{{ loop.index }}" aria-label="Fermer la modale">&times;</button>
+                <button class="close-btn text-xl" id="closeModale{{ loop.index }}" aria-label="Fermer">&times;</button>
             </div>
             <div class="modal-body mt-4 mb-6">
                 <!-- Display doctor details -->
@@ -51,11 +51,9 @@
                 <div class="border p-3 mb-3">
                     <h2 class="font-bold text-lg">Prise de rendez-vous</h2>
                     {% if doctor.planings is not empty %}
-                        {% for reason in doctor.speciality.reasons %}
                             <form action="{{ path('app_appointment_new', {'doctor': doctor.id}) }}" method="post">
-                                <button type="submit" class="bg-blue-500 text-white font-bold py-2 px-4 rounded mt-2">{{ reason.name }}</button>
+                                <button type="submit" class="bg-blue-500 text-white font-bold py-2 px-4 rounded mt-2">Prendre un rendez-vous</button>
                             </form>
-                        {% endfor %}
                     {% else %}
                         <p>Aucun créneau n'est pour le moment disponible</p>
                     {% endif %}

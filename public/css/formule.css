@@ -1,0 +1,38 @@
+#abonnement_titre{
+color: #115e59;
+}
+.button-container {
+ position: relative;
+ display: inline-flex;
+ overflow: hidden;
+ border-radius: 20px;
+ width: 30%;
+ margin-left: 35%;
+ margin-right: 35%;
+}
+.slider {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 50%;
+  background-color: #ffffff36;
+  transition: transform 0.3s ease-in-out;
+  z-index:2;
+}
+.button {
+ position: relative;
+ z-index: 1;
+ flex: 1;
+ color:white;
+ padding: 0.5rem 1rem;
+ background-color: #115e59;
+ border: none;
+ cursor: pointer;
+}
+#shadow_vert{
+box-shadow: -19px -19px 0px 1px #B0CCCB;
+}
+#en_tete{
+background-color:#115e59;
+}

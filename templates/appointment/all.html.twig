@@ -4,16 +4,50 @@
     Rendez-vous patients
 {% endblock %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/RDV_docteur.css') }}">
+{% endblock %}
+
 {% block body %}
-    <div class="container text-center">
-        <h1 class="page-title">Les rendez-vous de mes patients</h1>
-
-        {% set now = "now"|date("U") %}
-
+    <div class="container grid grid-cols-1 sm:grid-cols-3 gap-4 my-9">
+	<div>
+		{% set now = "now"|date("U") %}
+        	<!-- Affichage des rendez-vous passés -->
+        	<div>
+            		<h2 class="text-5xl font-bold mb-3" id="titre_RDV">Pass&#233es</h2>
+            		{% set has_past_appointments = false %}
+            		{% set current_date = null %}
+            		{% for appointment in appointments %}
+                	{% if appointment.dateTime|date("U") < now %}
+                    	{% set has_past_appointments = true %}
+                    	{% set appointment_date = appointment.dateTime|date('d/m/Y') %}
+                    	{% if appointment_date != current_date %}
+                        {% if current_date is not null %}
+                </div>
+                        {% endif %}
+                        {% set current_date = appointment_date %}
+                <h2 class="text-xl font-bold">{{ current_date }}</h2>
+                <div class="appointments bg-white my-16 border-2 border-black">
+                    	{% endif %}
+                <!-- Affichage de chaque rendez-vous passé -->
+                    <div class="appointment-card shadow-lg rounded-2xl	">
+                        <div class="appointment-details">
+                            <h5 class="text-lg font-bold">Heure : {{ appointment.dateTime|date('H:i') }}</h5>
+                            <p class="mb-2"><strong>Commentaire :</strong> {{ appointment.comment }}</p>
+                            <p><strong>Réservé par :</strong> <a href="{{ path('app_user_show', {'id': appointment.user.id}) }}" class="user-link">{{ appointment.user.firstName }}</a></p>
+                            <p><strong>Statut :</strong> {{ appointment.statu.name }}</p>
+                        </div>
+                    </div>
+		</div>
+                {% endif %}
+            	{% endfor %}
+            	{% if not has_past_appointments %}
+                	<p class="no-appointments">Aucun rendez-vous passé à afficher.</p>
+            	{% endif %}
         <!-- Affichage des rendez-vous à venir -->
-        <div class=" grid grid-cols-1 sm:grid-cols-2 md-grid-cols-2 lg:grid-cols-2">
-	<div class="col">
-            <h2 class="font-bold bg-blue-400 py-2 px-2 rounded shadow">Rendez-vous à venir</h2>
+	<div class="col-span-2">
+            <h2 class="text-5xl font-bold mb-3" id="titre_RDV">Mes rendez-vous</h2>
             {% set has_upcoming_appointments = false %}
             {% set current_date = null %}
             {% for appointment in appointments %}
@@ -25,59 +59,48 @@
                             </div>
                         {% endif %}
                         {% set current_date = appointment_date %}
-                        <h2 class="text-xl font-bold">{{ current_date }}</h2>
                         <div class="appointments">
                     {% endif %}
                     <!-- Affichage de chaque rendez-vous à venir -->
-                    <div class="appointment-card">
-                        <div class="appointment-details">
-                            <h5 class="text-lg font-bold">Heure : {{ appointment.dateTime|date('H:i') }}</h5>
-                            <p class="mb-2"><strong>Commentaire :</strong> {{ appointment.comment }}</p>
-                            <p><strong>Réservé par :</strong> <a href="{{ path('app_user_show', {'id': appointment.user.id}) }}" class="user-link">{{ appointment.user.firstName }}</a></p>
-                            <p><strong>Statu :</strong> {{ appointment.statu.name }}</p>
-                        </div>
+                    <div class="appointment-card shadow-lg rounded-2xl">
+                        <div class="appointment-details h-40 mb-5">
+			<div class="flex justify-between rounded-t-2xl text-white h-12 items-center" id="statut">
+
+				<div class="flex justify-start">
+					<div class="flex items-center mx-3">
+			    			<i class="fa-regular fa-calendar mr-2"></i>
+						<h2 class="text-lg">{{ current_date }}</h2>
+					</div>
+					<div class="flex items-center mx-3">
+			    			<i class="fa-regular fa-clock mr-2"></i>
+                            			<h5 class="text-lg">{{ appointment.dateTime|date('H:i') }}</h5>
+					</div>
+				</div>
+
+				<h2 class="text-lg mr-5">{{ appointment.statu.name }}</h2>
+			</div>
+			<div class="flex items-start justify-between">
+				<div class="flex items-center mx-8 my-5">
+			    		<i class="fa-regular fa-user text-6xl"></i>
+					<div class="flex flex-col ml-3">
+                            			<p class="text-2xl" id="titre_RDV"><strong>Patient</strong> </p>
+			    			<a href="{{ path('app_user_show', {'id': appointment.user.id}) }}" class="user-link text-lg">{{ appointment.user.firstName }}</a>
+					</div>
+				</div>
+			        <p class="my-5 mr-96 text-2xl" id="titre_RDV"><strong>Motif</strong> {{ appointment.comment }}</p>
+
+			</div>
+		</div>
                     </div>
                 {% endif %}
             {% endfor %}
             {% if not has_upcoming_appointments %}
-                <p class="no-appointments text-2xl font-bold">Aucun rendez-vous à venir à afficher.</p>
+                <p class="no-appointments">Aucun rendez-vous à venir à afficher.</p>
             {% endif %}
         </div>
 	</div>
-
-        <!-- Affichage des rendez-vous passés -->
-        <div class="col">
-            <h2 class="text-2xl font-bold mb-3">Rendez-vous passés</h2>
-            {% set has_past_appointments = false %}
-            {% set current_date = null %}
-            {% for appointment in appointments %}
-                {% if appointment.dateTime|date("U") < now %}
-                    {% set has_past_appointments = true %}
-                    {% set appointment_date = appointment.dateTime|date('d/m/Y') %}
-                    {% if appointment_date != current_date %}
-                        {% if current_date is not null %}
-                            </div>
-                        {% endif %}
-                        {% set current_date = appointment_date %}
-                        <h2 class="text-xl font-bold">{{ current_date }}</h2>
-                        <div class="appointments bg-white my-16 border-2 border-black">
-                    {% endif %}
-                    <!-- Affichage de chaque rendez-vous passé -->
-                    <div class="appointment-card">
-                        <div class="appointment-details">
-                            <h5 class="text-lg font-bold">Heure : {{ appointment.dateTime|date('H:i') }}</h5>
-                            <p class="mb-2"><strong>Commentaire :</strong> {{ appointment.comment }}</p>
-                            <p><strong>Réservé par :</strong> <a href="{{ path('app_user_show', {'id': appointment.user.id}) }}" class="user-link">{{ appointment.user.firstName }}</a></p>
-                            <p><strong>Statu :</strong> {{ appointment.statu.name }}</p>
-                        </div>
-                    </div>
-			</div>
-                {% endif %}
-            {% endfor %}
-            {% if not has_past_appointments %}
-                <p class="no-appointments">Aucun rendez-vous passé à afficher.</p>
-            {% endif %}
-        </div>
-    </div>
+</div>
+</div>
+</div>
 </div>
 {% endblock %}

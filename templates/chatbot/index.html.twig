@@ -1,12 +1,15 @@
-<button id="toggle-chat" class="bg-teal-300 py-2 px-2 border border-teal-400 rounded shadow m-1 fixed bottom-5 right-5"><i class="fa fa-robot"></i></button>
+<h2 class="py-4 px-6 border-b border-gray-200">Chatter avec notre Doc Bot</h2>
+
+<!-- Bouton pour activer/désactiver le chat -->
+<button id="toggle-chat" class="bg-teal-300 py-2 px-2 border border-teal-400 rounded shadow m-1 fixed bottom-5 right-5">
+    <i class="fa fa-robot"></i> <!-- Icône de robot -->
+</button>
 
 <div id="chat-container" style="display: none;" class="bg-gray-50 fixed bottom-0 right-0 w-80 h-96 overflow-y-auto z-50">
-    <h2 class="py-4 px-6 border-b border-gray-200">Chatter avec notre Doc Bot</h2>
     <button id="clear-chat" disabled class="bg-gray-100 py-2 px-2 border border-gray-400 rounded shadow m-1">Vider l'historique</button>    
     
     <div id="chat-messages" class="py-4 px-6"></div>
     
-
 <div id="action" class="py-4 px-6">
         <button class="py-2 px-2 rounded shadow m-1 shadow" onclick="handleAction('appointment')"><i class="fas fa-calendar-alt"></i> Je souhaite prendre rendez-vous</button>
         <button class="py-2 px-2 rounded shadow m-1 shadow" onclick="handleAction('symptoms')"><i class="fas fa-user-md"></i> J'ai des symptômes et j'ai besoin d'aide</button>
@@ -21,11 +24,14 @@
 </div>
 
 <script>
+
     window.home = '{{ path('app_home') }}';
     window.symptom = '{{ path('app_home') }}';
     window.payment = '{{ path('app_home') }}';
 
 $(document).ready(function() {
+
+
     // Afficher / masquer la div avec l'id "chat-container"
     $('#toggle-chat').click(function() {
         $('#chat-container').toggle();
