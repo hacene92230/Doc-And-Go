@@ -47,11 +47,7 @@ class DayWorkType extends AbstractType
                 'value' => 10,
             ],
         ])
-        
-        ->add('date', DateType::class, [
-            'label' => 'Date de la journée',
-            'attr' => ['class' => 'form-input appearance-none bg-white border border-gray-400 w-1/12 px-4 py-2 rounded-sm shadow'], // Utilisation de la classe Tailwind pour les input
-        ]);
+    ;
         
     }
     

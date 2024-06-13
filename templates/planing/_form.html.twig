@@ -25,23 +25,23 @@
             </div>
         </div>
 
-        <button type="button" id="nextStep1" class="bg-blue-400 py-2 px-4 rounded shadow m-4  hover:bg-blue-500">Suivant <i class="fa-solid fa-arrow-right"></i></button>
+        <button type="button" id="nextStep1" class="bg-blue-400 py-2 px-4 rounded shadow m-4  hover:bg-blue-500" title="Page suivante">Suivant <i class="fa-solid fa-arrow-right"></i></button>
     </div>
 
     <div id="step2" style="display: none;">
         <h2 id="step2Title" class="text-xl font-bold text-center m-2">Étape 2: Configuration du planning</h2>
-        <p id="intervalDisplay" class=""></p>
+        <p id="intervalDisplay" class="text-lg text-center mt-2"></p>
 
         {# Deuxième étape: Les autres champs du formulaire #}
         <div id="dayWorksContainer" >
             {{ form_label(form.dayWorks) }}
             <div id="dayWorksList" data-prototype="{{ include('day_work/_form.html.twig', {'form': form.dayWorks.vars.prototype}) | e('html_attr') }}"></div>
-            <button type="button" id="addDayWork" class="bg-blue-400 rounded shadow py-2 px-2 m-6"><i class="fa-solid fa-plus"></i> Ajouter un jour de travail</button>
+            <button type="button" id="addDayWork" class="bg-blue-400 rounded shadow py-2 px-2 m-6" title="Ajouter une jour de travail"><i class="fa-solid fa-plus"></i> Ajouter un jour de travail</button>
         </div>
 
 <div class=" flex justify-center">
-        <button type="button" id="prevStep2" class="bg-blue-400 rounded shadow py-2 px-2 m-4 hover:bg-blue-500"><i class="fa-solid fa-arrow-left"></i> Précédent</button>
-        <button type="button" id="nextStep2" class="bg-blue-400 rounded shadow py-2 px-2 m-4 hover:bg-blue-500">Suivant <i class="fa-solid fa-arrow-right"></i></button>
+        <button type="button" id="prevStep2" class="bg-blue-400 rounded shadow py-2 px-2 m-4 hover:bg-blue-500" title="Page pr�c�dente"><i class="fa-solid fa-arrow-left"></i> Précédent</button>
+        <button type="button" id="nextStep2" class="bg-blue-400 rounded shadow py-2 px-2 m-4 hover:bg-blue-500" title="Page suivante">Suivant <i class="fa-solid fa-arrow-right"></i></button>
 </div>
     </div>
 
@@ -53,8 +53,8 @@
 
         {# Troisième étape: Autres champs du formulaire, si nécessaire #}
 <divclass="flex justify-center">
-        <button type="button" id="prevStep3" class="bg-blue-400 rounded shadow py-2 px-2 m-4 hover:bg-blue-500"><i class="fa-solid fa-arrow-left"></i> Précédent</button>
-        <button type="submit"  class="bg-teal-400 rounded shadow py-2 px-2 m-4 hover:bg-teal-500"><i class="fa-solid fa-check-to-slot"></i> Créer</button>
+        <button type="button" id="prevStep3" class="bg-blue-400 rounded shadow py-2 px-2 m-4 hover:bg-blue-500"title="Page pr�c�dente"><i class="fa-solid fa-arrow-left"></i> Précédent</button>
+        <button type="submit"  class="bg-teal-400 rounded shadow py-2 px-2 m-4 hover:bg-teal-500" title="Cr�er"><i class="fa-solid fa-check-to-slot"></i> Créer</button>
 </div>
     </div>
 
@@ -140,7 +140,7 @@
                 day.setDate(day.getDate() + i);
                 var formattedDate = day.toLocaleDateString('fr-FR', { year: 'numeric', month: 'long', day: 'numeric' });
                 var prototype = dayWorksList.attr('data-prototype').replace(/__name__/g, i);
-                dayWorksList.append('<div><h2 class="text-lg font-bold m-4">' + formattedDate + '</h2>' + prototype + '</div>');
+                dayWorksList.append('<div><h2 class="text-lg font-bold mt-10 mb-4">' + formattedDate + '</h2>' + prototype + '</div>');
                 var dateInput = $('#dayWorksList div:last-child input[type="date"]');
                 dateInput.val(day.toISOString().split("T")[0]);
             }

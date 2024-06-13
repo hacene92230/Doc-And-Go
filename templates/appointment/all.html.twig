@@ -10,7 +10,7 @@
 {% endblock %}
 
 {% block body %}
-    <div class="container grid grid-cols-1 sm:grid-cols-3 gap-4 my-9">
+    <div class="container grid grid-cols-1 sm:grid-cols-3 gap-48 my-9">
 	<div>
 		{% set now = "now"|date("U") %}
         	<!-- Affichage des rendez-vous passés -->
@@ -59,7 +59,7 @@
                             </div>
                         {% endif %}
                         {% set current_date = appointment_date %}
-                        <div class="appointments">
+                        <div class="appointments w-11/12">
                     {% endif %}
                     <!-- Affichage de chaque rendez-vous à venir -->
                     <div class="appointment-card shadow-lg rounded-2xl">
@@ -87,9 +87,20 @@
 			    			<a href="{{ path('app_user_show', {'id': appointment.user.id}) }}" class="user-link text-lg">{{ appointment.user.firstName }}</a>
 					</div>
 				</div>
-			        <p class="my-5 mr-96 text-2xl" id="titre_RDV"><strong>Motif</strong> {{ appointment.comment }}</p>
+				<div>
+			        	<p class="mt-5 mr-96 text-2xl" id="titre_RDV"><strong>Motif</strong></p>
+					<p class="text-lg"> {{ appointment.comment }}</p>
 
+					{% if not appointment.comment %}
+					<p class="text-lg">Aucun motif renseign&#233</p>
+					{% endif %}
+				</div>
+		
 			</div>
+		<button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"> Confirmer </button>
+		<button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"> D�placer </button>
+		<button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"> Annuler </button>
+
 		</div>
                     </div>
                 {% endif %}
@@ -97,7 +108,6 @@
             {% if not has_upcoming_appointments %}
                 <p class="no-appointments">Aucun rendez-vous à venir à afficher.</p>
             {% endif %}
-        </div>
 	</div>
 </div>
 </div>
