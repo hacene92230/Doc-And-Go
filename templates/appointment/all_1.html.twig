@@ -10,10 +10,11 @@
 {% endblock %}
 
 {% block body %}
-    <div class="container flex min-h-screen my-9">
+    <div class="container grid grid-cols-1 sm:grid-cols-3 gap-48 my-9">
+	<div>
 		{% set now = "now"|date("U") %}
         	<!-- Affichage des rendez-vous passés -->
-        	<div class="w-1/4 p-4">
+        	<div>
             		<h2 class="text-5xl font-bold mb-3" id="titre_RDV">Pass&#233es</h2>
             		{% set has_past_appointments = false %}
             		{% set current_date = null %}
@@ -39,16 +40,14 @@
                         </div>
                     </div>
 		</div>
-		</div>
                 {% endif %}
             	{% endfor %}
             	{% if not has_past_appointments %}
                 	<p class="no-appointments">Aucun rendez-vous passé à afficher.</p>
-			</div>
             	{% endif %}
         <!-- Affichage des rendez-vous à venir -->
-	<div class="w-3/4 p-4">
-            <h2 class="text-5xl font-bold mb-3" id="titre_RDV">Mes rendez-vous &#224 venir </h2>
+	<div class="col-span-2">
+            <h2 class="text-5xl font-bold mb-3" id="titre_RDV">Mes rendez-vous</h2>
             {% set has_upcoming_appointments = false %}
             {% set current_date = null %}
             {% for appointment in appointments %}
@@ -89,13 +88,11 @@
 					</div>
 				</div>
 				<div>
-			        	<p class="mt-5 mr-96 text-2xl" id="titre_RDV"><strong>Commentaire</strong></p>
+			        	<p class="mt-5 mr-96 text-2xl" id="titre_RDV"><strong>Motif</strong></p>
 					<p class="text-lg"> {{ appointment.comment }}</p>
 
-					{% if not appointment.reason %}
+					{% if not appointment.comment %}
 					<p class="text-lg">Aucun motif renseign&#233</p>
-					{% else %}
-					{{ appointment.reason.name }}
 					{% endif %}
 				</div>
 		
@@ -112,6 +109,7 @@
                 <p class="no-appointments">Aucun rendez-vous à venir à afficher.</p>
             {% endif %}
 	</div>
+</div>
 </div>
 </div>
 </div>

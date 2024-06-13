@@ -80,6 +80,7 @@
                 </div>
             </div>
 
+{% if edit_mode == false %}
             <!-- Mot de passe -->
             <div class="mb-3">
                 <label class="text-black">Mot de passe</label>
@@ -97,7 +98,7 @@
                     {{ form_row(form.plainPassword.second, {'attr': {'class': 'form-control w-full p-2 flex items-center border rounded-lg ps-10', 'placeholder': 'Confirmez votre mot de passe'}}) }}
                 </div>
             </div>
-
+{% endif %}
             
         </div>
 

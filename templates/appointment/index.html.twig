@@ -8,39 +8,34 @@
 <div class=" mt-10 p-4">
     {% for appointment in appointments %}
 
-        <div class="border rounded-t-2xl  bg-white mb-12">
-  <div class="rounded-t-2xl bg-blue-500 shadow py-3 flex flex-row justify-between items-center">
+     <div class="border rounded-t-2xl rounded-b-2xl shadow bg-white mb-12">
+  <div class="rounded-t-2xl bg-teal-600 py-3 flex flex-row justify-between items-center">
     <div class="flex flex-row">
       <p class="m-1 pl-3 text-xl"><i class="fa-regular fa-calendar mr-1"></i>{{ appointment.dateTime|date("d/m/Y") }}</p>
       <p class="m-1 pl-3 text-xl"><i class="fa-regular fa-clock mr-1"></i>{{ appointment.dateTime|date("H:i") }}</p>
     </div>
     <p class="m-1 pr-3 text-xl">{{ appointment.statu.name }}</p>
   </div>
-	<div class="">
-		<i class="fa-solid fa-user-doctor text-7xl pt-5 pl-5"></i>
-		<p class="">Docteur </p>
-		<p class="">{{ appointment.planing.doctor.firstName }} {{ appointment.planing.doctor.lastName }}</p>
-		<p class="m-1 "><i class="fa-solid fa-location-dot"></i> {{ appointment.planing.doctor.zipCode }}, {{ appointment.planing.doctor.city }}</p>
-                <p class="m-1 "><i class="fa fa-phone"></i> {{ appointment.planing.doctor.phoneNumber }}</p>
-                <p class="m-1 "><i class="fa fa-envelope"></i> {{ appointment.planing.doctor.email }}</p>
-		
-		
-	</div>
+  <div class="flex justify-between items-start p-5">
+    <div class="flex flex-row">
+      <i class="fa-solid fa-user-doctor text-7xl "></i>
+      <div class="pl-5">
+        <p class="text-lg">Docteur</p>
+        <p class="font-bold text-lg">{{ appointment.planing.doctor.firstName }} {{ appointment.planing.doctor.lastName }}</p>
+        <p class="m-2 text-lg"><i class="fa-solid fa-location-dot"></i> {{ appointment.planing.doctor.zipCode }}, {{ appointment.planing.doctor.city }}</p>
+        <p class="m-2 text-lg"><i class="fa fa-phone"></i> {{ appointment.planing.doctor.phoneNumber }}</p>
+        <p class="m-2 text-lg"><i class="fa fa-envelope"></i> {{ appointment.planing.doctor.email }}</p>
+      </div>
+    </div>
 
-
-                <!-- Button to trigger the modal -->
-                <button type="button" class=" py-2 px-4 rounded bg-red-500 m-2" aria-label="Annuler le rendez vous">
-                   <i class="fa-solid fa-xmark"></i> Annuler
-                </button>
-            </div>
+    <!-- Button  -->
+    <button type="button" class="py-3 mt-28 px-8 rounded-lg bg-red-600 m-2" aria-label="Annuler le rendez vous">
+      <i class="fa-solid fa-xmark"></i> Annuler
+    </button>
+  </div>
+</div>
     {% endfor %}
 </div>
-
-<style>
-    .modal-overlay.active {
-        display: flex;
-    }
-</style>
 
                                   
 {% endblock %}

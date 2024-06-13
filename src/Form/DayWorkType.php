@@ -47,8 +47,11 @@ class DayWorkType extends AbstractType
                 'value' => 10,
             ],
         ])
-    ;
-        
+
+                ->add('date', DateType::class, [
+            'label' => 'Date de la journée',
+
+        ]);
     }
     
     public function configureOptions(OptionsResolver $resolver): void

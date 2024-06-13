@@ -1,16 +1,15 @@
-{# templates/form.html.twig #}
 
 {# Début du formulaire #}
 
-<div class="flex justify-center ">
+<div class="flex justify-center">
     {{ form_start(form) }}
 
-    <div id="step1" class="  bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 text-center">
+    <div id="step1" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 text-center">
         <h2 class="text-xl font-bold text-center m-2">Étape 1: Sélectionnez les dates</h2>
 
         {# Première étape: Champs startDate et endDate #}
         <div class="form-row">
-            {{ form_label(form.startDate, 'Date de début', {'label_attr': {'class': 'col-md-2 block mt-2 text-lg  '}}) }}
+            {{ form_label(form.startDate, 'Date de début', {'label_attr': {'class': 'col-md-2 block mt-2 text-lg '}}) }}
             <div class="col-md-10">
                 {{ form_widget(form.startDate, {'attr': {'class': 'form-control'}, 'id': 'planing_startDate'}) }}
                 {{ form_errors(form.startDate) }}
@@ -25,7 +24,7 @@
             </div>
         </div>
 
-        <button type="button" id="nextStep1" class="bg-blue-400 py-2 px-4 rounded shadow m-4  hover:bg-blue-500" title="Page suivante">Suivant <i class="fa-solid fa-arrow-right"></i></button>
+        <button type="button" id="nextStep1" class="bg-blue-400 py-2 px-4 rounded shadow m-4 hover:bg-blue-500" title="Page suivante">Suivant <i class="fa-solid fa-arrow-right"></i></button>
     </div>
 
     <div id="step2" style="display: none;">
@@ -33,29 +32,29 @@
         <p id="intervalDisplay" class="text-lg text-center mt-2"></p>
 
         {# Deuxième étape: Les autres champs du formulaire #}
-        <div id="dayWorksContainer" >
+        <div id="dayWorksContainer">
             {{ form_label(form.dayWorks) }}
             <div id="dayWorksList" data-prototype="{{ include('day_work/_form.html.twig', {'form': form.dayWorks.vars.prototype}) | e('html_attr') }}"></div>
-            <button type="button" id="addDayWork" class="bg-blue-400 rounded shadow py-2 px-2 m-6" title="Ajouter une jour de travail"><i class="fa-solid fa-plus"></i> Ajouter un jour de travail</button>
+            <button type="button" id="showMore" style="display: none;" class="bg-blue-400 rounded shadow py-2 px-2 m-4 hover:bg-blue-500" title="voir plus de jours"><i class="fa-solid fa-plus"></i> Voir plus</button>
+            <button type="button" id="showLess" style="display: none;" class="bg-blue-400 rounded shadow py-2 px-2 m-4 hover:bg-blue-500" title="voir moins de jours"><i class="fa-solid fa-minus"></i> Voir moins</button>
         </div>
 
-<div class=" flex justify-center">
-        <button type="button" id="prevStep2" class="bg-blue-400 rounded shadow py-2 px-2 m-4 hover:bg-blue-500" title="Page pr�c�dente"><i class="fa-solid fa-arrow-left"></i> Précédent</button>
-        <button type="button" id="nextStep2" class="bg-blue-400 rounded shadow py-2 px-2 m-4 hover:bg-blue-500" title="Page suivante">Suivant <i class="fa-solid fa-arrow-right"></i></button>
-</div>
+        <div class="flex justify-center">
+            <button type="button" id="prevStep2" class="bg-blue-400 rounded shadow py-2 px-2 m-4 hover:bg-blue-500" title="Page précédente"><i class="fa-solid fa-arrow-left"></i> Précédent</button>
+            <button type="button" id="nextStep2" class="bg-blue-400 rounded shadow py-2 px-2 m-4 hover:bg-blue-500" title="Page suivante">Suivant <i class="fa-solid fa-arrow-right"></i></button>
+        </div>
     </div>
 
     <div id="step3" style="display: none;">
         <h2 class="text-xl font-bold text-center m-4">Récapitulatif</h2>
-
         <p class="text-center font-lg">Date de début sélectionnée: <span id="startDateDisplay" class="font-bold"></span></p>
         <p class="text-center font-lg">Date de fin sélectionnée: <span id="endDateDisplay" class="font-bold"></span></p>
 
         {# Troisième étape: Autres champs du formulaire, si nécessaire #}
-<divclass="flex justify-center">
-        <button type="button" id="prevStep3" class="bg-blue-400 rounded shadow py-2 px-2 m-4 hover:bg-blue-500"title="Page pr�c�dente"><i class="fa-solid fa-arrow-left"></i> Précédent</button>
-        <button type="submit"  class="bg-teal-400 rounded shadow py-2 px-2 m-4 hover:bg-teal-500" title="Cr�er"><i class="fa-solid fa-check-to-slot"></i> Créer</button>
-</div>
+        <div class="flex justify-center">
+            <button type="button" id="prevStep3" class="bg-blue-400 rounded shadow py-2 px-2 m-4 hover:bg-blue-500" title="Page précédente"><i class="fa-solid fa-arrow-left"></i> Précédent</button>
+            <button type="submit" class="bg-teal-400 rounded shadow py-2 px-2 m-4 hover:bg-teal-500" title="Créer"><i class="fa-solid fa-check-to-slot"></i> Créer</button>
+        </div>
     </div>
 
     {{ form_end(form) }}
@@ -65,130 +64,105 @@
 
 {# Inclure jQuery #}
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
 <script>
-    $(document).ready(function() {
-        // Obtenir la date actuelle au format ISO
-        var now = new Date().toISOString().split("T")[0];
+$(document).ready(function() {
+    // Initialisation des dates actuelles
+    var now = new Date().toISOString().split("T")[0];
+    $('#planing_startDate').val(now);
 
-        // Préremplir le champ de date de début avec la date actuelle
-        $('#planing_startDate').val(now);
+    var startDate = new Date($('#planing_startDate').val());
+    var endDate = new Date(startDate);
+    endDate.setDate(startDate.getDate() + 1);
+    $('#planing_endDate').val(endDate.toISOString().split("T")[0]);
 
-        // Définir la date de fin comme un jour après la date de début lors du chargement de la page
-        var startDate = new Date($('#planing_startDate').val());
-        var endDate = new Date(startDate);
-        endDate.setDate(startDate.getDate() + 1);
-        $('#planing_endDate').val(endDate.toISOString().split("T")[0]);
-
-        // Gérer la navigation entre les étapes du formulaire
-        $('#nextStep1').click(function() {
-            var startDateString = $('#planing_startDate').val().trim();
-            var endDateString = $('#planing_endDate').val().trim();
-            if (!startDateString || !endDateString) {
-                alert('Veuillez sélectionner les dates de début et de fin.');
-                return;
-            }
-            $('#step1').hide();
-            $('#step2').show();
-        });
-
-        $('#prevStep2').click(function() {
-            $('#step2').hide();
-            $('#step1').show();
-        });
-
-        $('#nextStep2').click(function() {
-            $('#step2').hide();
-            $('#step3').show();
-        });
-
-        $('#prevStep3').click(function() {
-            $('#step3').hide();
-            $('#step2').show();
-        });
-
-        // Afficher les dates sélectionnées au format "jour/mois/année"
-        $('#planing_startDate, #planing_endDate').change(function() {
-            var startDate = new Date($('#planing_startDate').val());
-            var endDate = new Date($('#planing_endDate').val());
-
-            // Vérifier si la date de fin est égale à la date de début
-            if (endDate <= startDate) {
-                // Si oui, définir la date de fin comme un jour après la date de début
-                endDate.setDate(startDate.getDate() + 1);
-                $('#planing_endDate').val(endDate.toISOString().split("T")[0]);
-                alert("La date de fin doit être ultérieure à la date de début. La date de fin a été ajustée.");
-            }
-
-            var startDateString = startDate.toLocaleDateString('fr-FR', { year: 'numeric', month: 'long', day: 'numeric' });
-            var endDateString = endDate.toLocaleDateString('fr-FR', { year: 'numeric', month: 'long', day: 'numeric' });
-            $('#startDateDisplay').text(startDateString);
-            $('#endDateDisplay').text(endDateString);
-
-            // Calculer le nombre de jours entre les deux dates
-            var daysDifference = Math.round((endDate - startDate) / (1000 * 60 * 60 * 24));
-
-            // Afficher l'intervalle choisi
-            $('#intervalDisplay').text('Vous avez choisi de créer un planning du ' + startDateString + ' au ' + endDateString);
-
-            // Pré-remplir les champs de date de la collection dayWorks avec les dates correspondantes
-            var dayWorksStartDate = new Date(startDate);
-            var dayWorksList = $('#dayWorksList');
-            dayWorksList.empty();
-            for (var i = 0; i < daysDifference; i++) {
-                var day = new Date(dayWorksStartDate);
-                day.setDate(day.getDate() + i);
-                var formattedDate = day.toLocaleDateString('fr-FR', { year: 'numeric', month: 'long', day: 'numeric' });
-                var prototype = dayWorksList.attr('data-prototype').replace(/__name__/g, i);
-                dayWorksList.append('<div><h2 class="text-lg font-bold mt-10 mb-4">' + formattedDate + '</h2>' + prototype + '</div>');
-                var dateInput = $('#dayWorksList div:last-child input[type="date"]');
-                dateInput.val(day.toISOString().split("T")[0]);
-            }
-
-            // Afficher ou cacher le bouton "Voir plus" en fonction du nombre de jours
-            $('#showMore').toggle(daysDifference > 7);
-
-            // Afficher 7 éléments de dayWorks par défaut
-            $('#dayWorksList').children('div').slice(7).hide();
-
-            // Afficher ou cacher le bouton "Voir moins" en fonction du nombre de jours initial
-            $('#showLess').toggle(false);
-        });
-
-        // Empêcher la sélection de dates antérieures à la date actuelle
-        $('#planing_startDate, #planing_endDate').on('change', function() {
-            var selectedDate = new Date($(this).val());
-            var currentDate = new Date(now);
-
-            if (selectedDate < currentDate) {
-                $(this).val(now);
-            }
-        });
-
-        // Gérer l'affichage de plus ou moins de 7 éléments de dayWorks
-        $('#showMore').click(function() {
-            $('#dayWorksList').children('div:hidden').slice(0, 7).show();
-            $('#showLess').show();
-            if ($('#dayWorksList').children('div:hidden').length === 0) {
-                $(this).hide();
-            }
-        });
-
-        $('#showLess').click(function() {
-            $('#dayWorksList').children('div:visible').slice(-7).hide();
-            $('#showMore').show();
-            if ($('#dayWorksList').children('div:visible').length <= 7) {
-                $(this).hide();
-            }
-        });
-
-        // Ajouter un nouveau champ dayWork
-        $('#addDayWork').click(function() {
-            var dayWorksList = $('#dayWorksList');
-            var prototype = dayWorksList.attr('data-prototype');
-            var index = dayWorksList.children().length;
-            var newForm = prototype.replace(/__name__/g, index);
-            dayWorksList.append(newForm);
-        });
+    // Gestion des étapes du formulaire
+    $('#nextStep1').click(function() {
+        var startDateString = $('#planing_startDate').val().trim();
+        var endDateString = $('#planing_endDate').val().trim();
+        if (!startDateString || !endDateString) {
+            alert('Veuillez sélectionner les dates de début et de fin.');
+            return;
+        }
+        $('#step1').hide();
+        $('#step2').show();
+        updateDayWorksList();
     });
+
+    $('#prevStep2').click(function() {
+        $('#step2').hide();
+        $('#step1').show();
+    });
+
+    $('#nextStep2').click(function() {
+        $('#step2').hide();
+        $('#step3').show();
+    });
+
+    $('#prevStep3').click(function() {
+        $('#step3').hide();
+        $('#step2').show();
+    });
+
+    // Gestion des changements de date
+    $('#planing_startDate, #planing_endDate').change(function() {
+        updateDayWorksList();
+    });
+
+    // Gestion de l'affichage de plus/moins de jours
+    $('#showMore').click(function() {
+        $('#dayWorksList').children('div:hidden').slice(0, 7).show();
+        $('#showLess').show();
+        if ($('#dayWorksList').children('div:hidden').length === 0) {
+            $(this).hide();
+        }
+    });
+
+    $('#showLess').click(function() {
+        $('#dayWorksList').children('div:visible').slice(-7).hide();
+        $('#showMore').show();
+        if ($('#dayWorksList').children('div:visible').length <= 7) {
+            $(this).hide();
+        }
+    });
+
+    // Fonction pour mettre à jour la liste des dayWorks
+    function updateDayWorksList() {
+        var startDate = new Date($('#planing_startDate').val());
+        var endDate = new Date($('#planing_endDate').val());
+
+        if (endDate <= startDate) {
+            endDate.setDate(startDate.getDate() + 1);
+            $('#planing_endDate').val(endDate.toISOString().split("T")[0]);
+            alert("La date de fin doit être ultérieure à la date de début. La date de fin a été ajustée.");
+        }
+
+        var startDateString = startDate.toLocaleDateString('fr-FR', { year: 'numeric', month: '2-digit', day: '2-digit' });
+        var endDateString = endDate.toLocaleDateString('fr-FR', { year: 'numeric', month: '2-digit', day: '2-digit' });
+        $('#startDateDisplay').text(startDateString);
+        $('#endDateDisplay').text(endDateString);
+
+        var daysDifference = Math.round((endDate - startDate) / (1000 * 60 * 60 * 24));
+
+        $('#intervalDisplay').text('Vous avez choisi de créer un planning du ' + startDateString + ' au ' + endDateString);
+
+        var dayWorksList = $('#dayWorksList');
+        dayWorksList.empty();
+        for (var i = 0; i < daysDifference; i++) {
+            var day = new Date(startDate);
+            day.setDate(startDate.getDate() + i);
+            var formattedDate = day.toLocaleDateString('fr-FR', { year: 'numeric', month: '2-digit', day: '2-digit' });
+            var prototype = dayWorksList.attr('data-prototype').replace(/__name__/g, i);
+            var dayWorkHtml = '<div><h2 class="text-lg font-bold mt-10 mb-4">' + formattedDate + '</h2>' + prototype + '</div>';
+            dayWorksList.append(dayWorkHtml);
+            var dateInput = dayWorksList.children('div:last-child').find('input[type="date"]');
+            dateInput.val(day.toISOString().split("T")[0]);
+        }
+
+        $('#showMore').toggle(daysDifference > 7);
+        $('#showLess').toggle(daysDifference > 7);
+        dayWorksList.children('div').slice(7).hide();
+    }
+});
+
+
 </script>

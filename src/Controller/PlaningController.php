@@ -28,8 +28,9 @@ class PlaningController extends AbstractController
         $planing = new Planing();
         $form = $this->createForm(PlaningType::class, $planing);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
+
+            // Vérification des chevauchements de dates
             $planing->setDoctor($this->getUser());
 $doctorPlanings = $planingRepository->findBy(["doctor" => $this->getUser()]);
 $startDate = $form->get('startDate')->getData();
@@ -48,6 +49,12 @@ foreach ($doctorPlanings as $existingPlaning) {
         return $this->redirectToRoute('app_planing_new');
     }
 }
+
+        // Gestion des DayWork
+        foreach ($planing->getDayWorks() as $dayWork) {
+            $dayWork->setPlaning($planing); // Assurez-vous que chaque DayWork a une référence au Planing parent
+            // Vous pouvez éventuellement valider ou traiter les DayWork ici
+        }
 
             $entityManager->persist($planing);
             $entityManager->flush();
