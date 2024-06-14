@@ -4,3 +4,25 @@ color: #115e59;
 #statut{
 background-color: #115e59;
 }
+.bordure{
+border: 1px solid #115e59;
+background-color:white;
+color:#115e59;
+}
+.bordure:hover{
+background-color:#115e59;
+color:white;
+}
+.bg_red{
+background-color: #C46969;
+}
+.bg_red:hover{
+background-color: #773636;
+}
+.confirm{
+background-color: #115e59;
+color:white;
+}
+.confirm:hover{
+background-color:#0e3d3a;
+}

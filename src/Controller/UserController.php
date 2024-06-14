@@ -16,10 +16,26 @@ use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Knp\Component\Pager\PaginatorInterface;
 
 #[Route('/user')]
 class UserController extends AbstractController
 {
+    #[Route('/page/{page}', name: 'app_user_index', methods: ['GET'])]
+    public function index(Request $request, UserRepository $userRepository, PaginatorInterface $paginator, int $page = 1): Response
+    {
+        $pagination = $paginator->paginate(
+            $userRepository->findAll(), // Requête à paginer
+            $page, // Numéro de page à partir de l'URL
+            20 // Nombre d'éléments par page
+        );
+    
+        return $this->render('user/index.html.twig', [
+            'users' => $pagination,
+        ]);
+    }
+    
+
     #[Route('/register', name: 'app_register')]
     public function new(Request $request, UserPasswordHasherInterface $userPasswordHasher, Security $security, EntityManagerInterface $entityManager, UserRepository $userRepository): Response
     {

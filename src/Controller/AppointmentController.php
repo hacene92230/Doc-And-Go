@@ -21,10 +21,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 #[Route('/appointment')]
 class AppointmentController extends AbstractController
 {
-    #[Route('/', name: 'app_appointment_index', methods: ['GET'])]
-    public function index(AppointmentRepository $appointmentRepository): Response
+    #[Route('/', name: 'app_appointment_show', methods: ['GET'])]
+    public function show(AppointmentRepository $appointmentRepository): Response
     {
-        return $this->render('appointment/index.html.twig', [
+        return $this->render('appointment/show.html.twig', [
             'appointments' => $appointmentRepository->findBy(["user" => $this->getUser()]),
         ]);
     }

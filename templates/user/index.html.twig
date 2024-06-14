@@ -1,0 +1,92 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gestion des utilisateurs{% endblock %}
+
+{% block body %}
+    <div class="container mx-auto">
+        <h1 class="text-center text-3xl font-bold my-5">Liste des utilisateurs</h1>
+        
+        <div class="overflow-x-auto mx-14">
+            <table class="min-w-full  bg-white border border-gray-200">
+                <thead>
+                    <tr>
+                        
+                        <th class="px-6 py-3 border-b border-gray-400 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Prénom</th>
+                        <th class="px-6 py-3 border-b border-gray-400 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Nom</th>
+                        <th class="px-6 py-3 border-b border-gray-400 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Email</th>
+                        <th class="px-6 py-3 border-b border-gray-400 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Rôles</th>
+                        <th class="px-6 py-3 border-b border-gray-400 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                        
+             
+                    </tr>
+                </thead>
+                <tbody class="bg-white">
+                    {% for user in users %}
+                        <tr>
+                            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">{{ user.firstName }}</td>
+                            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">{{ user.lastName }}</td>
+                            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">{{ user.email }}</td>
+                            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">{{ user.roles | join(', ') }}</td>
+                            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm pl-2 font-medium ">
+			<div class="flex flex-row space-x-2">
+
+                            <form action="{{ path('app_user_show', {'id': user.id}) }}" method="get">
+                            <button type="submit" class="text-indigo-600 hover:text-indigo-900">Voir</button>
+                            </form>
+			    <form action="{{ path('app_user_show', {'id': user.id}) }}" method="get">
+                            <button type="submit" class="text-indigo-600 hover:text-indigo-900">Supprimer</button>
+			    </form>
+			    <form action="{{ path('app_user_show', {'id': user.id}) }}" method="get">
+                            <button type="submit" class="text-indigo-600 hover:text-indigo-900">Ses rendez-vous</button>
+                            </form>
+			   </div>
+                  
+
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+<div class="flex justify-center mt-8">
+    <nav class="inline-flex space-x-2 pagination">
+        {% set default_options = {
+            'prev_label': 'Previous',
+            'next_label': 'Next',
+            'prev_class': 'pagination-item',
+            'next_class': 'pagination-item',
+            'page_class': 'pagination-item',
+            'active_class': 'pagination-item active',
+            'disabled_class': 'pagination-item disabled',
+        } %}
+        {{ knp_pagination_render(users) }}
+    </nav>
+</div>
+
+<style>
+    .pagination {
+        display: flex;
+        justify-content: center;
+        margin-top: 1rem;
+    }
+
+    .pagination-item {
+        margin: 0 0.25rem;
+        padding: 0.5rem;
+        border: 1px solid #ddd;
+        background-color: #f7f7f7;
+        color: #333;
+        text-decoration: none;
+    }
+
+    .pagination-item.active {
+        background-color: #3490dc;
+        color: #fff;
+        font-weight: bold;
+    }
+</style>
+
+
+{% endblock %}

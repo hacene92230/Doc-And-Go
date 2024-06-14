@@ -14,7 +14,7 @@
 		{% set now = "now"|date("U") %}
         	<!-- Affichage des rendez-vous passés -->
         	<div class="w-1/4 p-4">
-            		<h2 class="text-5xl font-bold mb-3" id="titre_RDV">Pass&#233es</h2>
+            		<h2 class="text-5xl font-bold mb-9" id="titre_RDV">Pass&#233es</h2>
             		{% set has_past_appointments = false %}
             		{% set current_date = null %}
             		{% for appointment in appointments %}
@@ -26,19 +26,37 @@
                 </div>
                         {% endif %}
                         {% set current_date = appointment_date %}
-                <h2 class="text-xl font-bold">{{ current_date }}</h2>
-                <div class="appointments bg-white my-16 border-2 border-black">
+                <div class="appointments bg-white my-16">
                     	{% endif %}
                 <!-- Affichage de chaque rendez-vous passé -->
-                    <div class="appointment-card shadow-lg rounded-2xl	">
-                        <div class="appointment-details">
-                            <h5 class="text-lg font-bold">Heure : {{ appointment.dateTime|date('H:i') }}</h5>
-                            <p class="mb-2"><strong>Commentaire :</strong> {{ appointment.comment }}</p>
-                            <p><strong>Réservé par :</strong> <a href="{{ path('app_user_show', {'id': appointment.user.id}) }}" class="user-link">{{ appointment.user.firstName }}</a></p>
-                            <p><strong>Statut :</strong> {{ appointment.statu.name }}</p>
-                        </div>
-                    </div>
+                    <div class="appointment-card shadow-lg rounded-2xl">
+                        <div class="appointment-details h-auto mb-5 pb-5">
+			<div class="flex justify-between rounded-t-2xl text-white h-12 items-center bg-slate-500">
+
+				<div class="flex justify-start">
+					<div class="flex items-center mx-3">
+			    			<i class="fa-regular fa-calendar mr-2"></i>
+						<h5 class="text-lg">{{ current_date }}</h5>
+					</div>
+					<div class="flex items-center mx-3">
+			    			<i class="fa-regular fa-clock mr-2"></i>
+                            			<h5 class="text-lg">{{ appointment.dateTime|date('H:i') }}</h5>
+					</div>
+				</div>
+			</div>
+			<div class="flex items-end justify-between mt-5">
+				<div class="flex items-center mx-8">
+			    		<i class="fa-regular fa-user text-6xl"></i>
+					<div class="flex flex-col ml-3">
+                            			<p class="text-2xl text-slate-500"><strong>Patient</strong> </p>
+			    			<a href="{{ path('app_user_show', {'id': appointment.user.id}) }}" class="user-link text-lg">{{ appointment.user.firstName }}</a>
+					</div>
+				</div>		
+				<h5 class="text-lg mr-5">{{ appointment.statu.name }}</h5>
+
+			</div>
 		</div>
+</div>
 		</div>
                 {% endif %}
             	{% endfor %}
@@ -46,9 +64,10 @@
                 	<p class="no-appointments">Aucun rendez-vous passé à afficher.</p>
 			</div>
             	{% endif %}
+</div>
         <!-- Affichage des rendez-vous à venir -->
 	<div class="w-3/4 p-4">
-            <h2 class="text-5xl font-bold mb-3" id="titre_RDV">Mes rendez-vous &#224 venir </h2>
+            <h2 class="text-5xl font-bold mb-9" id="titre_RDV">Mes rendez-vous &#224 venir </h2>
             {% set has_upcoming_appointments = false %}
             {% set current_date = null %}
             {% for appointment in appointments %}
@@ -64,13 +83,13 @@
                     {% endif %}
                     <!-- Affichage de chaque rendez-vous à venir -->
                     <div class="appointment-card shadow-lg rounded-2xl">
-                        <div class="appointment-details h-40 mb-5">
+                        <div class="appointment-details h-auto mb-5">
 			<div class="flex justify-between rounded-t-2xl text-white h-12 items-center" id="statut">
 
 				<div class="flex justify-start">
 					<div class="flex items-center mx-3">
 			    			<i class="fa-regular fa-calendar mr-2"></i>
-						<h2 class="text-lg">{{ current_date }}</h2>
+						<h5 class="text-lg">{{ current_date }}</h5>
 					</div>
 					<div class="flex items-center mx-3">
 			    			<i class="fa-regular fa-clock mr-2"></i>
@@ -78,32 +97,39 @@
 					</div>
 				</div>
 
-				<h2 class="text-lg mr-5">{{ appointment.statu.name }}</h2>
+				<h5 class="text-lg mr-5">{{ appointment.statu.name }}</h5>
 			</div>
-			<div class="flex items-start justify-between">
-				<div class="flex items-center mx-8 my-5">
+			<div class="flex items-start justify-evently mt-5">
+				<div class="flex items-center mx-8">
 			    		<i class="fa-regular fa-user text-6xl"></i>
 					<div class="flex flex-col ml-3">
                             			<p class="text-2xl" id="titre_RDV"><strong>Patient</strong> </p>
 			    			<a href="{{ path('app_user_show', {'id': appointment.user.id}) }}" class="user-link text-lg">{{ appointment.user.firstName }}</a>
 					</div>
 				</div>
-				<div>
-			        	<p class="mt-5 mr-96 text-2xl" id="titre_RDV"><strong>Commentaire</strong></p>
+				<div class="mx-8">
+				{% if not appointment.comment %}
+					<p class="text-lg">Aucun motif renseign&#233</p>
+					{% else %}
+			        	<p class="text-2xl" id="titre_RDV"><strong>Commentaire</strong></p>
 					<p class="text-lg"> {{ appointment.comment }}</p>
-
+					{% endif %}
+				</div>
+				<div class="mx-8">
 					{% if not appointment.reason %}
 					<p class="text-lg">Aucun motif renseign&#233</p>
 					{% else %}
-					{{ appointment.reason.name }}
+					<p class="mr-96 text-2xl" id="titre_RDV"><strong>Motif</strong></p>
+					<p class="text-lg">{{ appointment.reason.name }}</p>
 					{% endif %}
 				</div>
 		
 			</div>
-		<button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"> Confirmer </button>
-		<button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"> D&#233placer </button>
-		<button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"> Annuler </button>
-
+		<div class="m-7 pb-6 flex justify-end ">
+			<button class="text-white py-2 px-4 rounded m-2 confirm" name="bouton confirmer"><i class="fa-solid fa-check mr-3"></i>Confirmer </button>
+			<button class="bg-white py-2 px-4 rounded bordure m-2" name="bouton d�placer"><i class="fa-regular fa-clock mr-3"></i> D&#233placer </button>
+			<button class="text-white py-2 px-4 rounded bg_red m-2" title="annuler"><i class="fa-regular fa-circle-xmark mr-3"></i>Annuler </button>
+</div>
 		</div>
                     </div>
                 {% endif %}

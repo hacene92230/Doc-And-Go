@@ -5,7 +5,7 @@
 {% block body %}
 <h2 class="text-3xl text-center font-bold my-10">Les rendez-vous de {{ app.user.firstName }}</h2>
 
-<div class=" mt-10 p-4">
+<div class=" mt-10 p-4 px-72">
     {% for appointment in appointments %}
 
      <div class="border rounded-t-2xl rounded-b-2xl shadow bg-white mb-12">
@@ -29,10 +29,8 @@
     </div>
 
     <!-- Button  -->
-    <button type="button" class="py-3 mt-28 px-8 rounded-lg bg-red-600 m-2" aria-label="Annuler le rendez vous">
-      <i class="fa-solid fa-xmark"></i> Annuler
-    </button>
-  </div>
+     {{include('appointment/_delete_form.html.twig')}}  
+     </div>
 </div>
     {% endfor %}
 </div>

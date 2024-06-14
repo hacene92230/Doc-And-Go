@@ -3,24 +3,35 @@
 {% block title %} Bienvenue chez {{ parent() }} {% endblock %}
 
 {% block body %}
-<div class="relative flex min-h-screen">
+<div class="relative flex min-h-screen bg-teal-50 border-b-4 border-solid border-teal-400">
 
-    <div class="relative w-full lg:w-1/2 text-left bg-teal-50 text-black pb-20 pl-20 flex items-center z-10">
+    <div class="relative w-full lg:w-1/2 text-left  text-black pb-20 pl-20 flex items-center ">
 
         <div>
             <h1 class="text-7xl font-bold pt-2">DOC AND GO</h1>
             <h2 class="text-3xl text-teal-500">La plateforme qu'il vous faut !</h2>
             <p class="text-dark text-2xl pt-4 font-sans">
-                On démocratise l'accès aux soins médicaux en ligne. Nous offrons une solution innovante pour rendre la santé accessible �  tous, sans barrières ni frontières.
-            </p>
-            <div class="max-w-md  mt-6">
-                <input type="text" id="searchSpeciality" placeholder="Rechercher une spécialité..." class="w-full px-4 py-2 border rounded-lg shadow-sm focus:outline-none focus:border-indigo-600">
-            </div>
-        </div>
+                On démocratise l'accès aux soins médicaux en ligne. Nous offrons une solution innovante pour rendre la santé accessible &agrave tous, sans barrières ni frontières.
+            </p>  
+		<form class="max-w-md  mt-6">   
+    			<label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only ">Search</label>
+   		<div class="relative">
+       		<div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+            	<svg class="w-4 h-4 text-gray-500 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+            	</svg>
+        	</div>
+        		<input type="text" id="searchSpeciality" placeholder="Rechercher une spécialité, un docteur..." class="block w-full py-5 ps-10 bg-white shadow text-lg text-gray-900 rounded-lg focus:outline-none" placeholder="Search Mockups, Logos..." required />
+       
+    		</div>
+		</form>
+
+
+	</div>
         
     </div>
 
-    <div class="absolute top-0 right-0 w-full lg:w-1/2 h-full bg-teal-50 bg-cover flex items-center z-0">
+    <div class="sm:absolute top-0 right-0 w-full sm:w-1/2 h-full bg-teal-50 bg-cover flex items-center z-0">
         <img src="{{ asset('images/doctor.png') }}" alt="Photo d'un docteur en blouse blanche" class="w-full h-full object-cover">
     </div>
     

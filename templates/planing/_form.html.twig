@@ -64,6 +64,7 @@
 
 {# Inclure jQuery #}
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 <script>
 $(document).ready(function() {
     // Initialisation des dates actuelles
@@ -141,7 +142,7 @@ $(document).ready(function() {
         $('#startDateDisplay').text(startDateString);
         $('#endDateDisplay').text(endDateString);
 
-        var daysDifference = Math.round((endDate - startDate) / (1000 * 60 * 60 * 24));
+        var daysDifference = Math.round((endDate - startDate) / (1000 * 60 * 60 * 24)) + 1; // Ajout de 1 pour inclure le jour de fin
 
         $('#intervalDisplay').text('Vous avez choisi de créer un planning du ' + startDateString + ' au ' + endDateString);
 
@@ -163,6 +164,4 @@ $(document).ready(function() {
         dayWorksList.children('div').slice(7).hide();
     }
 });
-
-
 </script>
