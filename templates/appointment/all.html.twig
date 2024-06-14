@@ -10,40 +10,40 @@
 {% endblock %}
 
 {% block body %}
-
 <!-- Filtre -->
-        <div class="filters w-full p-4 mb-8">
-            <h3 class="text-3xl font-bold mb-4">Filtrer les rendez-vous</h3>
-            <div class="flex flex-wrap">
-                <div class="mr-4 mb-4">
-                    <label for="date-filter" class="block text-lg font-medium">Date:</label>
-                    <input type="date" id="date-filter" class="border p-2 rounded">
-                </div>
-                <div class="mr-4 mb-4">
-                    <label for="status-filter" class="block text-lg font-medium">Statut:</label>
-                    <select id="status-filter" class="border p-2 rounded">
-                        <option value="">Tous</option>
-                        <option value="past">Passé</option>
-                        <option value="upcoming">à venir</option>
-                    </select>
-                </div>
-                <div class="mr-4 mb-4">
-                    <label for="user-filter" class="block text-lg font-medium">Utilisateur:</label>
-                    <select id="user-filter" class="border p-2 rounded">
-                        <option value="">Tous</option>
-                        {% for appointment in appointments %}
-                            <option value="{{ appointment.user.firstName }}">{{ appointment.user.firstName }}</option>
-                        {% endfor %}
-                    </select>
-                </div>
-                <div class="mr-4 mb-4 flex items-end">
-                    <button id="filter-button" class="bg-blue-500 text-white py-2 px-4 rounded">Filtrer</button>
-                </div>
-            </div>
-
-
-
-
+<div class="filters w-full p-4 mb-8">
+    <h3 class="text-3xl font-bold mb-4">Filtrer les rendez-vous</h3>
+    <div class="flex flex-wrap">
+        <div class="mr-4 mb-4">
+            <label for="date-filter" class="block text-lg font-medium">Date:</label>
+            <input type="date" id="date-filter" class="border p-2 rounded">
+        </div>
+        <div class="mr-4 mb-4">
+            <label for="status-filter" class="block text-lg font-medium">Statut:</label>
+            <select id="status-filter" class="border p-2 rounded">
+                <option value="">Tous</option>
+                <option value="past">Passé</option>
+                <option value="upcoming">à venir</option>
+            </select>
+        </div>
+        <div class="mr-4 mb-4">
+            <label for="user-filter" class="block text-lg font-medium">Utilisateur:</label>
+            <select id="user-filter" class="border p-2 rounded">
+                <option value="">Tous</option>
+                {% set uniqueUsers = {} %}
+                {% for appointment in appointments %}
+                    {% set uniqueUsers = uniqueUsers|merge({ (appointment.user.firstName): appointment.user.firstName }) %}
+                {% endfor %}
+                {% for user in uniqueUsers %}
+                    <option value="{{ user }}">{{ user }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="mr-4 mb-4 flex items-end">
+            <button id="filter-button" class="bg-blue-500 text-white py-2 px-4 rounded">Filtrer</button>
+        </div>
+    </div>
+</div>
 
     <div class="container flex min-h-screen my-9">
         {% set now = "now"|date("U") %}
