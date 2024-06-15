@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Je donne mon avis {{ parent() }} {% endblock %}
+
+{% block body %}
+    <h1>Je donne mon avis</h1>
+
+    {{ include('review/_form.html.twig') }}
+
+{% endblock %}

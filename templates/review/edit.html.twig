@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier mon avis {{ parent() }} {% endblock %}
+
+{% block body %}
+    <h1>Modifier l'avis</h1>
+
+    {{ include('review/_form.html.twig', {'button_label': 'Mise à jour'}) }}
+
+    {{ include('review/_delete_form.html.twig') }}
+{% endblock %}

@@ -39,6 +39,21 @@
 
 		{{ render(controller('App\\Controller\\SpecialityController::index')) }}
 
+<h2>Votre avis compte</h2>
+{% if not app.user %}
+    {# Utilisateur non connecté #}
+    <a href="{{ path('app_review_new') }}">Je donne mon avis</a>
+{% else %}
+    {% if app.user.review is empty %}
+        {# Utilisateur connecté mais n'a pas encore donné son avis #}
+        <a href="{{ path('app_review_new') }}">Je donne mon avis</a>
+    {% else %}
+        {# Utilisateur connecté et a déjà donné son avis #}
+        <a href="{{ path('app_review_edit', {'id': app.user.review.id}) }}">Modifier mon avis</a>
+    {% endif %}
+{% endif %}
+
+		{{ render(controller('App\\Controller\\ReviewController::index')) }}
 
                     {{ render(controller('App\\Controller\\ChatBotController::index')) }}
 {% endblock %}

@@ -1,0 +1,32 @@
+{{ form_start(form, {'attr': {'class': 'space-y-6'}}) }}
+    <div class="space-y-4">
+        <div>
+            <label id="notation-label" for="{{ form.notation.vars.id }}" class="block text-sm font-medium text-gray-700">Notation (sur 5)</label>
+            <div class="mt-1 flex items-center space-x-2" role="radiogroup" aria-labelledby="notation-label">
+                {% for choice in form.notation %}
+                    <label class="inline-flex items-center space-x-1 cursor-pointer">
+                        {{ form_widget(choice, {'attr': {'class': 'sr-only', 'aria-label': choice.vars.label ~ ' sur 5'}}) }}
+                        {% for i in 1..choice.vars.value %}
+                            <svg class="h-6 w-6 fill-current text-yellow-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" role="img" aria-hidden="true">
+                                <title>{{ i }}/5 stars</title>
+                                <path d="M10 15l-5.5 3.6 2.1-6.6-5.6-4.1h7l2-6.3 2 6.3h7l-5.6 4.1 2.1 6.6z"/>
+                            </svg>
+                        {% endfor %}
+                    </label>
+                {% endfor %}
+            </div>
+        </div>
+        <div>
+            <label for="{{ form.reason.vars.id }}" class="block text-sm font-medium text-gray-700">Motif pour votre avis</label>
+            {{ form_widget(form.reason, {'attr': {'class': 'mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md', 'placeholder': 'Choisissez un motif pour cet avis'}}) }}
+        </div>
+        <div>
+            <label for="{{ form.comment.vars.id }}" class="block text-sm font-medium text-gray-700">Commentaire</label>
+            {{ form_widget(form.comment, {'attr': {'class': 'mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md', 'placeholder': 'Entrez votre commentaire ici', 'aria-describedby': 'comment-help'}}) }}
+            <span id="comment-help" class="text-sm text-gray-500">Veuillez entrer votre commentaire ici.</span>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary mt-6 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+        {{ button_label|default('Soumettre mon avis') }}
+    </button>
+{{ form_end(form) }}
