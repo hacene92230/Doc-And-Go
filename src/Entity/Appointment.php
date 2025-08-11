@@ -26,7 +26,7 @@ class Appointment
     private ?Planing $planing = null;
 
     #[ORM\Column]
-    private ?\DateTimeImmutable $DateTime = null;
+    private ?\DateTimeImmutable $dateTime = null;
 
     #[ORM\ManyToOne(inversedBy: 'appointments')]
     #[ORM\JoinColumn(nullable: false)]
@@ -79,12 +79,12 @@ class Appointment
 
     public function getDateTime(): ?\DateTimeImmutable
     {
-        return $this->DateTime;
+        return $this->dateTime;
     }
 
-    public function setDateTime(\DateTimeImmutable $DateTime): static
+    public function setDateTime(\DateTimeImmutable $dateTime): static
     {
-        $this->DateTime = $DateTime;
+        $this->dateTime = $dateTime;
 
         return $this;
     }

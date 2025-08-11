@@ -7,11 +7,12 @@ use DateInterval;
 use App\Entity\User;
 use App\Entity\Reason;
 use App\Entity\Appointment;
+use App\Enum\AppointmentStatus;
 use App\Form\AppointmentType;
-use App\Repository\StatuRepository;
-use App\Controller\StatusController;
+use App\Service\AppointmentService;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\AppointmentRepository;
+use App\Repository\StatuRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -32,42 +33,26 @@ class AppointmentController extends AbstractController
     }
 
 #[Route('/new/{doctor}', name: 'app_appointment_new', methods: ['GET', 'POST'])]
-public function new(User $doctor, Request $request, EntityManagerInterface $entityManager, StatuRepository $statuRepository): Response
+public function new(User $doctor, Request $request, AppointmentService $appointmentService): Response
 {
     $appointment = new Appointment();
     $form = $this->createForm(AppointmentType::class, $appointment);
-    
     $form->handleRequest($request);
-    if ($form->isSubmitted() && $form->isValid()) {
-        $appointment->setStatu($statuRepository->findOneBy(["name" => "confirmé"]));
-        $dateSelected = $form->getData()->getDateTime();
-        $dateOnly = $dateSelected->format('Y-m-d');
-        
-        $dayWorkFound = null;
-        foreach ($doctor->getPlanings() as $planing) {
-            foreach ($planing->getDayWorks() as $dayWork) {
-                if ($dayWork->getDate()->format('Y-m-d') === $dateOnly) {
-                    $dayWorkFound = $dayWork;
-                    $appointment->setPlaning($dayWork->getPlaning());
-                    $appointment->setUser($this->getUser());
-                    break 2; // Sortir des deux boucles
-                }
-            }
-        }
 
-        if ($dayWorkFound !== null) {
-            // Si un DayWork correspondant est trouvé, continuez
-            $entityManager->persist($appointment);
-            $entityManager->flush();
+    if ($form->isSubmitted() && $form->isValid()) {
+        /** @var User $patient */
+        $patient = $this->getUser();
+        $success = $appointmentService->createAppointment($appointment, $doctor, $patient);
+
+        if ($success) {
             $this->addFlash('success', 'Rendez-vous confirmé avec succès, les informations vous serons envoyer par email.');
             return $this->redirectToRoute('app_home');
         } else {
-            // Si aucun DayWork correspondant n'est trouvé, vous pouvez gérer ce cas
-            $this->addFlash('error', 'Aucun créneau disponible pour cette date.');
+            $this->addFlash('error', 'Aucun créneau disponible pour cette date ou ce statut n\'existe pas.');
         }
     }
 
-    // Récupérer les créneaux déjà réservés pour chaque planing
+    // The logic to get reserved slots for display can also be moved to a service later.
     $reservedSlots = [];
     foreach ($doctor->getPlanings() as $planing) {
         foreach ($planing->getAppointments() as $existingAppointment) {
@@ -83,29 +68,19 @@ public function new(User $doctor, Request $request, EntityManagerInterface $enti
 }
 
 #[Route('/all', name: 'app_appointment_all', methods: ['GET'])]
-public function all(AppointmentRepository $appointmentRepository, StatusController $statusController): Response
+public function all(AppointmentRepository $appointmentRepository, StatuRepository $statuRepository): Response
 {
-    // Récupérer l'utilisateur connecté
     $user = $this->getUser();
+    $allAppointments = [];
 
-    // Vérifier si l'utilisateur est un médecin
+    // For a doctor, fetch all appointments linked to their planings.
     if ($this->isGranted('ROLE_DOCTOR')) {
-        // Récupérer les planings de l'utilisateur
-        $planings = $user->getPlanings();
-
-        // Initialise un tableau pour stocker tous les rendez-vous
-        $allAppointments = [];
-
-        // Parcourir les planings pour récupérer les rendez-vous de chaque planing
-        foreach ($planings as $planing) {
-            $appointments = $planing->getAppointments();
-            // Fusionner les rendez-vous dans un seul tableau
-            $allAppointments = array_merge($allAppointments, $appointments->toArray());
-        }
+        $allAppointments = $appointmentRepository->findByDoctor($user);
     }
+
     return $this->render('appointment/all.html.twig', [
         'appointments' => $allAppointments,
-        "statusList" => $statusController->getStatusList(),
+        "statusList" => $statuRepository->findAll(),
     ]);
 }
 
