@@ -27,14 +27,11 @@ return [
     ],
     'jquery' => [
         'path' => 'https://code.jquery.com/jquery-3.5.1.min.js',
-        'preload' => true,
     ],
     'moment' => [
         'path' => 'https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js',
-        'preload' => true,
     ],
     'fullcalendar' => [
         'path' => 'https://cdn.jsdelivr.net/npm/fullcalendar@6.1.14/index.global.min.js',
-        'preload' => true,
     ],
 ];
