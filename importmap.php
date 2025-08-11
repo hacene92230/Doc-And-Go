@@ -25,13 +25,4 @@ return [
     '@hotwired/turbo' => [
         'version' => '7.3.0',
     ],
-    'jquery' => [
-        'path' => 'https://code.jquery.com/jquery-3.5.1.min.js',
-    ],
-    'moment' => [
-        'path' => 'https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js',
-    ],
-    'fullcalendar' => [
-        'path' => 'https://cdn.jsdelivr.net/npm/fullcalendar@6.1.14/index.global.min.js',
-    ],
 ];

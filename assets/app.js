@@ -1,6 +1,3 @@
-import 'jquery';
-import 'moment';
-import 'fullcalendar';
 import './bootstrap.js';
 /*
  * Welcome to your app's main JavaScript file!
